@@ -1,0 +1,14 @@
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\bin\Debug\net7.0\Models.deps.json
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\bin\Debug\net7.0\Models.runtimeconfig.json
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\bin\Debug\net7.0\Models.dll
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\bin\Debug\net7.0\Models.pdb
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.csproj.AssemblyReference.cache
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.GeneratedMSBuildEditorConfig.editorconfig
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.AssemblyInfoInputs.cache
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.AssemblyInfo.cs
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.csproj.CoreCompileInputs.cache
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.dll
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\refint\Models.dll
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.pdb
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\Models.genruntimeconfig.cache
+E:\VS Documents\CatCoffeePlatformWebApp\1.0\Models\obj\Debug\net7.0\ref\Models.dll
