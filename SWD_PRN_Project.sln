@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAOs", "DAOs\DAOs.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{AFB525B7-9FE0-4008-8826-F15867309750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeCatPlatform", "WebApplication1\CoffeeCatPlatform.csproj", "{9549D782-9D09-4842-A148-1756384BFDD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeCatPlatform", "CoffeeCatPlatform\CoffeeCatPlatform.csproj", "{CEFB2E5C-B25C-4776-A56A-37EE05B6E81F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{AFB525B7-9FE0-4008-8826-F15867309750}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFB525B7-9FE0-4008-8826-F15867309750}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFB525B7-9FE0-4008-8826-F15867309750}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9549D782-9D09-4842-A148-1756384BFDD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9549D782-9D09-4842-A148-1756384BFDD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9549D782-9D09-4842-A148-1756384BFDD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9549D782-9D09-4842-A148-1756384BFDD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEFB2E5C-B25C-4776-A56A-37EE05B6E81F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEFB2E5C-B25C-4776-A56A-37EE05B6E81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEFB2E5C-B25C-4776-A56A-37EE05B6E81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEFB2E5C-B25C-4776-A56A-37EE05B6E81F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
