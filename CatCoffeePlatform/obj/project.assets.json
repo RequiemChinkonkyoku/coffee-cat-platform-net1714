@@ -11377,11 +11377,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\CatCoffeePlatform\\CoffeeCatPlatform.csproj",
+      "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\CatCoffeePlatform\\CoffeeCatPlatform.csproj",
       "projectName": "CoffeeCatPlatform",
-      "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\CatCoffeePlatform\\CoffeeCatPlatform.csproj",
+      "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\CatCoffeePlatform\\CoffeeCatPlatform.csproj",
       "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-      "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\CatCoffeePlatform\\obj\\",
+      "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\CatCoffeePlatform\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -11403,8 +11403,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Repositories\\Repositories.csproj": {
-              "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Repositories\\Repositories.csproj"
+            "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Repositories\\Repositories.csproj": {
+              "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Repositories\\Repositories.csproj"
             }
           }
         }

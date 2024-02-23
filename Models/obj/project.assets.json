@@ -11504,11 +11504,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\Models.csproj",
+      "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj",
       "projectName": "Models",
-      "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\Models.csproj",
+      "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj",
       "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-      "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\obj\\",
+      "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages"

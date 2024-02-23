@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Repositories\\Repositories.csproj": {}
+    "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Repositories\\Repositories.csproj": {}
   },
   "projects": {
-    "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\DAOs\\DAOs.csproj": {
+    "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\DAOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\DAOs\\DAOs.csproj",
+        "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\DAOs.csproj",
         "projectName": "DAOs",
-        "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\DAOs\\DAOs.csproj",
+        "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\DAOs.csproj",
         "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-        "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\DAOs\\obj\\",
+        "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\Models.csproj": {
-                "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\Models.csproj"
+              "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj": {
+                "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj"
               }
             }
           }
@@ -68,14 +68,14 @@
         }
       }
     },
-    "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\Models.csproj": {
+    "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\Models.csproj",
+        "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\Models.csproj",
+        "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj",
         "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-        "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Models\\obj\\",
+        "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -158,14 +158,14 @@
         }
       }
     },
-    "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Repositories\\Repositories.csproj": {
+    "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Repositories\\Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Repositories\\Repositories.csproj",
+        "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Repositories\\Repositories.csproj",
         "projectName": "Repositories",
-        "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Repositories\\Repositories.csproj",
+        "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Repositories\\Repositories.csproj",
         "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-        "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\Repositories\\obj\\",
+        "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -187,8 +187,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\DAOs\\DAOs.csproj": {
-                "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\SWD_PRN_Project\\DAOs\\DAOs.csproj"
+              "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\DAOs.csproj": {
+                "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\DAOs.csproj"
               }
             }
           }

@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeCatPlatform", "CatCof
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{72096147-05AA-45A0-94B3-C14F3323150E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOs", "DAOs\DAOs.csproj", "{3180CC34-43CC-45B1-9221-31BFD30461EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAOs", "DAOs\DAOs.csproj", "{3180CC34-43CC-45B1-9221-31BFD30461EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{AFB525B7-9FE0-4008-8826-F15867309750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{AFB525B7-9FE0-4008-8826-F15867309750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
