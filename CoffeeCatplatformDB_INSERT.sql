@@ -73,9 +73,9 @@ VALUES (1, 1, '2024-02-25'),
 
 -- Insert sample data into the 'bill' table
 INSERT INTO bill (totalPrice, status, paymentTime, note, reservationID, staffID, promotionID)
-VALUES (169000, 1, GETDATE(), 'No special requests', 1, 2, 0),
-       (400000, 1, GETDATE(), 'VIP seating', 2, 2, 0),
-       (120000, 1, GETDATE(), 'Outdoor view', 3, 3, 0);
+VALUES (169000, 1, GETDATE(), 'No special requests', 1, 2, 1),
+       (400000, 1, GETDATE(), 'VIP seating', 2, 2, 1),
+       (120000, 1, GETDATE(), 'Outdoor view', 3, 3, 1);
 
 -- Insert sample data into the 'billProduct' table
 INSERT INTO billProduct (quantity, billID, productID)
