@@ -1,0 +1,35 @@
+﻿@page "/Login"
+@model CoffeeCatPlatform.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form method="POST">
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <div>
+                <input type="hidden" id="ID" name="ID" value="" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>
