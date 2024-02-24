@@ -10551,24 +10551,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\acer\\.nuget\\packages\\": {},
-    "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ACER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\DAOs.csproj",
+      "projectUniqueName": "C:\\Users\\ACER\\Desktop\\Prn Project\\DAOs\\DAOs.csproj",
       "projectName": "DAOs",
-      "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\DAOs.csproj",
-      "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-      "outputPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\DAOs\\obj\\",
+      "projectPath": "C:\\Users\\ACER\\Desktop\\Prn Project\\DAOs\\DAOs.csproj",
+      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ACER\\Desktop\\Prn Project\\DAOs\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "E:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10576,15 +10571,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj": {
-              "projectPath": "E:\\VS Documents\\CatCoffeePlatformWebApp\\1.0\\Models\\Models.csproj"
+            "C:\\Users\\ACER\\Desktop\\Prn Project\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\ACER\\Desktop\\Prn Project\\Models\\Models.csproj"
             }
           }
         }
@@ -10593,11 +10587,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -10619,7 +10608,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
