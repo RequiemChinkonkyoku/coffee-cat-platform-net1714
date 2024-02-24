@@ -1,0 +1,49 @@
+﻿@page
+@model CoffeeCatPlatform.Pages.CustomerPages.ReservationPages.CreateReservationModel
+
+@{
+    ViewData["Title"] = "CreateReservation";
+}
+
+<h1>CreateReservation</h1>
+
+<h4>Reservation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Reservation.BookingDay" class="control-label"></label>
+                <input asp-for="Reservation.BookingDay" class="form-control" />
+                <span asp-validation-for="Reservation.BookingDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservation.StartTime" class="control-label"></label>
+                <input asp-for="Reservation.StartTime" class="form-control" />
+                <span asp-validation-for="Reservation.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservation.EndTime" class="control-label"></label>
+                <input asp-for="Reservation.EndTime" class="form-control" />
+                <span asp-validation-for="Reservation.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reservation.TotalPrice" class="control-label"></label>
+                <input asp-for="Reservation.TotalPrice" class="form-control" />
+                <span asp-validation-for="Reservation.TotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

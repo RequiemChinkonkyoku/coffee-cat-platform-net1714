@@ -13,8 +13,28 @@
 </head>
 <body>
     <div class="container">
-        <h1>Login</h1>
-        <form method="POST">
+        <h1>Customer Login</h1>
+        <form method="POST" asp-asp-page-handler="OnPost">
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <div>
+                <input type="hidden" id="ID" name="ID" value="" />
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h1>Staff Login</h1>
+        <form method="POST" asp-page-handler="OnPostStaff">
             <div>
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" required />
