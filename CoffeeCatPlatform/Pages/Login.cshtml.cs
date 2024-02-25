@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories.Impl;
 using Repositories;
+using System.Security.Claims;
 
 namespace CoffeeCatPlatform.Pages
 {
