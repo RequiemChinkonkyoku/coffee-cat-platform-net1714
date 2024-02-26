@@ -17,8 +17,6 @@ namespace CoffeeCatPlatform.Pages.MenuPages
     {
         private readonly IRepositoryBase<Product> _productRepo;
 
-        public const string SessionKeyName = "_Name";
-
         public bool result = false;
 
         public MenuModel()
