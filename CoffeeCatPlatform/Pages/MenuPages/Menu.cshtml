@@ -1,11 +1,16 @@
 ﻿@page "/Menu"
 @model CoffeeCatPlatform.Pages.MenuPages.MenuModel
+@using Microsoft.AspNetCore.Http
 
 @{
     ViewData["Title"] = "Menu";
 }
 
 <h1>Menu</h1>
+
+<h2>
+    ID: @HttpContext.Session.GetString("_Name")
+</h2>
 
 <p>
     <a asp-page="Create">Create New</a>

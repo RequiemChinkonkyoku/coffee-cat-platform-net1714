@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories.Impl;
 using Repositories;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using CoffeeCatPlatform.Pages.StaffPages;
+using WebApplication1.Pages;
 
 namespace CoffeeCatPlatform.Pages
 {
@@ -20,15 +24,21 @@ namespace CoffeeCatPlatform.Pages
         private readonly IRepositoryBase<Customer> _customerRepo;
         private readonly IRepositoryBase<Staff> _staffRepo;
 
-        public LoginModel()
+        private const string SessionKeyName = "_Name";
+        private readonly ILogger<LoginModel> _logger;
+
+        public LoginModel(ILogger<LoginModel> logger)
         {
             _customerRepo = new CustomerRepository();
             _staffRepo = new StaffRepository();
+            _logger = logger;
         }
 
         public void OnGet()
         {
+
         }
+
         public IActionResult OnPost()
         {
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
@@ -42,6 +52,11 @@ namespace CoffeeCatPlatform.Pages
             else
             {
                 ID = customer.CustomerId;
+                if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+                {
+                    HttpContext.Session.SetString(SessionKeyName, customer.Name);
+                }
+                _logger.LogInformation("Session Name: {Name}", customer.Name);
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
             }
         }
