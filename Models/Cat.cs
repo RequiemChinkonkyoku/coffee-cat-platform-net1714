@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 namespace Models;
 
 public partial class Cat
 {
     public int CatId { get; set; }
+    [Required(ErrorMessage = "Name is required")]
 
     public string Name { get; set; } = null!;
 
     public int? Gender { get; set; }
+    [Required(ErrorMessage = "Breed is required")]
 
     public string Breed { get; set; } = null!;
 
     public DateTime Birthday { get; set; }
+    [Required(ErrorMessage = "HealthStatus is required")]
 
     public string HealthStatus { get; set; } = null!;
 

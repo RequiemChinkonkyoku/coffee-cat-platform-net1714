@@ -1,0 +1,52 @@
+﻿@page
+@model CoffeeCatPlatform.Pages.CatManagement.CreateCatModel
+@{
+}
+<form method="post">
+    <!-- Display validation summary -->
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <!-- Form fields for creating a new cat -->
+    <div>
+        <label asp-for="Cat.Name"></label>
+        <input asp-for="Cat.Name" class="form-control" />
+        <span asp-validation-for="Cat.Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Cat.AreaCats"></label>
+        <input asp-for="Cat.AreaCats" class="form-control" />
+        <span asp-validation-for="Cat.AreaCats" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Cat.Gender"></label>
+        <select asp-for="Cat.Gender" class="form-control">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+        <span asp-validation-for="Cat.Gender" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Cat.HealthStatus"></label>
+        <input asp-for="Cat.HealthStatus" class="form-control" />
+        <span asp-validation-for="Cat.HealthStatus" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Cat.Breed"></label>
+        <input asp-for="Cat.Breed" class="form-control" />
+        <span asp-validation-for="Cat.Breed" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Cat.Birthday"></label>
+        <input asp-for="Cat.Birthday" class="form-control" />
+        <span asp-validation-for="Cat.Birthday" class="text-danger"></span>
+    </div>
+
+    <!-- Add other fields as needed -->
+    <!-- Submit button -->
+    <button type="submit">Create Cat</button>
+</form>

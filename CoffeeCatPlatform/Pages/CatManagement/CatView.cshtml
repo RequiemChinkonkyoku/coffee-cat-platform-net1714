@@ -1,0 +1,38 @@
+﻿@page
+@model CoffeeCatPlatform.Pages.CatManagement.CatViewModel
+@{
+}
+<h1>View All Cats</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Breed</th>
+            <th>Birthday</th>
+            <th>Health Status</th>
+            <th>Actions</th>
+            <!-- Add more headers based on your Cat model properties -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cat in Model.Cats)
+        {
+            <tr>
+                <td>@cat.CatId</td>
+                <td>@cat.Name</td>
+                <td>@cat.Breed</td>
+                <td>@cat.Birthday.ToShortDateString()</td>
+                <td>@cat.HealthStatus</td>
+                <td>
+                    <a asp-page="./EditCat" asp-route-id="@cat.CatId">Edit</a> |
+                    <a asp-page-handler="./DeleteCat" asp-route-id="@cat.CatId">Delete</a>
+                </td>
+                <!-- Add more cells based on your Cat model properties -->
+            </tr>
+        }
+    </tbody>
+    
+</table>
+<a asp-page="./CreateCat">Create Cat</a>
