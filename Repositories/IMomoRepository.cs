@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Microsoft.AspNetCore.Http;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public interface IMomoService
+    public interface IMomoRepository
     {
         Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel model);
-        MomoExecuteResponseModel PaymentExecuteAsync();
+        MomoExecuteResponseModel PaymentExecuteAsync(IQueryCollection collection);
     }
 }
