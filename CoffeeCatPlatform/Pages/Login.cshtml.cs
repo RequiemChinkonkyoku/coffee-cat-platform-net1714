@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories.Impl;
 using Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
-using CoffeeCatPlatform.Pages.StaffPages;
-using WebApplication1.Pages;
 
 namespace CoffeeCatPlatform.Pages
 {
