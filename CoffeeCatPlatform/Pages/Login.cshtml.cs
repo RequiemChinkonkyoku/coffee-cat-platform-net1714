@@ -40,6 +40,7 @@ namespace CoffeeCatPlatform.Pages
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&
                 c.Password.Equals(Password));
+
             if (customer == null)
             {
                 TempData["ErrorMessage"] = "Invalid username or password.";

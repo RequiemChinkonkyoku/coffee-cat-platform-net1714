@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Reservation"
 @model CoffeeCatPlatform.Pages.CustomerPages.ReservationPages.CreateReservationModel
 
 @{
@@ -15,22 +15,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Reservation.BookingDay" class="control-label"></label>
-                <input asp-for="Reservation.BookingDay" class="form-control" />
+                <input asp-for="Reservation.BookingDay" class="form-control" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="Reservation.BookingDay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Reservation.StartTime" class="control-label"></label>
-                <input asp-for="Reservation.StartTime" class="form-control" />
+                <label asp-for="Reservation.StartTime" class="control-label">Start Time</label>
+                <input asp-for="Reservation.StartTime" class="form-control" type="time" id="startTime" min="07:00" max="21:00" />
                 <span asp-validation-for="Reservation.StartTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Reservation.EndTime" class="control-label"></label>
-                <input asp-for="Reservation.EndTime" class="form-control" />
+                <label asp-for="Reservation.EndTime" class="control-label">End Time</label>
+                <input asp-for="Reservation.EndTime" class="form-control" type="time" id="endTime" min="07:00" max="21:00" />
                 <span asp-validation-for="Reservation.EndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Reservation.TotalPrice" class="control-label"></label>
-                <input asp-for="Reservation.TotalPrice" class="form-control" />
+                <label asp-for="Reservation.TotalPrice" class="control-label">Total Price</label>
+                <input asp-for="Reservation.TotalPrice" class="form-control" readonly />
                 <span asp-validation-for="Reservation.TotalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -38,12 +38,54 @@
             </div>
         </form>
     </div>
+    <div class="col-md-4">
+        <p>
+            Price is calculated based on the staying time.
+        </p>
+        <p>
+            If the time is 2 hours or less, it's free.
+        </p>
+        <p>
+            For each hour thereafter, the cost is 50000VND.
+        </p>
+        <p>
+            Payment will be done through Momo.
+        </p>
+    </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="/Homepage">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var startTimeInput = document.getElementById('startTime');
+            var endTimeInput = document.getElementById('endTime');
+            var totalPriceInput = document.getElementById('Reservation_TotalPrice');
+
+            startTimeInput.addEventListener('change', updateTotalPrice);
+            endTimeInput.addEventListener('change', updateTotalPrice);
+
+            function updateTotalPrice() {
+                var startTime = new Date('1970-01-01T' + startTimeInput.value);
+                var endTime = new Date('1970-01-01T' + endTimeInput.value);
+
+                if (endTime <= startTime) {
+                    alert("End time must be after start time.");
+                    return;
+                }
+
+                var stayingTime = (endTime - startTime) / (1000 * 60 * 60);
+                var totalPrice = stayingTime <= 2 ? 0 : Math.ceil((stayingTime - 2)) * 50000;
+
+                totalPriceInput.value = totalPrice.toFixed(2);
+            }
+        });
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

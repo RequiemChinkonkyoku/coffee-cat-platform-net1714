@@ -41,5 +41,15 @@ namespace Repositories.Impl
             set.Remove(item);
             context.SaveChanges();
         }
+
+        public T FindById(int id)
+        {
+            return set.Find(id);
+        }
+
+        public T GetLast<TKey>(Func<T, TKey> keySelector)
+        {
+            return set.OrderByDescending(keySelector).FirstOrDefault();
+        }
     }
 }
