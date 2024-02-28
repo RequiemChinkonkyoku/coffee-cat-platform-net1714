@@ -10,7 +10,7 @@ namespace Repositories
 {
     public interface IMomoRepository
     {
-        Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel model);
+        Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel model, int reservationID);
         MomoExecuteResponseModel PaymentExecuteAsync(IQueryCollection collection);
     }
 }

@@ -25,10 +25,10 @@ namespace Repositories.Impl
             _httpClient.BaseAddress = new Uri(_options.Value.MomoApiUrl);
         }
 
-        public async Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel model)
+        public async Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel model, int reservationID)
         {
             model.OrderId = DateTime.UtcNow.Ticks.ToString();
-            model.OrderInfo = "Khách hàng: " + model.FullName + ". Nội dung: " + model.OrderInfo;
+            model.OrderInfo = "Customer: " + model.FullName + ". Content: " + model.OrderInfo + ". ReservationID: " + reservationID;
             var rawData =
                 $"partnerCode={_options.Value.PartnerCode}&accessKey={_options.Value.AccessKey}&requestId={model.OrderId}&amount={model.Amount}&orderId={model.OrderId}&orderInfo={model.OrderInfo}&returnUrl={_options.Value.ReturnUrl}&notifyUrl={_options.Value.NotifyUrl}&extraData=";
 
@@ -65,11 +65,13 @@ namespace Repositories.Impl
             var amount = collection.First(s => s.Key == "amount").Value;
             var orderInfo = collection.First(s => s.Key == "orderInfo").Value;
             var orderId = collection.First(s => s.Key == "orderId").Value;
+            var errorCode = collection.First(s => s.Key == "errorCode").Value;
             return new MomoExecuteResponseModel()
             {
                 Amount = amount,
                 OrderId = orderId,
-                OrderInfo = orderInfo
+                OrderInfo = orderInfo,
+                ErrorCode = errorCode
             };
         }
 

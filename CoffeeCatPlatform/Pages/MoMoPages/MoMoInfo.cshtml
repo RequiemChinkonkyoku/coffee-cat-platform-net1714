@@ -9,13 +9,15 @@
 
     <div class="form-container">
         <form method="POST">
+            <input type="hidden" name="ReservationID" value="@Model.Reservation.ReservationId"/>
             <div class="form-group">
                 <label for="FullName">Tên khách hàng</label>
                 <input class="form-control"
                        id="FullName"
                        name="FullName"
                        type="text"
-                       value="TNK">
+                       value="TNK"
+                       readonly>
             </div>
             <br />
             <div class="form-group">
@@ -24,7 +26,8 @@
                        id="Amount"
                        name="Amount"
                        type="text"
-                       value="10000">
+                       value="@Model.Reservation.TotalPrice"
+                       readonly>
             </div>
             <br />
             <div class="form-group">

@@ -11,6 +11,9 @@ builder.Services.AddHttpClient();
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 builder.Services.AddScoped<IMomoRepository, MomoRepository>();
 
+builder.Services.AddScoped<ReservationRepository>();
+builder.Services.AddScoped<IRepositoryBase<Reservation>, ReservationRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

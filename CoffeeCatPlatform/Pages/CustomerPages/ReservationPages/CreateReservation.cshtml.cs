@@ -19,9 +19,9 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         private readonly IRepositoryBase<Reservation> _reservationRepo;
 
-        public CreateReservationModel()
+        public CreateReservationModel(ReservationRepository reservationRepo)
         {
-            _reservationRepo = new ReservationRepository();
+            _reservationRepo = reservationRepo;
         }
 
         public IActionResult OnGet()
@@ -37,10 +37,20 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             }
 
             Reservation.CustomerId = id;
-            Reservation.Status = 1;
+            Reservation.Status = -1;
             _reservationRepo.Add(Reservation);
 
-            return RedirectToPage("./Homepage");
+            if (Reservation.TotalPrice > (decimal)0.00)
+            {
+                TempData["ReservationID"] = Reservation.ReservationId;
+                return RedirectToPage("/MomoPages/MomoInfo");
+            }
+            else
+            {
+                Reservation.Status = 1;
+            }
+
+            return RedirectToPage("/Homepage");
         }
     }
 }
