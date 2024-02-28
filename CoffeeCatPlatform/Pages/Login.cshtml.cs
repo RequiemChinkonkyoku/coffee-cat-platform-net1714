@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories.Impl;
 using Repositories;
+using static System.Net.WebRequestMethods;
 
 namespace CoffeeCatPlatform.Pages
 {
@@ -21,6 +22,8 @@ namespace CoffeeCatPlatform.Pages
         private readonly IRepositoryBase<Staff> _staffRepo;
 
         private const string SessionKeyName = "_Name";
+        private const string SessionKeyId = "_Id";
+        private const string SessionKeyType = "_Type";
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(ILogger<LoginModel> logger)
@@ -37,6 +40,7 @@ namespace CoffeeCatPlatform.Pages
 
         public IActionResult OnPostCustomer()
         {
+            string type = "Customer";
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&
                 c.Password.Equals(Password));
@@ -48,10 +52,11 @@ namespace CoffeeCatPlatform.Pages
             }
             else
             {
-                ID = customer.CustomerId;
-                if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+                if (SessionCheck() == false)
                 {
                     HttpContext.Session.SetString(SessionKeyName, customer.Name);
+                    HttpContext.Session.SetInt32(SessionKeyId, customer.CustomerId);
+                    HttpContext.Session.SetString(SessionKeyType, type);
                 }
                 _logger.LogInformation("Session Name: {Name}", customer.Name);
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
@@ -60,6 +65,7 @@ namespace CoffeeCatPlatform.Pages
 
         public IActionResult OnPostStaff()
         {
+            string type = "Staff";
             var staff = _staffRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&
                 c.Password.Equals(Password));
@@ -70,14 +76,26 @@ namespace CoffeeCatPlatform.Pages
             }
             else
             {
-                ID = staff.StaffId;
-                if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+                if (SessionCheck() == false)
                 {
                     HttpContext.Session.SetString(SessionKeyName, staff.Name);
+                    HttpContext.Session.SetInt32(SessionKeyId, staff.StaffId);
+                    HttpContext.Session.SetString(SessionKeyType, type);
                 }
-                ID = staff.StaffId;
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
             }
+        }
+
+        private bool SessionCheck()
+        {
+            bool result = true;
+            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

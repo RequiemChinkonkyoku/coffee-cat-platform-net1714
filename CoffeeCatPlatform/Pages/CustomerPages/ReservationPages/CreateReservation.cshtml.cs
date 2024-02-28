@@ -19,6 +19,10 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         private readonly IRepositoryBase<Reservation> _reservationRepo;
 
+        private const string SessionKeyName = "_Name";
+        private const string SessionKeyId = "_Id";
+        private const string SessionKeyType = "_Type";
+
         public CreateReservationModel(ReservationRepository reservationRepo)
         {
             _reservationRepo = reservationRepo;
@@ -36,7 +40,10 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 return Page();
             }
 
-            Reservation.CustomerId = id;
+            if (SessionCheck() == true)
+            {
+                Reservation.CustomerId = HttpContext.Session.GetInt32(SessionKeyId);
+            }
             Reservation.Status = -1;
             _reservationRepo.Add(Reservation);
 
@@ -48,9 +55,22 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             else
             {
                 Reservation.Status = 1;
+                _reservationRepo.Update(Reservation);
             }
 
             return RedirectToPage("/Homepage");
+        }
+
+        private bool SessionCheck()
+        {
+            bool result = true;
+            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }
