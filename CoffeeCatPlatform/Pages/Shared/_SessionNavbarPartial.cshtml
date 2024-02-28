@@ -12,12 +12,6 @@
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-page="/AccountManagement">
-            @Context.Session.GetString("_Name")
-        </a>
-    </li>
-
     <li class="nav-item my-auto ms-3 ms-lg-0">
         <a href="/AccountManagement" class="btn btn-sm  bg-gradient-dark  btn-round mb-0 me-1 mt-2 mt-md-0">@Context.Session.GetString("_Name")</a>
     </li>
