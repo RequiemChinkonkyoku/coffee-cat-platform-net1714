@@ -20,16 +20,22 @@ namespace CoffeeCatPlatform.Pages
         private readonly IRepositoryBase<Customer> _customerRepo;
         private readonly IRepositoryBase<Staff> _staffRepo;
 
-        public LoginModel()
+        private const string SessionKeyName = "_Name";
+        private readonly ILogger<LoginModel> _logger;
+
+        public LoginModel(ILogger<LoginModel> logger)
         {
             _customerRepo = new CustomerRepository();
             _staffRepo = new StaffRepository();
+            _logger = logger;
         }
 
         public void OnGet()
         {
+
         }
-        public IActionResult OnPost()
+
+        public IActionResult OnPostCustomer()
         {
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&
@@ -43,6 +49,11 @@ namespace CoffeeCatPlatform.Pages
             else
             {
                 ID = customer.CustomerId;
+                if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+                {
+                    HttpContext.Session.SetString(SessionKeyName, customer.Name);
+                }
+                _logger.LogInformation("Session Name: {Name}", customer.Name);
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
             }
         }
@@ -59,6 +70,11 @@ namespace CoffeeCatPlatform.Pages
             }
             else
             {
+                ID = staff.StaffId;
+                if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+                {
+                    HttpContext.Session.SetString(SessionKeyName, staff.Name);
+                }
                 ID = staff.StaffId;
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
             }
