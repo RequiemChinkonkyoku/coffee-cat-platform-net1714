@@ -1,0 +1,22 @@
+﻿@page "/Paymentcallback"
+@model CoffeeCatPlatform.Pages.MoMoPages.PaymentCallBackModel
+@{
+    ViewData["Title"] = "Momo payment";
+}
+
+<div class="text-center">
+    <div class="container">
+        @if (Model.response.ErrorCode.Equals("0"))
+        {
+            <h1 class="text-success">Thanh Toán Thành Công</h1>
+        }
+        else
+        {
+            <h1 class="text-success">Thanh Toán Không Thành Công</h1>
+        }
+        <p>Order ID: <strong>@Model.response.OrderId</strong></p>
+        <p>Amount: <strong>@Model.response.Amount</strong></p>
+        <p>Order Info: <strong>@Model.response.OrderInfo</strong></p>
+        <a asp-page="/Homepage" class="btn btn-primary">Back to Homepage</a>
+    </div>
+</div>

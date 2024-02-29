@@ -19,9 +19,13 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         private readonly IRepositoryBase<Reservation> _reservationRepo;
 
-        public CreateReservationModel()
+        private const string SessionKeyName = "_Name";
+        private const string SessionKeyId = "_Id";
+        private const string SessionKeyType = "_Type";
+
+        public CreateReservationModel(ReservationRepository reservationRepo)
         {
-            _reservationRepo = new ReservationRepository();
+            _reservationRepo = reservationRepo;
         }
 
         public IActionResult OnGet()
@@ -36,11 +40,37 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 return Page();
             }
 
-            Reservation.CustomerId = id;
-            Reservation.Status = 1;
+            if (SessionCheck() == true)
+            {
+                Reservation.CustomerId = HttpContext.Session.GetInt32(SessionKeyId);
+            }
+            Reservation.Status = -1;
             _reservationRepo.Add(Reservation);
 
-            return RedirectToPage("./Homepage");
+            if (Reservation.TotalPrice > (decimal)0.00)
+            {
+                TempData["ReservationID"] = Reservation.ReservationId;
+                return RedirectToPage("/MomoPages/MomoInfo");
+            }
+            else
+            {
+                Reservation.Status = 1;
+                _reservationRepo.Update(Reservation);
+            }
+
+            return RedirectToPage("/Homepage");
+        }
+
+        private bool SessionCheck()
+        {
+            bool result = true;
+            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }
