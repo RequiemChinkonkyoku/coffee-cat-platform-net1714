@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories.Impl;
 using Repositories;
+using static System.Net.WebRequestMethods;
 
 namespace CoffeeCatPlatform.Pages
 {
@@ -20,21 +21,35 @@ namespace CoffeeCatPlatform.Pages
         private readonly IRepositoryBase<Customer> _customerRepo;
         private readonly IRepositoryBase<Staff> _staffRepo;
 
-        public LoginModel()
+        private const string SessionKeyName = "_Name";
+        private const string SessionKeyId = "_Id";
+        private const string SessionKeyType = "_Type";
+        private readonly ILogger<LoginModel> _logger;
+
+        public LoginModel(ILogger<LoginModel> logger)
         {
             _customerRepo = new CustomerRepository();
             _staffRepo = new StaffRepository();
+            _logger = logger;
         }
 
         public void OnGet()
         {
+
         }
+<<<<<<< HEAD
         public IActionResult OnPost()
         
+=======
+
+        public IActionResult OnPostCustomer()
+>>>>>>> 7f3dc3cf5e92b3066f40e7b18621244fa1e1143e
         {
+            string type = "Customer";
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&
                 c.Password.Equals(Password));
+
             if (customer == null)
             {
                 TempData["ErrorMessage"] = "Invalid username or password.";
@@ -42,13 +57,20 @@ namespace CoffeeCatPlatform.Pages
             }
             else
             {
-                ID = customer.CustomerId;
+                if (SessionCheck() == false)
+                {
+                    HttpContext.Session.SetString(SessionKeyName, customer.Name);
+                    HttpContext.Session.SetInt32(SessionKeyId, customer.CustomerId);
+                    HttpContext.Session.SetString(SessionKeyType, type);
+                }
+                _logger.LogInformation("Session Name: {Name}", customer.Name);
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
             }
         }
 
         public IActionResult OnPostStaff()
         {
+            string type = "Staff";
             var staff = _staffRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&
                 c.Password.Equals(Password));
@@ -59,9 +81,26 @@ namespace CoffeeCatPlatform.Pages
             }
             else
             {
-                ID = staff.StaffId;
+                if (SessionCheck() == false)
+                {
+                    HttpContext.Session.SetString(SessionKeyName, staff.Name);
+                    HttpContext.Session.SetInt32(SessionKeyId, staff.StaffId);
+                    HttpContext.Session.SetString(SessionKeyType, type);
+                }
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
             }
+        }
+
+        private bool SessionCheck()
+        {
+            bool result = true;
+            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

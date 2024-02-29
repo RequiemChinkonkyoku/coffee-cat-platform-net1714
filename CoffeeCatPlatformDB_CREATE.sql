@@ -1,29 +1,19 @@
-GO
-USE master;
-
-GO
-DROP DATABASE IF EXISTS CoffeeCatDB;
-
-GO
-CREATE DATABASE CoffeeCatDB;
-
-GO
 USE CoffeeCatDB;
 
-DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS shop;
-DROP TABLE IF EXISTS area;
-DROP TABLE IF EXISTS "table";
-DROP TABLE IF EXISTS reservation;
-DROP TABLE IF EXISTS reservationTable;
-DROP TABLE IF EXISTS cat;
-DROP TABLE IF EXISTS areaCat;
+DROP TABLE IF EXISTS billProduct;
+DROP TABLE IF EXISTS bill;
+DROP TABLE IF EXISTS promotion;
 DROP TABLE IF EXISTS staff;
 DROP TABLE IF EXISTS role;
-DROP TABLE IF EXISTS promotion;
 DROP TABLE IF EXISTS product;
-DROP TABLE IF EXISTS bill;
-DROP TABLE IF EXISTS billProduct;
+DROP TABLE IF EXISTS reservationTable;
+DROP TABLE IF EXISTS reservation;
+DROP TABLE IF EXISTS "table";
+DROP TABLE IF EXISTS areaCat;
+DROP TABLE IF EXISTS cat;
+DROP TABLE IF EXISTS area;
+DROP TABLE IF EXISTS shop;
+DROP TABLE IF EXISTS customer;
 
 CREATE TABLE customer (
     customerID INT IDENTITY(1, 1) PRIMARY KEY,
@@ -59,7 +49,7 @@ CREATE TABLE reservation (
     bookingDay DATE NOT NULL,
 	startTime TIME NOT NULL,
 	endTime TIME NOT NULL,
-    status INT CHECK (status IN (0, 1)) NOT NULL, -- 0 = cancelled, 1 = booked
+    status INT CHECK (status IN (-1, 0, 1)) NOT NULL, -- 0 = cancelled, 1 = booked
 	totalPrice DECIMAL(10, 2),
     customerID INT REFERENCES customer(customerID)
 );
@@ -140,45 +130,3 @@ CREATE TABLE billProduct (
     billID INT REFERENCES bill(billID),
     productID INT REFERENCES product(productID),
 );
-
-GO
-IF EXISTS (SELECT * FROM sys.triggers WHERE object_id =  OBJECT_ID(N'[dbo].[CalculateTotalPrice]'))
-BEGIN
-    DROP TRIGGER [dbo].[CalculateTotalPrice]
-END
-
-GO
-CREATE OR ALTER TRIGGER CalculateTotalPrice
-ON reservation
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    DECLARE @reservationID INT,
-            @bookingDay DATE,
-            @startTime TIME,
-            @endTime TIME,
-            @totalPrice DECIMAL(10, 2),
-            @customerID INT
-
-    SELECT @reservationID = reservationID,
-           @bookingDay = bookingDay,
-           @startTime = startTime,
-           @endTime = endTime,
-           @customerID = customerID
-    FROM inserted
-
-    DECLARE @bookingDurationInMinutes INT
-    SET @bookingDurationInMinutes = DATEDIFF(MINUTE, @startTime, @endTime)
-
-    -- Round up the booking duration to the nearest hour
-    IF @bookingDurationInMinutes % 60 <> 0
-        SET @bookingDurationInMinutes = (@bookingDurationInMinutes / 60 + 1) * 60
-
-    -- Calculate the total price based on booking duration
-    SET @totalPrice = @bookingDurationInMinutes / 60 * 50000.00
-
-    -- Update the totalPrice for the reservation
-    UPDATE reservation
-    SET totalPrice = @totalPrice
-    WHERE reservationID = @reservationID
-END

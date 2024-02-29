@@ -15,5 +15,9 @@ namespace Repositories
         public void Update(T item);
 
         public void Delete(T item);
+
+        public T FindById(int id);
+
+        public T GetLast<TKey>(Func<T, TKey> keySelector);
     }
 }
