@@ -14,6 +14,7 @@
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                @* <th>Promotion</th> *@
                 <th>Total</th>
             </tr>
         </thead>
@@ -30,6 +31,8 @@
                 <td>@product.Quantity</td>
           
                 <td>@product.Product.Price</td>
+
+                @* <td>@product.Bill.Promotion.Name</td> *@
           
                 <td>@((decimal)product.Quantity * product.Product.Price)</td>
             </tr>

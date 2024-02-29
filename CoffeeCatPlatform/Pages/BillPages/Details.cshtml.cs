@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Repositories;
+using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages.BillPages
 {
@@ -50,12 +51,13 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
                     if (product != null)
                     {
-                        billProduct.Product = product;
+                        billProduct.Product = product;	
                     }
 
                     BillProducts.Add(billProduct);
                 }
             }
+
 
             if (BillProducts == null)
             {

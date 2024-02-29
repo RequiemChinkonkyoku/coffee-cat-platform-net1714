@@ -1,8 +1,8 @@
 ﻿@page
-@model CoffeeCatPlatform.Pages.BillPages.CreateModel
+@model CoffeeCatPlatform.Pages.BillPages.EditModel
 @{
 }
-<h1>Create New Bill</h1>
+<h1>Edit Bill</h1>
 <form method="post">
 
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -20,12 +20,15 @@
         <tbody>
             @foreach (var product in Model.Products)
             {
+                var isChecked = Model.SelectedProducts.Contains(product.ProductId);
+
                 <tr>
                     <td>@product.ProductId</td>
                     <td>@product.Name</td>
                     <td>@product.Price</td>
-                    <td><input type="number" name="productQuantities[@product.ProductId]" min="0" value="0" /></td>
-                    <td><input type="checkbox" name="selectedProducts" value="@product.ProductId" /></td>
+                    <td><input type="number" name="productQuantities[@product.ProductId]" min="0" value="@GetQuantity(product.ProductId)" /></td>
+                    <td><input type="checkbox" name="selectedProducts" value="@product.ProductId" @(isChecked ? "checked" : "")/></td>
+
                 </tr>
             }
         </tbody>
@@ -42,12 +45,19 @@
     </br>
 
     <label for="note">Note:</label>
-    <textarea id="note" name="note" rows="4" cols="50"></textarea>
+    <textarea id="note" name="note" rows="4" cols="50">@Model.Bill.Note</textarea>
     </br>
 
-    <input type="submit" value="Create Bill" />
+    <input type="submit" value="Edit Bill" />
 </form>
 
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
+
+@functions {
+    int GetQuantity(int productId)
+    {
+        return Model.BillProducts.FirstOrDefault(bp => bp.ProductId == productId)?.Quantity ?? 0;
+    }
+}

@@ -10,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IRepositoryBase<Bill>, BillRepository>();
 builder.Services.AddScoped<IRepositoryBase<BillProduct>, BillProductRepository>();
 builder.Services.AddScoped<IRepositoryBase<Product>, ProductRepository>();
+builder.Services.AddScoped<IRepositoryBase<Promotion>, PromotionRepository>();
 
 var app = builder.Build();
 
