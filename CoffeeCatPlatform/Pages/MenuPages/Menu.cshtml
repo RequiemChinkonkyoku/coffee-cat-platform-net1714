@@ -1,5 +1,6 @@
 ﻿@page "/Menu"
 @model CoffeeCatPlatform.Pages.MenuPages.MenuModel
+<link rel="stylesheet" href="~/css/Menu.css">
 
 @{
     ViewData["Title"] = "Menu";
@@ -7,61 +8,85 @@
 
 <h1>Menu</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Products[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Products[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Products[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Products[0].Quantity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+<div class="scroll-container">
 
-    @if (!Model.result)
-    {
-        <tr>
-            <td>
-                There are no products.
-            </td>
-        </tr>
-    }
-    else
-    {
-        <tbody>
-            @foreach (var item in Model.Products)
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+    <div class="scroll-content">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    @* Product IMG *@
+                    <th>
+
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Products[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Products[0].Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Products[0].Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Products[0].Quantity)
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+
+            @if (!Model.result)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.ProductId">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                        There are no products.
                     </td>
                 </tr>
             }
-        </tbody>
-    }
-</table>
+            else
+            {
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="menu-item">
+                            <tr>
+                                <div class="menu-item-img">
+                                    <td class="image-cell">
+                                        <img src="@item.ProductIMG" alt="Drink">
+                                    </td>
+                                </div>
+                                <div class="menu-item-info">
+                                    <td class="content-cell">
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td class="content-cell">
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td class="content-cell">
+                                            @Html.DisplayFor(modelItem => item.Price)
+                                    </td>
+                                    <td class="content-cell">
+                                            @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
+                                        <a asp-page="./Details" asp-route-id="@item.ProductId">Details</a> |
+                                        <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+                                    </td>
+                                </div>
+                            </tr>
+                        </div>
+                    }
+                </tbody>
+            }
+        </table>
+
+    </div>
+
+</div>

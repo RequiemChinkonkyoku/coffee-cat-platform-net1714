@@ -1,0 +1,19 @@
+﻿img {
+    width: 150px; /* Set the desired width */
+    height: 150px;
+}
+.table {
+    width: 100%; /* Make the table full width */
+    border-collapse: collapse; /* Collapse borders */
+}
+
+.image-cell {
+    width: 150px; /* Set the desired width */
+    height: 150px;
+    padding: 10px; /* Add padding for spacing */
+}
+
+.content-cell {
+    width: 50%; /* Set the width for the content cell */
+    padding: 10px; /* Add padding for spacing */
+}
