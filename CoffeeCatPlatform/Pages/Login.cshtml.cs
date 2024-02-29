@@ -30,6 +30,7 @@ namespace CoffeeCatPlatform.Pages
         {
         }
         public IActionResult OnPost()
+        
         {
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&

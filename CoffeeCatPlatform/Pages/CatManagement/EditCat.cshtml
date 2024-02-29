@@ -33,7 +33,11 @@
         <input asp-for="Cat.HealthStatus" class="form-control" />
         <span asp-validation-for="Cat.HealthStatus" class="text-danger"></span>
     </div>
-
+    <div>
+        <label asp-for="Cat.ImageUrl"></label>
+        <input asp-for="Cat.ImageUrl" class="form-control" />
+        <span asp-validation-for="Cat.ImageUrl" class="text-danger"></span>
+    </div>
     <!-- Add more fields based on your Cat model properties -->
 
     <button type="submit">Save Changes</button>

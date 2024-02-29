@@ -23,10 +23,10 @@ VALUES ('John Doe', '555-1234', 'john@gmail.com', '123', 1),
        ('Bob Johnson', '555-8765', 'bob@gmail.com', '123', 1);
 
 -- Insert sample data into the 'cat' table
-INSERT INTO cat (name, gender, breed, birthday, healthStatus, shopID)
-VALUES ('Whiskers', 0, 'Tabby', '2020-01-01', 'Healthy', 1),
-       ('Mittens', 1, 'Persian', '2019-03-15', 'Vaccinated', 1),
-       ('Shadow', 0, 'Siamese', '2021-05-10', 'Not Vaccinated', 1);
+INSERT INTO cat (name, gender, breed, birthday, healthStatus, shopID, [imageUrl])
+VALUES ('Whiskers', 0, 'Tabby', '2020-01-01', 1, 1,'https://imgflip.com/s/meme/Cute-Cat.jpg'),
+       ('Mittens', 1, 'Persian', '2019-03-15', 1, 1,'https://play-lh.googleusercontent.com/yvoeLsYXfwqgH3H4mgljOio6wMomgfgwguEl4yegpkgjtDoCWz71qSLVHI6UAyCxfA'),
+       ('Shadow', 0, 'Siamese', '2021-05-10', 1, 1,'https://i.ytimg.com/vi/YBqJgQuutYc/maxresdefault.jpg');
 
 -- Insert sample data into the 'role' table
 INSERT INTO role (name, description)

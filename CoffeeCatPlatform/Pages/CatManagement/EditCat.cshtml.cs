@@ -54,7 +54,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             existingCat.HealthStatus = Cat.HealthStatus;
             existingCat.Breed = Cat.Breed;
             existingCat.Birthday = Cat.Birthday;
-
+            existingCat.ImageUrl = Cat.ImageUrl;
 
             // Update the existingCat in the repository
             _catRepository.Update(existingCat);

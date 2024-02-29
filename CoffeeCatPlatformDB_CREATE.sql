@@ -75,9 +75,10 @@ CREATE TABLE cat (
     name NVARCHAR(50) NOT NULL,
     gender INT CHECK (gender IN (0, 1)), -- 0 = meow, 1 = femeow
     breed NVARCHAR(50) NOT NULL,
-	birthday date NOT NULL,
-    healthStatus NVARCHAR(255) NOT NULL,
-    shopID INT REFERENCES shop(shopID)
+    birthday date NOT NULL,
+    healthStatus INT Check(healthStatus IN (0, 1)) NOT NULL,-- 0 = availabled, 1 = unavailabled
+    shopID INT REFERENCES shop(shopID),
+    imageUrl NVARCHAR(255) 
 );
 
 CREATE TABLE areaCat (
