@@ -47,6 +47,16 @@
                                         <input class="form-check-input" type="checkbox" id="">
                                         <label class="form-check-label" for="">I agree to Terms and Services.</label>
                                     </div>
+
+                                    @if (!(Model.Message == null || Model.Message == ""))
+                                    {
+                                        <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                            <p class="mb-4 text-sm mx-auto">
+                                                @Model.Message
+                                            </p>
+                                        </div>
+                                    }
+
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Register</button>
                                     </div>
@@ -68,5 +78,10 @@
             </div>
         </div>
     </section>
+    <div>
+        <form asp-page-handler="Test">
+            <button type="submit">Test mail</button>
+        </form>
+    </div>
 </body>
 </html>
