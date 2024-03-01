@@ -27,9 +27,16 @@ namespace CoffeeCatPlatform.Pages
                 string hashedToken = BCrypt.Net.BCrypt.HashString(token);
                 if (BCrypt.Net.BCrypt.Verify(token, _verificationToken))
                 {
-                    customer.Status = 1;
-                    _customerRepo.Update(customer);
-                    Message = "Account is verified";
+                    if (customer.Status == 1)
+                    {
+                        Message = "Account is already verified.";
+                    }
+                    else
+                    {
+                        customer.Status = 1;
+                        _customerRepo.Update(customer);
+                        Message = "Account is verified. You now have access to more functions.";
+                    }
                     break;
                 }
             }
