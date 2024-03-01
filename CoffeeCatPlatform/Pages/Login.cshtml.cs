@@ -37,13 +37,13 @@ namespace CoffeeCatPlatform.Pages
         {
 
         }
-<<<<<<< HEAD
-        public IActionResult OnPost()
+
+    
         
-=======
+
 
         public IActionResult OnPostCustomer()
->>>>>>> 7f3dc3cf5e92b3066f40e7b18621244fa1e1143e
+
         {
             string type = "Customer";
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>

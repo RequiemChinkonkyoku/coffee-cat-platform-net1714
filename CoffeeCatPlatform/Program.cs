@@ -6,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-<<<<<<< HEAD
+
 builder.Services.AddScoped<IRepositoryBase<Cat>, CatRepository>();
-=======
+
 builder.Services.AddHttpClient();
 
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
@@ -26,7 +26,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.Name = ".CCP.Session";
 });
->>>>>>> 7f3dc3cf5e92b3066f40e7b18621244fa1e1143e
+
 
 var app = builder.Build();
 
