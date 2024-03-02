@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS cat;
 DROP TABLE IF EXISTS area;
 DROP TABLE IF EXISTS shop;
 DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS category;
 
 CREATE TABLE customer (
     customerID INT IDENTITY(1, 1) PRIMARY KEY,
@@ -96,6 +97,11 @@ CREATE TABLE staff (
 	shopID INT REFERENCES shop(shopID)
 );
 
+CREATE TABLE category (
+	categoryId INT IDENTITY(1, 1) PRIMARY KEY,
+	name NVARCHAR(255) NOT NULL
+);
+
 CREATE TABLE product (
     productId INT IDENTITY(1, 1) PRIMARY KEY,
     name NVARCHAR(50) NOT NULL,
@@ -103,7 +109,8 @@ CREATE TABLE product (
     price DECIMAL(10, 2) NOT NULL,
     quantity INT NOT NULL,
     imageUrl NVARCHAR(255) NOT NULL,
-    shopID INT REFERENCES shop(shopID)
+    shopID INT REFERENCES shop(shopID),
+	categoryId INT REFERENCES category(categoryId)
 );
 
 CREATE TABLE promotion (
