@@ -40,7 +40,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             _catRepository.Add(Cat);
 
             TempData["SuccessMessage"] = "Cat created successfully.";
-            return RedirectToPage("./CatView");
+            return RedirectToPage("./ViewCat");
         }
     }
 }

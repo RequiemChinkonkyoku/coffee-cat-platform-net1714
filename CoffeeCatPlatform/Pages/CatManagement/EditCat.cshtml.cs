@@ -60,7 +60,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             _catRepository.Update(existingCat);
 
             TempData["SuccessMessage"] = "Cat updated successfully.";
-            return RedirectToPage("./CatView");
+            return RedirectToPage("./ViewCat");
         }
     }
 }
