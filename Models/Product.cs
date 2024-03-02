@@ -15,7 +15,7 @@ public partial class Product
 
     public int Quantity { get; set; }
 
-    public string ProductIMG { get; set; }
+    public string ImageUrl { get; set; }
 
     public int? ShopId { get; set; }
 
