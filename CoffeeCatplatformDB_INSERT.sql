@@ -23,10 +23,10 @@ VALUES ('John Doe', '555-1234', 'john@gmail.com', '123', 1),
        ('Bob Johnson', '555-8765', 'bob@gmail.com', '123', 1);
 
 -- Insert sample data into the 'cat' table
-INSERT INTO cat (name, gender, breed, birthday, healthStatus, shopID)
-VALUES ('Whiskers', 0, 'Tabby', '2020-01-01', 'Healthy', 1),
-       ('Mittens', 1, 'Persian', '2019-03-15', 'Vaccinated', 1),
-       ('Shadow', 0, 'Siamese', '2021-05-10', 'Not Vaccinated', 1);
+INSERT INTO cat (name, gender, breed, birthday, healthStatus, shopID, [imageUrl])
+VALUES ('Whiskers', 0, 'Tabby', '2020-01-01', 1, 1,'https://imgflip.com/s/meme/Cute-Cat.jpg'),
+       ('Mittens', 1, 'Persian', '2019-03-15', 1, 1,'https://play-lh.googleusercontent.com/yvoeLsYXfwqgH3H4mgljOio6wMomgfgwguEl4yegpkgjtDoCWz71qSLVHI6UAyCxfA'),
+       ('Shadow', 0, 'Siamese', '2021-05-10', 1, 1,'https://i.ytimg.com/vi/YBqJgQuutYc/maxresdefault.jpg');
 
 -- Insert sample data into the 'role' table
 INSERT INTO role (name, description)
@@ -41,10 +41,10 @@ VALUES ('Alice', 1, '0111222333', 'alice@gmail.com', 'password111', 1, 1, 1),
        ('Charlie', 1, '0777888999', 'charlie@gmail.com', 'password333', 1, 2, 1);
 
 -- Insert sample data into the 'product' table
-INSERT INTO product (name, description, price, quantity, shopID)
-VALUES ('Espresso', 'Strong black coffee', 3.99, 100, 1),
-       ('Cappuccino', 'Espresso with steamed milk', 4.99, 80, 1),
-       ('Latte', 'Espresso with frothy milk', 5.49, 50, 1);
+INSERT INTO product (name, description, price, quantity, imageUrl, shopID)
+VALUES ('Espresso', 'Strong black coffee', 3.99, 100, 'https://i.postimg.cc/rpnfqgkR/Espresso.webp', 1),
+       ('Cappuccino', 'Espresso with steamed milk', 4.99, 80, 'https://i.postimg.cc/brYWmdp1/Cappuccino.webp', 1),
+       ('Latte', 'Espresso with frothy milk', 5.49, 50, 'https://i.postimg.cc/pLVQy8kf/Latte.webp', 1);
 
 -- Insert sample data into the 'promotion' table
 INSERT INTO promotion (name, description, promotionType, promotionAmount)
