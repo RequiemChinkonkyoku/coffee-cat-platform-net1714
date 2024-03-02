@@ -101,8 +101,8 @@ CREATE TABLE product (
     description NVARCHAR(255),
     price DECIMAL(10, 2) NOT NULL,
     quantity INT NOT NULL,
-	productIMG NVARCHAR(255) NOT NULL,
-	shopID INT REFERENCES shop(shopID)
+    imageUrl NVARCHAR(255) NOT NULL,
+    shopID INT REFERENCES shop(shopID)
 );
 
 CREATE TABLE promotion (
