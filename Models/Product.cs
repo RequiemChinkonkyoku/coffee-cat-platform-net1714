@@ -15,6 +15,8 @@ public partial class Product
 
     public int Quantity { get; set; }
 
+    public string ImageUrl { get; set; }
+
     public int? ShopId { get; set; }
 
     public virtual ICollection<BillProduct> BillProducts { get; set; } = new List<BillProduct>();
