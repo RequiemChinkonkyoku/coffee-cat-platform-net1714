@@ -38,7 +38,12 @@ namespace CoffeeCatPlatform.Pages
 
         }
 
+    
+        
+
+
         public IActionResult OnPostCustomer()
+
         {
             string type = "Customer";
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
