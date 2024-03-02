@@ -33,8 +33,8 @@
 
     <label for="promotionId">Select Promotion:</label>
     <select id="promotionId" name="promotionId">
-        <option value="">None</option> <!-- Default option for no promotion -->
-        @foreach (var promotion in Model.Promotions)
+        <option value="@Model.Promotions.First().PromotionId">@Model.Promotions.First().Name</option> <!-- Default option for no promotion -->
+        @foreach (var promotion in Model.Promotions.Skip(1))
         {
             <option value="@promotion.PromotionId">@promotion.Name</option>
         }

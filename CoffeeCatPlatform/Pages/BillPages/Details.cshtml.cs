@@ -12,19 +12,27 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<BillProduct> _billProductRepository;
         private readonly IRepositoryBase<Bill> _billRepository;
         private readonly IRepositoryBase<Product> _productRepository;
+        private readonly IRepositoryBase<Promotion> _promotionRepository;
 
         public List<BillProduct> BillProducts { get; set; }
         public List<Bill> Bills { get; set; }
         public List<Product> Products { get; set; }
 
+        public string SelectedPromotionName { get; set; }
+        public Bill Bill { get; set; }
+
         public DetailsModel(
             IRepositoryBase<BillProduct> billProductRepository,
             IRepositoryBase<Bill> billRepository,
-            IRepositoryBase<Product> productRepository)
+            IRepositoryBase<Product> productRepository,
+            IRepositoryBase<Promotion> promotionRepository)
         {
             _billProductRepository = billProductRepository;
             _billRepository = billRepository;
             _productRepository = productRepository;
+
+            _promotionRepository = promotionRepository;
+            Bill = new Bill();
 
             BillProducts = new List<BillProduct>();
             Bills = new List<Bill>();
@@ -57,6 +65,13 @@ namespace CoffeeCatPlatform.Pages.BillPages
                     BillProducts.Add(billProduct);
                 }
             }
+
+            Bill = _billRepository.GetAll().FirstOrDefault(b => b.BillId == id);
+            // Retrieve and set the selected promotion name
+            SelectedPromotionName = _promotionRepository.GetAll()
+                .Where(p => p.PromotionId == Bill?.PromotionId)
+                .Select(p => p.Name)
+                .FirstOrDefault();
 
 
             if (BillProducts == null)
