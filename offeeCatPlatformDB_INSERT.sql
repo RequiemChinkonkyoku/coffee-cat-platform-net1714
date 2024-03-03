@@ -90,3 +90,4 @@ INSERT INTO billProduct (quantity, billID, productID)
 VALUES (2, 1, 1),
        (1, 2, 2),
        (3, 3, 3);
+	    
