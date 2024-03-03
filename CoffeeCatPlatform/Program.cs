@@ -17,6 +17,9 @@ builder.Services.AddScoped<IMomoRepository, MomoRepository>();
 builder.Services.AddScoped<ReservationRepository>();
 builder.Services.AddScoped<IRepositoryBase<Reservation>, ReservationRepository>();
 
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<IRepositoryBase<Product>, ProductRepository>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
