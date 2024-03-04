@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories;
+using System.Linq;
 
 namespace CoffeeCatPlatform.Pages.BillPages
 {
@@ -58,7 +59,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
                                .Where(bp => bp.BillId == id)
                                .Select(bp => bp.ProductId)
                                .ToList();
-            
+
             SelectedPromotions = _billRepository
                                .GetAll()
                                .Where(b => b.BillId == id)
@@ -121,7 +122,19 @@ namespace CoffeeCatPlatform.Pages.BillPages
                         .FirstOrDefault(p => p.ProductId == billProduct.ProductId);
                 }
 
-                // Step 3: Update or add BillProducts based on selected products
+                // Step 3: Update or add BillProducts based on selected products and remove unchecked products
+
+                var productsToRemove = existingBill.BillProducts
+                         .Where(bp => bp.ProductId.HasValue && selectedProducts.Contains(bp.ProductId.Value) == false)
+                         .ToList();
+
+                foreach (var productToRemove in productsToRemove)
+                {
+                    existingBill.BillProducts.Remove(productToRemove);
+                    _billProductRepository.Delete(productToRemove); // Optional: Delete the BillProduct from the repository
+                }
+
+
                 foreach (var productId in selectedProducts)
                 {
                     var quantity = productQuantities.ContainsKey(productId) ? productQuantities[productId] : 0;

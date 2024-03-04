@@ -35,7 +35,7 @@
     </table>
 
     <label for="promotionId">Select Promotion:</label>
-    <select id="promotionId" name="selectedPromotions">
+    <select id="promotionId" name="promotionId">
         @foreach (var promotion in Model.Promotions)
         {
             if (Model.SelectedPromotions.Contains(promotion.PromotionId))
