@@ -35,11 +35,17 @@
     </table>
 
     <label for="promotionId">Select Promotion:</label>
-    <select id="promotionId" name="promotionId">
-        <option value="">None</option> <!-- Default option for no promotion -->
+    <select id="promotionId" name="selectedPromotions">
         @foreach (var promotion in Model.Promotions)
         {
-            <option value="@promotion.PromotionId">@promotion.Name</option>
+            if (Model.SelectedPromotions.Contains(promotion.PromotionId))
+            {
+                <option value="@promotion.PromotionId" selected>@promotion.Name</option>
+            }
+            else
+            {
+                <option value="@promotion.PromotionId">@promotion.Name</option>
+            }
         }
     </select>
     </br>

@@ -20,6 +20,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
         public Bill Bill { get; set; }
 
         public List<int?> SelectedProducts { get; set; }
+        public List<int?> SelectedPromotions { get; set; }
 
         public EditModel(
             IRepositoryBase<Product> productRepository,
@@ -42,6 +43,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
 
             SelectedProducts = new List<int?>();
+            SelectedPromotions = new List<int?>();
         }
         public IActionResult OnGet(int id)
         {
@@ -55,6 +57,12 @@ namespace CoffeeCatPlatform.Pages.BillPages
                                .GetAll()
                                .Where(bp => bp.BillId == id)
                                .Select(bp => bp.ProductId)
+                               .ToList();
+            
+            SelectedPromotions = _billRepository
+                               .GetAll()
+                               .Where(b => b.BillId == id)
+                               .Select(b => b.PromotionId)
                                .ToList();
 
             foreach (BillProduct billProduct in _billProductRepository.GetAll())
