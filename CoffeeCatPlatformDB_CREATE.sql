@@ -108,6 +108,7 @@ CREATE TABLE product (
     description NVARCHAR(255),
     price DECIMAL(10, 2) NOT NULL,
     quantity INT NOT NULL,
+	productStatus INT Check (productStatus IN (0, 1)) NOT NULL,
     imageUrl NVARCHAR(255) NOT NULL,
     shopID INT REFERENCES shop(shopID),
 	categoryId INT REFERENCES category(categoryId)

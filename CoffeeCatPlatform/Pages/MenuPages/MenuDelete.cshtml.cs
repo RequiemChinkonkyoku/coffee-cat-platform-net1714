@@ -43,7 +43,9 @@ namespace CoffeeCatPlatform.Pages.MenuPages
                 return RedirectToPage("./Menu");
             }
 
-            _productRepo.Delete(productToDelete);
+            productToDelete.productStatus = 0;
+
+            _productRepo.Update(productToDelete);
 
             TempData["SuccessMessage"] = "Product deleted successfully.";
             return RedirectToPage("./Menu");

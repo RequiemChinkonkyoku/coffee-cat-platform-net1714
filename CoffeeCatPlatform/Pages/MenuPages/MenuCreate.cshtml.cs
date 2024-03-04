@@ -37,7 +37,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
             {
                 return Page();
             }
-
+            Product.productStatus = 1;
             _productRepo.Add(Product);
 
             return RedirectToPage("./Menu");

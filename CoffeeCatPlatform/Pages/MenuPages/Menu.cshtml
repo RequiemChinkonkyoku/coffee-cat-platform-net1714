@@ -37,6 +37,9 @@
                         @Html.DisplayNameFor(model => model.Products[0].Quantity)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Products[0].productStatus)
+                    </th>
+                    <th>
 
                     </th>
                 </tr>
@@ -75,6 +78,18 @@
                                     <td class="content-cell">
                                             @Html.DisplayFor(modelItem => item.Quantity)
                                     </td>
+                                    @if (item.productStatus == 1)
+                                    {
+                                        <td>
+                                            Avaialble
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            Unavailable
+                                        </td>
+                                    }
                                     <td>
                                             <a asp-page="./MenuEdit" asp-route-id="@item.ProductId">Edit</a> |
                                             <a asp-page="./MenuDelete" asp-route-id="@item.ProductId">Delete</a>
