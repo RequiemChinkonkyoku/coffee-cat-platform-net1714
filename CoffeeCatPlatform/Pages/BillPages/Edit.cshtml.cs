@@ -115,13 +115,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
                     .Where(bp => bp.BillId == existingBill.BillId)
                     .ToList();
 
-                // Load Product data for each BillProduct
-                foreach (var billProduct in existingBill.BillProducts)
-                {
-                    billProduct.Product = _productRepository.GetAll()
-                        .FirstOrDefault(p => p.ProductId == billProduct.ProductId);
-                }
-
                 // Step 3: Update or add BillProducts based on selected products and remove unchecked products
 
                 var productsToRemove = existingBill.BillProducts
@@ -139,40 +132,81 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 {
                     var quantity = productQuantities.ContainsKey(productId) ? productQuantities[productId] : 0;
 
-                    var billProduct = existingBill.BillProducts?.FirstOrDefault(bp => bp.ProductId == productId);
-
-                    if (billProduct != null)
+                    if (quantity > 0)
                     {
-                        // Existing BillProduct, update the quantity
-                        billProduct.Quantity = quantity;
+                        var billProduct = existingBill.BillProducts?.FirstOrDefault(bp => bp.ProductId == productId);
+
+                        if (billProduct != null)
+                        {
+                            // Existing BillProduct, update the quantity
+                            billProduct.Quantity = quantity;
+                        }
+                        else
+                        {
+                            // New BillProduct, add it to the Bill
+                            var product = _productRepository.GetAll().FirstOrDefault(p => p.ProductId == productId);
+
+                            if (product != null)
+                            {
+                                // Ensure that the BillProducts collection is loaded
+                                existingBill.BillProducts = _billProductRepository
+                                    .GetAll()
+                                    .Where(bp => bp.BillId == existingBill.BillId)
+                                    .ToList();
+
+                                // Make sure to initialize the BillProducts collection if it's null
+                                existingBill.BillProducts ??= new List<BillProduct>();
+
+                                billProduct = new BillProduct
+                                {
+                                    BillId = existingBill.BillId,
+                                    ProductId = productId,
+                                    Quantity = quantity
+                                };
+
+                                existingBill.BillProducts.Add(billProduct);
+                            }
+                        }
                     }
                     else
                     {
-                        // New BillProduct, add it to the Bill
-                        var product = _productRepository.GetAll().FirstOrDefault(p => p.ProductId == productId);
-
-                        if (product != null)
-                        {
-                            billProduct = new BillProduct
-                            {
-                                BillId = existingBill.BillId,
-                                ProductId = productId,
-                                Quantity = quantity
-                            };
-
-                            // Make sure to initialize the BillProducts collection if it's null
-                            existingBill.BillProducts ??= new List<BillProduct>();
-
-                            existingBill.BillProducts.Add(billProduct);
-                        }
+                        ModelState.AddModelError("", "Please decide the quantity of the products");
+                        return OnGet(id);
                     }
+                }
+
+                foreach (var billProduct in existingBill.BillProducts)
+                {
+                    billProduct.Product = _productRepository.GetAll()
+                        .FirstOrDefault(p => p.ProductId == billProduct.ProductId);
                 }
 
                 // Step 4: Calculate the new TotalPrice
                 if (existingBill.BillProducts != null)
                 {
                     existingBill.TotalPrice = existingBill.BillProducts.Sum(bp => bp.Quantity * (bp.Product?.Price ?? 0));
+
+                    if (existingBill.PromotionId.HasValue)
+                    {
+                        var promotion = _promotionRepository.GetAll().FirstOrDefault(p => p.PromotionId == existingBill.PromotionId);
+
+                        if (promotion != null)
+                        {
+                            if (promotion.PromotionType == 0)
+                            {
+                                // Deduct fixed amount
+                                existingBill.TotalPrice -= promotion.PromotionAmount;
+                            }
+                            else if (promotion?.PromotionType == 1)
+                            {
+                                // Deduct percentage
+                                existingBill.TotalPrice -= (existingBill.TotalPrice * promotion.PromotionAmount / 100);
+                            }
+                        }
+                    }
                 }
+
+
 
                 // Step 5: Update the existing Bill entity in the repository
                 _billRepository.Update(existingBill);

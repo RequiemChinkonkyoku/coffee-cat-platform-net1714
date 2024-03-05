@@ -67,6 +67,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
             }
 
             Bill = _billRepository.GetAll().FirstOrDefault(b => b.BillId == id);
+
             // Retrieve and set the selected promotion name
             SelectedPromotionName = _promotionRepository.GetAll()
                 .Where(p => p.PromotionId == Bill?.PromotionId)

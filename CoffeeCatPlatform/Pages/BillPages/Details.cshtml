@@ -9,7 +9,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Bill ID</th>
                 <th>Product ID</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
@@ -39,6 +39,10 @@
 
     <div>
         <p>Selected Promotion: @Model.SelectedPromotionName</p>
+    </div>
+
+    <div>
+        <p>Total Price: @Model.Bill.TotalPrice</p>
     </div>
 }
 else

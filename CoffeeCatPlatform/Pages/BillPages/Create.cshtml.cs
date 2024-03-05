@@ -82,6 +82,25 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
                         // Calculate the total price by summing the individual product prices
                         newBill.TotalPrice += quantity * product.Price;
+
+                        if (newBill.PromotionId.HasValue)
+                        {
+                            var promotion = _promotionRepository.GetAll().FirstOrDefault(p => p.PromotionId == newBill.PromotionId);
+
+                            if (promotion != null)
+                            {
+                                if (promotion.PromotionType == 0)
+                                {
+                                    // Deduct fixed amount
+                                    newBill.TotalPrice -= promotion.PromotionAmount;
+                                }
+                                else if (promotion?.PromotionType == 1)
+                                {
+                                    // Deduct percentage
+                                    newBill.TotalPrice -= (newBill.TotalPrice * promotion.PromotionAmount / 100);
+                                }
+                            }
+                        }
                     }
                 }
                 else

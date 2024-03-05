@@ -25,7 +25,9 @@
                     <td>@product.Name</td>
                     <td>@product.Price</td>
                     <td><input type="number" name="productQuantities[@product.ProductId]" min="0" value="0" /></td>
-                    <td><input type="checkbox" name="selectedProducts" value="@product.ProductId" /></td>
+                    <td><input type="checkbox" name="selectedProducts" value="@product.ProductId"
+                               onchange="handleCheckboxChange(this, document.getElementsByName('productQuantities[@product.ProductId]')[0])" />
+                    </td>
                 </tr>
             }
         </tbody>
@@ -51,3 +53,15 @@
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
+
+<script>
+    function handleCheckboxChange(checkbox, quantityInput) {
+        if (checkbox.checked) {
+            // Checkbox is checked, set quantity to 1
+            quantityInput.value = 1;
+        } else {
+            // Checkbox is unchecked, set quantity to 0 or handle as needed
+            quantityInput.value = 0;
+        }
+    }
+</script>
