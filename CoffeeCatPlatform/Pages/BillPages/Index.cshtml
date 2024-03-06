@@ -1,0 +1,40 @@
+﻿@page
+@model CoffeeCatPlatform.Pages.BillPages.IndexModel
+@{
+}
+<h1>View All Bills</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Payment Time</th>
+            <th>Promotion</th>
+            <th>Note</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+     <tbody>
+        @foreach (var bill in Model.Bills)
+        {
+            <tr>
+                <td>@bill.BillId</td>
+                <td>@bill.TotalPrice</td>
+                <td>@bill.Status</td>
+                <td>@bill.PaymentTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@bill.Promotion.Name</td>
+                <td>@bill.Note</td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@bill.BillId">Details</a> |
+                    <a asp-page="./Edit" asp-route-id="@bill.BillId">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
