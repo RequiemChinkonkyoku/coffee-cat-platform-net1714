@@ -30,6 +30,10 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         public IActionResult OnGet()
         {
+            if (SessionCheck() == false)
+            {
+                return RedirectToPage("/ErrorPages/NotLoggedInError");
+            }
             return Page();
         }
 
