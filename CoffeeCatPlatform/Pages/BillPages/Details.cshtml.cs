@@ -20,6 +20,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
         public string SelectedPromotionName { get; set; }
         public Bill Bill { get; set; }
+        public Promotion Promotion { get; set; }
 
         public DetailsModel(
             IRepositoryBase<BillProduct> billProductRepository,
@@ -33,6 +34,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             _promotionRepository = promotionRepository;
             Bill = new Bill();
+            Promotion = new Promotion();
 
             BillProducts = new List<BillProduct>();
             Bills = new List<Bill>();
@@ -67,6 +69,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
             }
 
             Bill = _billRepository.GetAll().FirstOrDefault(b => b.BillId == id);
+
+            Promotion = _promotionRepository.GetAll().FirstOrDefault(p => p.PromotionId == Bill.PromotionId);
 
             // Retrieve and set the selected promotion name
             SelectedPromotionName = _promotionRepository.GetAll()
