@@ -1,0 +1,63 @@
+﻿@page
+@model CoffeeCatPlatform.Pages.BillPages.DetailsModel
+@{
+}
+<h1>Bill Details</h1>
+
+@if (Model.BillProducts != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Bill ID</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.BillProducts)
+            {
+            <tr>
+                <td>@product.BillId</td>
+          
+                <td>@product.ProductId</td>
+         
+                <td>@product.Product.Name</td>
+           
+                <td>@product.Quantity</td>
+          
+                <td>@product.Product.Price</td>
+          
+                <td>@((decimal)product.Quantity * product.Product.Price)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <p>Selected Promotion: @Model.SelectedPromotionName</p>
+    </div>
+    
+    <div>
+        <p>Promotion Type: @Model.Promotion.PromotionType</p>
+    </div>
+    
+    <div>
+        <p>Promotion Amount: @Model.Promotion.PromotionAmount</p>
+    </div>
+
+    <div>
+        <p>Total Price: @Model.Bill.TotalPrice</p>
+    </div>
+
+}
+else
+{
+    <p>Details not found.</p>
+}
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
