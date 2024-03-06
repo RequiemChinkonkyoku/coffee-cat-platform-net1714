@@ -48,11 +48,11 @@ VALUES ('Drink'),
 	   ('Cat Food');
 
 -- Insert sample data into the 'product' table
-INSERT INTO product (name, description, price, quantity, imageUrl, shopID, categoryID)
-VALUES ('Espresso', 'Strong black coffee', 3.99, 100, 'https://i.postimg.cc/rpnfqgkR/Espresso.webp', 1, 1),
-       ('Cappuccino', 'Espresso with steamed milk', 4.99, 80, 'https://i.postimg.cc/brYWmdp1/Cappuccino.webp', 1, 1),
-       ('Latte', 'Espresso with frothy milk', 5.49, 50, 'https://i.postimg.cc/pLVQy8kf/Latte.webp', 1, 1),
-	   ('Fries', 'French fries', 5.49, 50, 'https://www.recipetineats.com/wp-content/uploads/2022/09/Crispy-Fries_8.jpg?w=500&h=500&crop=1', 1, 2);
+INSERT INTO product (name, description, price, quantity, productStatus, imageUrl, shopID, categoryID)
+VALUES ('Espresso', 'Strong black coffee', 3.99, 100, 1, 'https://i.postimg.cc/rpnfqgkR/Espresso.webp', 1, 1),
+       ('Cappuccino', 'Espresso with steamed milk', 4.99, 80, 1, 'https://i.postimg.cc/brYWmdp1/Cappuccino.webp', 1, 1),
+       ('Latte', 'Espresso with frothy milk', 5.49, 50, 1, 'https://i.postimg.cc/pLVQy8kf/Latte.webp', 1, 1),
+	   ('Fries', 'French fries', 5.49, 50, 1, 'https://www.recipetineats.com/wp-content/uploads/2022/09/Crispy-Fries_8.jpg?w=500&h=500&crop=1', 1, 2);
 
 -- Insert sample data into the 'promotion' table
 INSERT INTO promotion (name, description, promotionType, promotionAmount)
