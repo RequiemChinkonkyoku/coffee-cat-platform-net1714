@@ -54,6 +54,12 @@
         <input asp-for="Cat.ImageUrl" class="form-control" />
         <span asp-validation-for="Cat.ImageUrl" class="text-danger"></span>
     </div>
+
+    <div>
+        <label asp-for="Cat.Description"></label>
+        <input asp-for="Cat.Description" class="form-control" />
+        <span asp-validation-for="Cat.Description" class="text-danger"></span>
+    </div>
     <!-- Add other fields as needed -->
     <!-- Submit button -->
     <button type="submit">Create Cat</button>

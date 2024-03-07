@@ -9,6 +9,12 @@ namespace CoffeeCatPlatform.Pages.CatManagement
     {
         private readonly IRepositoryBase<Cat> _catRepository;
 
+        [BindProperty]
+        public int NumberOfRows { get; set; }
+
+        [BindProperty]
+        public int NumberOfCats { get; set; }
+
         public CatViewModel(IRepositoryBase<Cat> catRepository)
         {
             _catRepository = catRepository;
@@ -21,8 +27,11 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             // Retrieve all cats from the repository for viewing
             Cats = _catRepository.GetAll();
 
-            // Perform any additional operations if needed
+            double temp = Cats.Count;
+            NumberOfCats = (int)temp;
+            NumberOfRows = (int)Math.Ceiling(temp / 4);
 
+            // Perform any additional operations if needed
             return Page();
         }
     }

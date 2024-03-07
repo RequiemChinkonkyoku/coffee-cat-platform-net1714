@@ -69,7 +69,8 @@ CREATE TABLE cat (
     birthday date NOT NULL,
     healthStatus INT Check(healthStatus IN (0, 1)) NOT NULL,-- 0 = availabled, 1 = unavailabled
     shopID INT REFERENCES shop(shopID),
-    imageUrl NVARCHAR(255) 
+    imageUrl NVARCHAR(255),
+	description NVARCHAR(MAX)
 );
 
 CREATE TABLE areaCat (
