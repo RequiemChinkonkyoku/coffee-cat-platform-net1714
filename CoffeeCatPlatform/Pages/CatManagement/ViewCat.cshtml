@@ -1,5 +1,6 @@
 ﻿@page "/ViewCat"
 @model CoffeeCatPlatform.Pages.CatManagement.CatViewModel
+@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "ViewCat";
 }
@@ -79,12 +80,14 @@
                                     @cat.Name
                                 </a>
                             </h5>
-                            <p>
+                            <p id="desc" style="-webkit-box-orient:vertical; -webkit-line-clamp:3; display:-webkit-box; width:100%; overflow:hidden">
                                 @cat.Description
                             </p>
                             <a href="javascript:;" class="text-info icon-move-right">
                                 Read More
                                 <i class="fas fa-arrow-right text-sm"></i>
+                                <a asp-page="./EditCat" asp-route-id="@cat.CatId">Edit</a> |
+                                <a asp-page="./DeleteCat" asp-route-id="@cat.CatId">Delete</a>
                             </a>
                         </div>
                     </div>
@@ -96,3 +99,4 @@
 
 
 <a asp-page="./CreateCat">Create Cat</a>
+
