@@ -1,6 +1,7 @@
 ﻿@page
 @model CoffeeCatPlatform.Pages.CatManagement.EditCatModel
 @{
+    ViewData["Title"] = "EditCat";
 }
 
 <section>
@@ -8,13 +9,13 @@
         <div class="row">
             <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
                 <h3 class="text-center">CHANGING CAT'S INFORMATION</h3>
-                <form role="form" id="contact-form" method="post" autocomplete="off" asp-page-handler="Edit">
+                <form role="form" id="contact-form" method="POST" autocomplete="off" asp-page-handler="Edit">
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-4">
                                 <label asp-for="Cat.CatId"></label>
                                 <div class="input-group">
-                                    <input asp-for="Cat.CatId" type="text" class="form-control" placeholder="" disabled>
+                                    <input asp-for="Cat.CatId" class="form-control" readonly>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +29,7 @@
                             <div class="col-md-6 ps-2">
                                 <label asp-for="Cat.Breed"></label>
                                 <div class="input-group">
-                                    <input asp-for="Cat.Breed" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                    <input asp-for="Cat.Breed" type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -89,10 +90,10 @@
                             <div class="col-md-12">
                                 <button type="submit" class="btn bg-gradient-dark w-100">SAVE CHANGES</button>
                             </div>
-
                         </div>
                     </div>
                 </form>
+
                 <div class="col-sm-3 col-6 mx-auto">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn bg-gradient-danger w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -117,7 +118,7 @@
                                     <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">On second thoughts...</button>
 
                                     <form method="POST" asp-page-handler="Delete">
-                                        <input type="hidden" value="@Model.Cat.CatId" name="id" />
+                                        <input type="hidden" asp-for="@Model.Cat.CatId" />
                                         <button type="submit" class="btn bg-gradient-danger">Confirm</button>
                                     </form>
                                 </div>
