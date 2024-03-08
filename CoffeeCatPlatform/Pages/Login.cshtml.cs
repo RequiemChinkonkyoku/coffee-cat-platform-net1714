@@ -38,9 +38,6 @@ namespace CoffeeCatPlatform.Pages
 
         }
 
-    
-        
-
 
         public IActionResult OnPostCustomer()
 
@@ -64,7 +61,7 @@ namespace CoffeeCatPlatform.Pages
                     HttpContext.Session.SetString(SessionKeyType, type);
                 }
                 _logger.LogInformation("Session Name: {Name}", customer.Name);
-                return RedirectToPage("/MenuPages/Menu", new { id = ID });
+                return RedirectToPage("/Homepage");
             }
         }
 

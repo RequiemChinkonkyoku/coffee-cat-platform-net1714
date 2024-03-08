@@ -14,7 +14,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Reservation.BookingDay" class="control-label"></label>
+                <label asp-for="Reservation.BookingDay" class="control-label">Booking Day</label>
                 <input asp-for="Reservation.BookingDay" class="form-control" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="Reservation.BookingDay" class="text-danger"></span>
             </div>
@@ -29,15 +29,26 @@
                 <span asp-validation-for="Reservation.EndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <div class="col-md-6">
+                    <label asp-for="Reservation.SeatsBooked" class="control-label">Number of Seats</label>
+                    <input asp-for="Reservation.SeatsBooked" class="form-control" type="number" id="seatsBooked" min="1" value="1" />
+                    <span asp-validation-for="Reservation.SeatsBooked" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <input type="button" id="tableSelectButton" value="Select Table" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="form-group">
                 <label asp-for="Reservation.TotalPrice" class="control-label">Total Price</label>
                 <input asp-for="Reservation.TotalPrice" class="form-control" readonly />
                 <span asp-validation-for="Reservation.TotalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button class="btn btn-primary">Create</button>
             </div>
         </form>
     </div>
+
     <div class="col-md-4">
         <p>
             Price is calculated based on the staying time.
@@ -52,13 +63,31 @@
             Payment will be done through Momo.
         </p>
     </div>
+
+    <div class="modal fade" id="tableSelectModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Table Selector</h4>
+                </div>
+                <div class="modal-body" id="modalContent">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="modalConfirmButton">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div>
-    <a asp-page="/Homepage">Back to List</a>
+    <a asp-page="/Homepage">Backk to Homepage</a>
 </div>
 
 @section Scripts {
+
+    @* Script for time *@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var startTimeInput = document.getElementById('startTime');
@@ -82,6 +111,49 @@
 
                 totalPriceInput.value = totalPrice.toFixed(2);
             }
+        });
+    </script>
+
+    @* Script for modal *@
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var seatCountInput = document.getElementById('seatsBooked');
+            var tableSelectButton = document.getElementById('tableSelectButton');
+            var modalConfirmButton = document.getElementById('modalConfirmButton');
+
+            tableSelectButton.addEventListener('click', function () {
+                if (seatCountInput.value >= 1) {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/CreateReservation?handler=GetTable",
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result);
+
+                            $('#modalContent').empty();
+
+                            if (result.length > 0) {
+                                result.forEach(function (table) {
+                                    var tableHtml = '<p>Table ID: ' + table.tableId + ', Seats: ' + table.seatCount + '</p>';
+                                    $(modalContent).append(tableHtml);
+                                });
+                            } else {
+                                $('#modalContent').html('<p>There are no available tables in the time frame</p>');
+                            }
+
+                            $('#tableSelectModal').modal('show');
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+            modalConfirmButton.addEventListener('click', function () {
+                $('#tableSelectModal').modal('hide');
+            });
         });
     </script>
 

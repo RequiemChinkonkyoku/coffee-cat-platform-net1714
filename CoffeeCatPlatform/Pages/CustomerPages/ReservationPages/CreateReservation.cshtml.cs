@@ -9,6 +9,8 @@ using DAOs;
 using Models;
 using Repositories;
 using Repositories.Impl;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Text.Json;
 
 namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 {
@@ -16,16 +18,34 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
     {
         [BindProperty]
         public Reservation Reservation { get; set; } = default!;
+        public List<Table> TableList { get; set; }
+        public List<Reservation> ReservationList { get; set; }
+        public List<ReservationTable> ReservationTables { get; set; }
+        public List<Table> AvailableTables { get; set; }
+        public List<Table> SelectedTables { get; set; }
 
         private readonly IRepositoryBase<Reservation> _reservationRepo;
+        private readonly IRepositoryBase<Table> _tableRepo;
+        private readonly IRepositoryBase<ReservationTable> _reservationTableRepo;
+
 
         private const string SessionKeyName = "_Name";
         private const string SessionKeyId = "_Id";
         private const string SessionKeyType = "_Type";
 
-        public CreateReservationModel(ReservationRepository reservationRepo)
+        public CreateReservationModel(IRepositoryBase<Reservation> reservationRepo,
+                                      IRepositoryBase<Table> tableRepo,
+                                      IRepositoryBase<ReservationTable> reservationTableRepo)
         {
             _reservationRepo = reservationRepo;
+            _tableRepo = tableRepo;
+            _reservationTableRepo = reservationTableRepo;
+
+            TableList = new List<Table>();
+            ReservationList = new List<Reservation>();
+            ReservationTables = new List<ReservationTable>();
+            AvailableTables = new List<Table>();
+            SelectedTables = new List<Table>();
         }
 
         public IActionResult OnGet()
@@ -34,6 +54,7 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             {
                 return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
+
             return Page();
         }
 
@@ -63,6 +84,13 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             }
 
             return RedirectToPage("/Homepage");
+        }
+
+        public IActionResult OnGetGetTable()
+        {
+            var result = JsonSerializer.Serialize(_tableRepo.GetAll(), new JsonSerializerOptions());
+
+            return Content(result, "application/json");
         }
 
         private bool SessionCheck()
