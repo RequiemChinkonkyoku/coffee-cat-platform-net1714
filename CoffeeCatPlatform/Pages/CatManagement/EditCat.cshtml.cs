@@ -31,7 +31,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             return Page();
         }
 
-        public IActionResult OnPost(int id)
+        public IActionResult OnPostEdit(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -61,6 +61,26 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             _catRepository.Update(existingCat);
 
             TempData["SuccessMessage"] = "Cat updated successfully.";
+            return RedirectToPage("./ViewCat");
+        }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            var catToDelete = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
+
+            if (catToDelete == null)
+            {
+                TempData["ErrorMessage"] = "Cat not found.";
+                return RedirectToPage("./ViewCat");
+            }
+
+            // Update the HealthStatus to 0 (unhealthy)
+            catToDelete.HealthStatus = 0;
+
+            // Update the existing cat in the repository
+            _catRepository.Update(catToDelete);
+
+            TempData["SuccessMessage"] = "Cat deleted successfully.";
             return RedirectToPage("./ViewCat");
         }
     }

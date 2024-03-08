@@ -2,53 +2,137 @@
 @model CoffeeCatPlatform.Pages.CatManagement.EditCatModel
 @{
 }
-<h1>Edit Cat</h1>
 
-<form method="post">
-    <div>
-        <label asp-for="Cat.CatId"></label>
-        <input asp-for="Cat.CatId" class="form-control" readonly />
+<section>
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                <h3 class="text-center">CHANGING CAT'S INFORMATION</h3>
+                <form role="form" id="contact-form" method="post" autocomplete="off" asp-page-handler="Edit">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-4">
+                                <label asp-for="Cat.CatId"></label>
+                                <div class="input-group">
+                                    <input asp-for="Cat.CatId" type="text" class="form-control" placeholder="" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="Cat.Name"></label>
+                                <div class="input-group mb-4">
+                                    <input asp-for="Cat.Name" class="form-control" placeholder="" aria-label="Name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label asp-for="Cat.Breed"></label>
+                                <div class="input-group">
+                                    <input asp-for="Cat.Breed" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="Cat.Birthday"></label>
+                                <div class="input-group mb-4">
+                                    <input asp-for="Cat.Birthday" class="form-control" placeholder="" aria-label="Name" type="date">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label asp-for="Cat.Gender"></label>
+                                <div class="input-group">
+                                    <select asp-for="Cat.Gender" class="form-control">
+                                        <option value="0">Male</option>
+                                        <option value="1">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="Cat.HealthStatus"></label>
+                                <div class="input-group mb-4">
+                                    <select asp-for="Cat.HealthStatus" class="form-control">
+                                        <option value="0">Unavailable</option>
+                                        <option value="1">Available</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label>Area</label>
+                                <div class="input-group">
+                                    <input asp-for="Cat.AreaCats" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Cat.ImageUrl"></label>
+                            <div class="input-group">
+                                <input asp-for="Cat.ImageUrl" type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label asp-for="Cat.Description"></label>
+                            <textarea asp-for="Cat.Description" class="form-control" id="message" rows="4"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-check form-switch mb-4">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">I consent to the <a href="javascript:;" class="text-dark"><u>changes made</u></a>.</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn bg-gradient-dark w-100">SAVE CHANGES</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <div class="col-sm-3 col-6 mx-auto">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn bg-gradient-danger w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        DELETE
+                    </button>
+
+                    <!-- Modal -->
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">COMFIRM YOUR DELETION</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    On accepting this change, the cat's status will be set to Unavailable.
+                                    <br><br>
+                                    Are you sure?
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">On second thoughts...</button>
+
+                                    <form method="POST" asp-page-handler="Delete">
+                                        <input type="hidden" value="@Model.Cat.CatId" name="id" />
+                                        <button type="submit" class="btn bg-gradient-danger">Confirm</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
+</section>
 
-    <div>
-        <label asp-for="Cat.Name"></label>
-        <input asp-for="Cat.Name" class="form-control" />
-        <span asp-validation-for="Cat.Name" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.Breed"></label>
-        <input asp-for="Cat.Breed" class="form-control" />
-        <span asp-validation-for="Cat.Breed" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.Birthday"></label>
-        <input asp-for="Cat.Birthday" class="form-control" type="date" />
-        <span asp-validation-for="Cat.Birthday" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.HealthStatus"></label>
-        <select asp-for="Cat.HealthStatus" class="form-control">
-            <option value="0">Unavailable</option>
-            <option value="1">Available</option>
-        </select>
-        <span asp-validation-for="Cat.HealthStatus" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.ImageUrl"></label>
-        <input asp-for="Cat.ImageUrl" class="form-control" />
-        <span asp-validation-for="Cat.ImageUrl" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.Description"></label>
-        <input asp-for="Cat.Description" class="form-control" />
-        <span asp-validation-for="Cat.Description" class="text-danger"></span>
-    </div>
-    <!-- Add more fields based on your Cat model properties -->
-
-    <button type="submit">Save Changes</button>
-</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

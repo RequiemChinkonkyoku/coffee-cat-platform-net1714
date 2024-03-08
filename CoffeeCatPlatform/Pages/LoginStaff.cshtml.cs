@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
-using Repositories.Impl;
 using Repositories;
-using static System.Net.WebRequestMethods;
+using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages
 {
-    public class LoginModel : PageModel
+    public class LoginStaffModel : PageModel
     {
         [BindProperty]
         public string Email { get; set; }
@@ -25,7 +24,7 @@ namespace CoffeeCatPlatform.Pages
         private const string SessionKeyId = "_Id";
         private const string SessionKeyType = "_Type";
 
-        public LoginModel()
+        public LoginStaffModel()
         {
             _customerRepo = new CustomerRepository();
             _staffRepo = new StaffRepository();
@@ -33,35 +32,9 @@ namespace CoffeeCatPlatform.Pages
 
         public void OnGet()
         {
-
         }
 
         public IActionResult OnPost()
-
-        {
-            string type = "Customer";
-            var customer = _customerRepo.GetAll().FirstOrDefault(c =>
-                c.Email.Equals(Email) &&
-                c.Password.Equals(Password));
-
-            if (customer == null)
-            {
-                TempData["ErrorMessage"] = "Invalid username or password.";
-                return RedirectToPage("/Login");
-            }
-            else
-            {
-                if (SessionCheck() == false)
-                {
-                    HttpContext.Session.SetString(SessionKeyName, customer.Name);
-                    HttpContext.Session.SetInt32(SessionKeyId, customer.CustomerId);
-                    HttpContext.Session.SetString(SessionKeyType, type);
-                }
-                return RedirectToPage("/MenuPages/Menu", new { id = ID });
-            }
-        }
-
-        public IActionResult OnPostStaff()
         {
             string type = "Staff";
             var staff = _staffRepo.GetAll().FirstOrDefault(c =>

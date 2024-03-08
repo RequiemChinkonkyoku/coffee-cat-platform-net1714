@@ -84,11 +84,17 @@
                                 @cat.Description
                             </p>
                             <a href="javascript:;" class="text-info icon-move-right">
-                                Read More
+                                Read More About This Cat
                                 <i class="fas fa-arrow-right text-sm"></i>
-                                <a asp-page="./EditCat" asp-route-id="@cat.CatId">Edit</a> |
-                                <a asp-page="./DeleteCat" asp-route-id="@cat.CatId">Delete</a>
                             </a>
+                            <br />
+                            @if (Model.StaffLogin == true)
+                            {
+                                <a asp-page="./EditCat" asp-route-id="@cat.CatId" class="text-info icon-move-right">
+                                    EDIT
+                                    <i class="fas fa-arrow-right text-sm"></i>
+                                </a>
+                            }  
                         </div>
                     </div>
                 </div>
