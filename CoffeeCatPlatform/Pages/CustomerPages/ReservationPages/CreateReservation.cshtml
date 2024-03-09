@@ -39,6 +39,10 @@
                 </div>
             </div>
             <div class="form-group">
+                <ul id="tableIdList">
+                </ul>
+            </div>
+            <div class="form-group">
                 <label asp-for="Reservation.TotalPrice" class="control-label">Total Price</label>
                 <input asp-for="Reservation.TotalPrice" class="form-control" readonly />
                 <span asp-validation-for="Reservation.TotalPrice" class="text-danger"></span>
@@ -87,7 +91,6 @@
 
 @section Scripts {
 
-    @* Script for time *@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var startTimeInput = document.getElementById('startTime');
@@ -97,6 +100,7 @@
             startTimeInput.addEventListener('change', updateTotalPrice);
             endTimeInput.addEventListener('change', updateTotalPrice);
 
+            //Update total price
             function updateTotalPrice() {
                 var startTime = new Date('1970-01-01T' + startTimeInput.value);
                 var endTime = new Date('1970-01-01T' + endTimeInput.value);
@@ -112,21 +116,21 @@
                 totalPriceInput.value = totalPrice.toFixed(2);
             }
 
+            //Check if there are tables selected before submitting
             function CheckSelectedTables(event) {
                 var tableIdListElement = document.querySelectorAll('.selectedTableId');
-
-                //var selectedTableInputs = document.getElementsByClassName('selectedTableId');
 
                 if (tableIdListElement.length > 0) {
                     document.getElementById('reservationForm').submit();
                 } else {
+                    alert('Unable to get selectedTableIds');
                     event.preventDefault();
                 }
             }
         });
     </script>
 
-    @* Script for modal *@
+    @* Modal script *@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var seatCountInput = document.getElementById('seatsBooked');
@@ -137,6 +141,7 @@
             var startTimeInput = document.getElementById('startTime');
             var endTimeInput = document.getElementById('endTime');
 
+            //Show modal and get available tables
             tableSelectButton.addEventListener('click', function () {
                 if (seatCountInput.value >= 1 && bookingDayInput.value && startTimeInput.value && endTimeInput.value) {
                     var requestData = {
@@ -174,7 +179,7 @@
                                     });
                                 } else {
                                     $('#modalContent').html('<p>There isnt enough seat in the time frame </p>');
-                                        }
+                                }
                             } else {
                                 $('#modalContent').html('<p>There are no available tables in the time frame</p>');
                             }
@@ -188,6 +193,7 @@
                 }
             });
 
+            //Hide modal and add selected tables to form list
             modalConfirmButton.addEventListener('click', function () {
                 var selectedTables = [];
 
@@ -199,14 +205,33 @@
 
                 console.log(selectedTables);
 
+                // if (selectedTables.length > 0) {
+                //     selectedTables.forEach(function (tableId, index) {
+                //         var tableIdInput = $('<input>').attr({
+                //             type: 'hidden',
+                //             class: 'selectedTableId',
+                //             name: 'selectedTable',
+                //             value: tableId
+                //         }).appendTo('#reservationForm');
+                //     });
+                // }
+
                 if (selectedTables.length > 0) {
-                    selectedTables.forEach(function (tableId, index) {
+                    var tableIdList = $('#tableIdList');
+
+                    tableIdList.empty();
+
+                    selectedTables.forEach(function (tableId) {
                         var tableIdInput = $('<input>').attr({
                             type: 'hidden',
                             class: 'selectedTableId',
                             name: 'selectedTable',
                             value: tableId
                         }).appendTo('#reservationForm');
+
+                        var listItem = $('<li>').text(tableId);
+
+                        tableIdList.append(listItem);
                     });
                 }
 
