@@ -12,7 +12,7 @@
 <div class="scroll-container">
 
     <p>
-        <a asp-page="Create">Create New</a>
+        <a asp-page="./MenuCreate">Create New</a>
     </p>
     <div class="scroll-content">
 
@@ -59,51 +59,120 @@
                     @foreach (var item in Model.Products)
                     {
                         <div class="menu-item">
-                            <tr>
-                                <div class="menu-item-img">
-                                    <td class="image-cell">
-                                        <img src="@item.ImageUrl" alt="Drink">
-                                    </td>
-                                </div>
-                                <div class="menu-item-info">
-                                    <td class="content-cell">
-                                            @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td class="content-cell">
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td class="content-cell">
-                                            @Html.DisplayFor(modelItem => item.Price)
-                                    </td>
-                                    <td class="content-cell">
-                                            @Html.DisplayFor(modelItem => item.Quantity)
-                                    </td>
+                        <tr>
+                            <div class="menu-item-img">
+                            <td class="image-cell">
+                                <img src="@item.ImageUrl" alt="Drink">
+                            </td>
+            </div>
+            <div class="menu-item-info">
+                <td class="content-cell">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="content-cell">
+                                        @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="content-cell">
+                                        @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td class="content-cell">
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
                                     @if (item.productStatus == 1)
                                     {
-                                        <td>
-                                            Avaialble
-                                        </td>
+                    <td>
+                        Avaialble
+                    </td>
                                     }
                                     else
                                     {
-                                        <td>
-                                            Unavailable
-                                        </td>
+                    <td>
+                        Unavailable
+                    </td>
                                     }
-                                    <td>
-                                            <a asp-page="./MenuEdit" asp-route-id="@item.ProductId">Edit</a> |
-                                            <a asp-page="./MenuDelete" asp-route-id="@item.ProductId">Delete</a>
-                                    </td>
-                                </div>
-                            </tr>
-                        </div>
+                <td>
+                    <a asp-page="./MenuEdit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-page="./MenuDelete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </div>
+            </tr>
+        </div>
                     }
-                </tbody>
+                            </tbody>
             }
         </table>
-    
-            <a asp-page="./MenuCreate">Create New Product</a>
+
+<a asp-page="./MenuCreate">Create New Product</a>
 
     </div>
 
 </div>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center">
+                <h6 class="text-gradient text-info text-uppercase">The Executive Team</h6>
+                <h2>Building the future</h2>
+            </div>
+        </div>
+        <div class="row mt-md-5 mt-4">
+            <div class="col-lg-3 col-6 mb-lg-0 mb-4">
+                <div class="card shadow-xl">
+                    <div class="card-body text-center bg-white border-radius-lg p-3">
+                        <a href="javascript:;">
+                            <img class="w-100 border-radius-md" src="https://file.hstatic.net/1000075078/article/blog_f80b599183c340bca744c174e7ab2af8.jpg" alt="card image">
+                        </a>
+                        <h5 class="mt-3 mb-1 d-md-block d-none">Miriam Lendra</h5>
+                        <p class="mb-1 d-md-none d-block text-sm font-weight-bold text-darker">Miriam Lendra</p>
+                        <p class="mb-0 text-xs font-weight-bolder text-info text-gradient text-uppercase">Desktop Publisher</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 mb-lg-0 mb-4">
+                <div class="card shadow-xl">
+                    <div class="card-body text-center bg-white border-radius-lg p-3">
+                        <a href="javascript:;">
+                            <img class="w-100 border-radius-md" src="https://file.hstatic.net/1000075078/article/blog_f80b599183c340bca744c174e7ab2af8.jpg" alt="card image">
+                        </a>
+                        <h5 class="mt-3 mb-1 d-md-block d-none">Miriam Lendra</h5>
+                        <p class="mb-1 d-md-none d-block text-sm font-weight-bold text-darker">Miriam Lendra</p>
+                        <p class="mb-0 text-xs font-weight-bolder text-info text-gradient text-uppercase">Desktop Publisher</p>
+                    </div>
+                </div>
+            </div><div class="col-lg-3 col-6 mb-lg-0 mb-4">
+                <div class="card shadow-xl">
+                    <div class="card-body text-center bg-white border-radius-lg p-3">
+                        <a href="javascript:;">
+                            <img class="w-100 border-radius-md" src="https://file.hstatic.net/1000075078/article/blog_f80b599183c340bca744c174e7ab2af8.jpg" alt="card image">
+                        </a>
+                        <h5 class="mt-3 mb-1 d-md-block d-none">Miriam Lendra</h5>
+                        <p class="mb-1 d-md-none d-block text-sm font-weight-bold text-darker">Miriam Lendra</p>
+                        <p class="mb-0 text-xs font-weight-bolder text-info text-gradient text-uppercase">Desktop Publisher</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 mb-lg-0 mb-4">
+                <div class="card shadow-xl">
+                    <div class="card-body text-center bg-white border-radius-lg p-3">
+                        <a href="javascript:;">
+                            <img class="w-100 border-radius-md" src="https://file.hstatic.net/1000075078/article/blog_f80b599183c340bca744c174e7ab2af8.jpg" alt="card image">
+                        </a>
+                        <h5 class="mt-3 mb-1 d-md-block d-none">Miriam Lendra</h5>
+                        <p class="mb-1 d-md-none d-block text-sm font-weight-bold text-darker">Miriam Lendra</p>
+                        <p class="mb-0 text-xs font-weight-bolder text-info text-gradient text-uppercase">Desktop Publisher</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-7 pb-6">
+            <div class="col-lg-6">
+                <h2>Get your own app</h2>
+                <p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.</p>
+            </div>
+            <div class="col-lg-6 text-end d-flex flex-column justify-content-center">
+                <button type="button" class="btn bg-gradient-info mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2">Join Team</button>
+            </div>
+        </div>
+    </div>
+</section>
