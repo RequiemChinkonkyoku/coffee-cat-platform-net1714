@@ -25,23 +25,26 @@
                                 <p class="mb-0">Enter your email and password to register</p>
                             </div>
                             <div class="card-body">
-                                <form role="form" method="POST" asp-page-handler="" autocomplete="off">
-                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <form method="POST" asp-page-handler="" autocomplete="off">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control form-control-lg" autocomplete="false" placeholder="Name" id="name" name="name"
-                                               asp-for="Customer.Name" />
+                                        <label asp-for="Customer.Name"></label>
+                                        <input class="form-control" asp-for="Customer.Name" />
+                                        <span asp-validation-for="Customer.Name" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control form-control-lg" autocomplete="false" placeholder="Phone" id="phone" name="phone"
-                                               asp-for="Customer.Phone" />
+                                        <label asp-for="Customer.Phone"></label>
+                                        <input class="form-control" asp-for="Customer.Phone" />
+                                        <span asp-validation-for="Customer.Phone" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="text" class="form-control form-control-lg" autocomplete="false" placeholder="Email" id="email" name="email"
-                                               asp-for="Customer.Email" />
+                                        <label asp-for="Customer.Email"></label>
+                                        <input class="form-control" asp-for="Customer.Email" />
+                                        <span asp-validation-for="Customer.Email" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="password" class="form-control form-control-lg" autocomplete="new-password" placeholder="Password" id="password" name="password"
-                                               asp-for="Customer.Password" />
+                                        <label asp-for="Customer.Password"></label>
+                                        <input class="form-control" asp-for="Customer.Password" />
+                                        <span asp-validation-for="Customer.Password" class="text-danger"></span>
                                     </div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="agreeTerms" name="agreeTerms">
@@ -85,3 +88,4 @@
     </div>
 </body>
 </html>
+
