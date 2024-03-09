@@ -69,7 +69,10 @@
                         <td>Inactive</td>
                     }
                     <td>
-
+                        <!--
+                        <a asp-page="./MenuEdit" asp-route-id="@CustomerAccount.CustomerId">Edit</a> |
+                        -->
+                        <a asp-page="./CustomerAccountDelete" asp-route-id="@CustomerAccount.CustomerId">Delete</a>
                     </td>
                 </tr>
             }
@@ -139,7 +142,7 @@
                         <td>Inactive</td>
                     }
                     <td>
-
+                        <a asp-page="./StaffAccountDelete" asp-route-id="@StaffAccount.StaffId">Delete</a>
                     </td>
                 </tr>
             }
