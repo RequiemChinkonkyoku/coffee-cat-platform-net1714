@@ -13,6 +13,8 @@ public partial class Reservation
 
     public TimeSpan EndTime { get; set; }
 
+    public int SeatsBooked { get; set; }
+
     public int Status { get; set; }
 
     public decimal? TotalPrice { get; set; }
