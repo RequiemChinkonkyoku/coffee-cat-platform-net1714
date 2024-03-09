@@ -7,6 +7,8 @@ public partial class Table
 {
     public int TableId { get; set; }
 
+    public int SeatCount { get; set; }
+
     public int Status { get; set; }
 
     public int? AreaId { get; set; }
