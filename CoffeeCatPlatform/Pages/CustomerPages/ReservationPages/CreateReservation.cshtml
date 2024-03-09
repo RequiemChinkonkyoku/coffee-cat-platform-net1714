@@ -11,11 +11,11 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" id="reservationForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Reservation.BookingDay" class="control-label">Booking Day</label>
-                <input asp-for="Reservation.BookingDay" class="form-control" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <input asp-for="Reservation.BookingDay" class="form-control" type="date" id="bookingDay" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="Reservation.BookingDay" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,7 +44,7 @@
                 <span asp-validation-for="Reservation.TotalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary">Create</button>
+                <input type="submit" class="btn btn-primary" value="Create" onclick="CheckSelectedTables(event)" />
             </div>
         </form>
     </div>
@@ -82,7 +82,7 @@
 </div>
 
 <div>
-    <a asp-page="/Homepage">Backk to Homepage</a>
+    <a asp-page="/Homepage">Back to Homepage</a>
 </div>
 
 @section Scripts {
@@ -111,6 +111,18 @@
 
                 totalPriceInput.value = totalPrice.toFixed(2);
             }
+
+            function CheckSelectedTables(event) {
+                var tableIdListElement = document.querySelectorAll('.selectedTableId');
+
+                //var selectedTableInputs = document.getElementsByClassName('selectedTableId');
+
+                if (tableIdListElement.length > 0) {
+                    document.getElementById('reservationForm').submit();
+                } else {
+                    event.preventDefault();
+                }
+            }
         });
     </script>
 
@@ -121,12 +133,24 @@
             var tableSelectButton = document.getElementById('tableSelectButton');
             var modalConfirmButton = document.getElementById('modalConfirmButton');
 
+            var bookingDayInput = document.getElementById('bookingDay');
+            var startTimeInput = document.getElementById('startTime');
+            var endTimeInput = document.getElementById('endTime');
+
             tableSelectButton.addEventListener('click', function () {
-                if (seatCountInput.value >= 1) {
+                if (seatCountInput.value >= 1 && bookingDayInput.value && startTimeInput.value && endTimeInput.value) {
+                    var requestData = {
+                        bookingDay: bookingDayInput.value,
+                        startTime: startTimeInput.value,
+                        endTime: endTimeInput.value
+                    };
+
+                    console.log(requestData);
 
                     $.ajax({
                         type: "GET",
                         url: "/CreateReservation?handler=GetTable",
+                        data: requestData,
                         dataType: "json",
                         success: function (result) {
                             console.log(result);
@@ -134,10 +158,23 @@
                             $('#modalContent').empty();
 
                             if (result.length > 0) {
+                                var totalSeatCount = 0;
                                 result.forEach(function (table) {
-                                    var tableHtml = '<p>Table ID: ' + table.tableId + ', Seats: ' + table.seatCount + '</p>';
-                                    $(modalContent).append(tableHtml);
+                                    totalSeatCount += table.SeatCount;
                                 });
+
+                                if (seatCountInput.value <= totalSeatCount) {
+                                    result.forEach(function (table) {
+                                        var tableHtml = '';
+                                        tableHtml += '<div>';
+                                        tableHtml += '<p>Table ' + table.SeatCount + '</p>';
+                                        tableHtml += '<input type="checkbox" value=' + table.TableId + '></input>';
+                                        tableHtml += '</div>';
+                                        $('#modalContent').append(tableHtml);
+                                    });
+                                } else {
+                                    $('#modalContent').html('<p>There isnt enough seat in the time frame </p>');
+                                        }
                             } else {
                                 $('#modalContent').html('<p>There are no available tables in the time frame</p>');
                             }
@@ -152,6 +189,27 @@
             });
 
             modalConfirmButton.addEventListener('click', function () {
+                var selectedTables = [];
+
+                $('#tableSelectModal input[type="checkbox"]').each(function () {
+                    if ($(this).prop('checked')) {
+                        selectedTables.push($(this).val());
+                    }
+                });
+
+                console.log(selectedTables);
+
+                if (selectedTables.length > 0) {
+                    selectedTables.forEach(function (tableId, index) {
+                        var tableIdInput = $('<input>').attr({
+                            type: 'hidden',
+                            class: 'selectedTableId',
+                            name: 'selectedTable',
+                            value: tableId
+                        }).appendTo('#reservationForm');
+                    });
+                }
+
                 $('#tableSelectModal').modal('hide');
             });
         });
