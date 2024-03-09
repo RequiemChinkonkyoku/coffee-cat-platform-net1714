@@ -91,7 +91,8 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 
         }
 
-        public IActionResult OnPost(int id) {
+        public IActionResult OnPost(int id) 
+        {
 
             if (!ModelState.IsValid)
             {

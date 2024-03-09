@@ -69,9 +69,8 @@
                         <td>Inactive</td>
                     }
                     <td>
-                        <!--
-                        <a asp-page="./MenuEdit" asp-route-id="@CustomerAccount.CustomerId">Edit</a> |
-                        -->
+                        <a asp-page="./CustomerAccountUpdate" asp-route-id="@CustomerAccount.CustomerId">Edit</a> |
+                        
                         <a asp-page="./CustomerAccountDelete" asp-route-id="@CustomerAccount.CustomerId">Delete</a>
                     </td>
                 </tr>
@@ -89,6 +88,9 @@
                 @Html.DisplayNameFor(model => model.Staffs[0].Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].Gender)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Staffs[0].Phone)
             </th>
             <th>
@@ -99,6 +101,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Staffs[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].RoleId)
             </th>
             <th>
 
@@ -123,6 +128,14 @@
                     <td>
                         @Html.DisplayFor(modelAccount => StaffAccount.Name)
                     </td>
+                    @if (StaffAccount.Gender == 0)
+                    {
+                        <td>Male</td>
+                    }
+                    else
+                    {
+                        <td>Female</td>
+                    }
                     <td>
                         @Html.DisplayFor(modelAccount => StaffAccount.Phone)
                     </td>
@@ -141,7 +154,18 @@
                     {
                         <td>Inactive</td>
                     }
+
+                    @if (StaffAccount.RoleId == 1)
+                    {
+                        <td>Manager</td>
+                    }
+                    else
+                    {
+                        <td>Staff</td>
+                    }
                     <td>
+                        <a asp-page="./StaffAccountUpdate" asp-route-id="@StaffAccount.StaffId">Edit</a> |
+
                         <a asp-page="./StaffAccountDelete" asp-route-id="@StaffAccount.StaffId">Delete</a>
                     </td>
                 </tr>
@@ -149,3 +173,5 @@
         </tbody>
     }
 </table>
+
+<a asp-page="./CreateNewStaffAccount">Create New Staff</a>
