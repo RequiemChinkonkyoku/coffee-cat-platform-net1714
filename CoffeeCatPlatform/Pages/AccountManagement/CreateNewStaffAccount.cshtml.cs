@@ -20,24 +20,21 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             _staffRepo = staffRepo;
         }
 
+        [BindProperty]
+        public Staff Staff { get; set; }
+
         public IActionResult OnGet()
         {
-        ViewData["RoleId"] = new SelectList(_staffRepo.GetAll(), "RoleId", "Name");
-        ViewData["ShopId"] = new SelectList(_staffRepo.GetAll(), "ShopId", "ShopId");
             return Page();
         }
 
-        [BindProperty]
-        public Staff Staff { get; set; } = default!;
-        
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-          if (!ModelState.IsValid || _staffRepo.GetAll() == null || Staff == null)
+            if (!ModelState.IsValid) 
             {
                 return Page();
             }
+
             Staff.RoleId = 2;
             Staff.Status = 1;
             _staffRepo.Add(Staff);

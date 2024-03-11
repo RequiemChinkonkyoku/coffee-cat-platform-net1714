@@ -20,26 +20,20 @@ namespace CoffeeCatPlatform.Pages.MenuPages
             _productRepo = productRepo;
         }
 
+        [BindProperty]
+        public Product Product { get; set; }
+
         public IActionResult OnGet()
         {
-            ViewData["ShopId"] = new SelectList(_productRepo.GetAll(), "ShopId", "ShopId");
             return Page();
         }
 
-        [BindProperty]
-        public Product Product { get; set; } = default!;
-
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-            if (!ModelState.IsValid || _productRepo.GetAll() == null || Product == null)
-            {
-                return Page();
-            }
             Product.productStatus = 1;
             _productRepo.Add(Product);
 
+            TempData["SuccessMessage"] = "Product created successfully.";
             return RedirectToPage("./Menu");
         }
     }

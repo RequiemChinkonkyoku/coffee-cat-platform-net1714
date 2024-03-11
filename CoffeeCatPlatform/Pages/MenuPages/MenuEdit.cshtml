@@ -45,6 +45,14 @@
                 <span asp-validation-for="Product.ShopId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Product.categoryID" class="control-label"></label>
+                <select asp-for="Product.categoryID" class="form-control" asp-items="ViewBag.ShopId">
+                    <option value="1">Drinks</option>
+                    <option value="2">Foods</option>
+                </select>
+                <span asp-validation-for="Product.categoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
