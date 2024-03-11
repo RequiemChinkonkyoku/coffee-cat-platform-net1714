@@ -1,9 +1,7 @@
-﻿@page "/Login"
-@model CoffeeCatPlatform.Pages.LoginModel
-@using Microsoft.AspNetCore.Http
-
+﻿@page "/LoginStaff"
+@model CoffeeCatPlatform.Pages.LoginStaffModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "LoginStaff";
 }
 
 <!DOCTYPE html>
@@ -21,7 +19,7 @@
                     <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
                         <div class="card card-plain">
                             <div class="card-header pb-0 text-left">
-                                <h4 class="font-weight-bolder">Login</h4>
+                                <h4 class="font-weight-bolder">Login for Staff</h4>
                                 <p class="mb-0">Enter your email and password to login</p>
                             </div>
                             <div class="card-body">
@@ -43,15 +41,10 @@
                             </div>
                             <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                 <p class="mb-4 text-sm mx-auto">
-                                    Don't have an account?
-                                    <a href="/Register" class="text-primary text-gradient font-weight-bold">Register</a>
-                                </p>
-                                <p class="mb-4 text-sm mx-auto">
-                                    Are you a staff?
-                                    <a href="/LoginStaff" class="text-primary text-gradient font-weight-bold">Login for Staff</a>
+                                    Are you a customer?
+                                    <a href="/Login" class="text-primary text-gradient font-weight-bold">Login for customer</a>
                                 </p>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">

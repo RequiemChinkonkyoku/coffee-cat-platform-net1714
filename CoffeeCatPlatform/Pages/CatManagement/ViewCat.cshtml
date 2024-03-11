@@ -1,61 +1,99 @@
 ﻿@page "/ViewCat"
 @model CoffeeCatPlatform.Pages.CatManagement.CatViewModel
+@using Microsoft.AspNetCore.Http
 @{
+    ViewData["Title"] = "ViewCat";
 }
 
-<h1>View All Cats</h1>
+<header>
+    <div class="page-header min-vh-75" style="background-image: url(https://images.contentstack.io/v3/assets/blt6f84e20c72a89efa/bltf50dbe688a369bde/63c73a891bb5c94c86d1cf98/img-cat-whiskers-101-og.jpg)">
+        <span class="mask bg-gradient-dark"></span>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-white text-center">
+                    <h2 class="text-white">Meet The Cats</h2>
+                    <p class="lead">List of our cats.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="position-relative overflow-hidden" style="height:36px;margin-top:-35px;">
+        <div class="w-full absolute bottom-0 start-0 end-0" style="transform: scale(2);transform-origin: top center;color: #fff;">
+            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row bg-white shadow-lg mt-n6 border-radius-md pb-4 p-3 mx-sm-0 mx-1 position-relative">
+            <div class="col-lg-3 mt-lg-n2 mt-2">
+                <label class="">Name</label>
+                <input class="form-control" placeholder="" aria-label="Name" type="text">
+            </div>
+            <div class="col-lg-3 mt-lg-n2 mt-2">
+                <label class="">Breed</label>
+                <input class="form-control" placeholder="" aria-label="Name" type="text">
+            </div>
+            <div class="col-lg-3 mt-lg-n2 mt-2">
+                <label class="">Availability</label>
+                <input class="form-control" placeholder="" aria-label="Name" type="text">
+            </div>
+            <div class="col-lg-3 d-flex align-items-center my-auto">
+                <button type="button" class="btn bg-gradient-dark w-100 btn-lg mb-0 m4 mt-3">Search</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="mb-5">Cat List</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var cat in Model.Cats)
+            {
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card card-plain card-blog">
+                        <div class="card-image border-radius-lg position-relative">
+                            <a asp-page="./InfoCat" asp-route-id="@cat.CatId">
+                                <img class="w-100 border-radius-lg move-on-hover shadow"
+                                     src="@cat.ImageUrl"
+                                     alt="Cat Image" style="max-width:300px; max-height:200px; display:block; width:auto; height:auto; min-width:300px; min-height:200px" />
+                            </a>
+                        </div>
+                        <div class="card-body px-0">
+                            <h5>
+                                <a asp-page="./InfoCat" asp-route-id="@cat.CatId" class="text-dark font-weight-bold">
+                                    @cat.Name
+                                </a>
+                            </h5>
+                            <p id="desc" style="-webkit-box-orient:vertical; -webkit-line-clamp:3; display:-webkit-box; width:100%; overflow:hidden">
+                                @cat.Description
+                            </p>
+                            <a asp-page="./InfoCat" asp-route-id="@cat.CatId" class="text-info icon-move-right">
+                                Read More About This Cat
+                                <i class="fas fa-arrow-right text-sm"></i>
+                            </a>
+                            <br />
+                            @if (Model.StaffLogin == true)
+                            {
+                                <a asp-page="./EditCat" asp-route-id="@cat.CatId" class="text-info icon-move-right">
+                                    EDIT
+                                    <i class="fas fa-arrow-right text-sm"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
 
 
-
-<table class="table">
-    <thead>
-        <tr>
-            
-            <th>Name</th>
-            <th>Breed</th>
-            <th>Birthday</th>
-            <th>Health Status</th>
-            <th>Image</th>
-            <th>Actions</th>
-            
-            <!-- Add more headers based on your Cat model properties -->
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var cat in Model.Cats)
-        {
-            <tr>
-                
-                <td>@cat.Name</td>
-                <td>@cat.Breed</td>
-                <td>@cat.Birthday.ToShortDateString()</td>
-                @if (cat.HealthStatus == 1)
-                {
-                    <td>
-                        <p>
-                            Available
-                        </p>
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <p>
-                            Unavailable
-                        </p>
-                    </td>
-                }
-                <td>
-                    <img src="@cat.ImageUrl" alt="Cat Image" style="max-width: 100px; max-height: 100px;" />
-                </td>
-                <td>
-                    <a asp-page="./EditCat" asp-route-id="@cat.CatId">Edit</a> |
-                    <a asp-page="./DeleteCat" asp-route-id="@cat.CatId">Delete</a>
-                </td>
-                <!-- Add more cells based on your Cat model properties -->
-            </tr>
-        }
-    </tbody>
-    
-</table>
 <a asp-page="./CreateCat">Create Cat</a>
+
