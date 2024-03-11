@@ -28,7 +28,7 @@ public partial class Product
 
     public int? ShopId { get; set; }
 
-    public int? categoryID { get; set; }
+    public int? CategoryId { get; set; }
 
     public virtual ICollection<BillProduct> BillProducts { get; set; } = new List<BillProduct>();
 

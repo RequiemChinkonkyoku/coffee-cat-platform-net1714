@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS promotion;
 DROP TABLE IF EXISTS staff;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS reservationTable;
 DROP TABLE IF EXISTS reservation;
 DROP TABLE IF EXISTS "table";
@@ -14,7 +15,6 @@ DROP TABLE IF EXISTS cat;
 DROP TABLE IF EXISTS area;
 DROP TABLE IF EXISTS shop;
 DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS category;
 
 CREATE TABLE customer (
     customerID INT IDENTITY(1, 1) PRIMARY KEY,
@@ -41,6 +41,7 @@ CREATE TABLE area (
 
 CREATE TABLE "table" (
 	tableID INT IDENTITY(1, 1) PRIMARY KEY,
+	seatCount INT NOT NULL,
 	status INT CHECK (status IN (0, 1)) NOT NULL, -- 0 = cancelled, 1 = booked
 	areaID INT REFERENCES area(areaID)
 );
@@ -50,6 +51,7 @@ CREATE TABLE reservation (
     bookingDay DATE NOT NULL,
 	startTime TIME NOT NULL,
 	endTime TIME NOT NULL,
+	seatsBooked INT NOT NULL,
     status INT CHECK (status IN (-1, 0, 1)) NOT NULL, -- 0 = cancelled, 1 = booked
 	totalPrice DECIMAL(10, 2),
     customerID INT REFERENCES customer(customerID)
@@ -69,7 +71,8 @@ CREATE TABLE cat (
     birthday date NOT NULL,
     healthStatus INT Check(healthStatus IN (0, 1)) NOT NULL,-- 0 = availabled, 1 = unavailabled
     shopID INT REFERENCES shop(shopID),
-    imageUrl NVARCHAR(255) 
+    imageUrl NVARCHAR(255),
+	description NVARCHAR(MAX)
 );
 
 CREATE TABLE areaCat (

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories;
+using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages.CatManagement
 {
@@ -9,7 +10,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
     {
         private readonly IRepositoryBase<Cat> _catRepository;
 
-        public EditCatModel(IRepositoryBase<Cat> catRepository)
+        public EditCatModel(CatRepository catRepository)
         {
             _catRepository = catRepository;
         }
@@ -17,21 +18,22 @@ namespace CoffeeCatPlatform.Pages.CatManagement
         [BindProperty]
         public Cat Cat { get; set; }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet(int? id)
         {
             // Retrieve the Cat from the repository based on the provided id
-            Cat = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
+            var temp = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
-            if (Cat == null)
+            if (temp == null)
             {
                 TempData["ErrorMessage"] = "Cat not found.";
                 return RedirectToPage("./ViewCat");
             }
+            Cat = temp;
 
             return Page();
         }
 
-        public IActionResult OnPost(int id)
+        public IActionResult OnPostEdit(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -40,26 +42,47 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             }
 
             // Retrieve the existing Cat from the repository based on the provided id
-            var existingCat = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
+            //var existingCat = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
-            if (existingCat == null)
-            {
-                TempData["ErrorMessage"] = "Cat not found.";
-                return RedirectToPage("./ViewCat");
-            }
+            //if (existingCat == null)
+            //{
+            //    TempData["ErrorMessage"] = "Cat not found.";
+            //    return RedirectToPage("./ViewCat");
+            //}
 
             // Update the properties of the existingCat with the values from the posted Cat
-            existingCat.Name = Cat.Name;
+/*            existingCat.Name = Cat.Name;
             existingCat.AreaCats = Cat.AreaCats;
             existingCat.HealthStatus = Cat.HealthStatus;
             existingCat.Breed = Cat.Breed;
             existingCat.Birthday = Cat.Birthday;
             existingCat.ImageUrl = Cat.ImageUrl;
+            existingCat.Description = Cat.Description;*/
 
             // Update the existingCat in the repository
-            _catRepository.Update(existingCat);
+            _catRepository.Update(Cat);
 
             TempData["SuccessMessage"] = "Cat updated successfully.";
+            return RedirectToPage("./ViewCat");
+        }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            var catToDelete = _catRepository.GetAll().FirstOrDefault(c => c.CatId == Cat.CatId);
+
+            if (catToDelete == null)
+            {
+                TempData["ErrorMessage"] = "Cat not found.";
+                return RedirectToPage("./ViewCat");
+            }
+
+            // Update the HealthStatus to 0 (unhealthy)
+            catToDelete.HealthStatus = 0;
+
+            // Update the existing cat in the repository
+            _catRepository.Update(catToDelete);
+
+            TempData["SuccessMessage"] = "Cat deleted successfully.";
             return RedirectToPage("./ViewCat");
         }
     }

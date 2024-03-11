@@ -1,60 +1,96 @@
 ﻿@page
 @model CoffeeCatPlatform.Pages.CatManagement.CreateCatModel
 @{
+    ViewData["Title"] = "CreateCat";
 }
-<form method="post">
-    <!-- Display validation summary -->
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <!-- Form fields for creating a new cat -->
-    <div>
-        <label asp-for="Cat.Name"></label>
-        <input asp-for="Cat.Name" class="form-control" />
-        <span asp-validation-for="Cat.Name" class="text-danger"></span>
+<section>
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                <h3 class="text-center">CREATING A NEW CAT</h3>
+                <form role="form" id="contact-form" method="post" autocomplete="off">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="Cat.Name"></label>
+                                <div class="input-group mb-4">
+                                    <input asp-for="Cat.Name" class="form-control" placeholder="" aria-label="Name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label asp-for="Cat.Breed"></label>
+                                <div class="input-group">
+                                    <input asp-for="Cat.Breed" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="Cat.Birthday"></label>
+                                <div class="input-group mb-4">
+                                    <input asp-for="Cat.Birthday" class="form-control" placeholder="" aria-label="Name" type="date">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label asp-for="Cat.Gender"></label>
+                                <div class="input-group">
+                                    <select asp-for="Cat.Gender" class="form-control">
+                                        <option value="0">Male</option>
+                                        <option value="1">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="Cat.HealthStatus"></label>
+                                <div class="input-group mb-4">
+                                    <select asp-for="Cat.HealthStatus" class="form-control">
+                                        <option value="0">Unavailable</option>
+                                        <option value="1">Available</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label>Area</label>
+                                <div class="input-group">
+                                    <input asp-for="Cat.AreaCats" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Cat.ImageUrl"></label>
+                            <div class="input-group">
+                                <input asp-for="Cat.ImageUrl" type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label asp-for="Cat.Description"></label>
+                            <textarea asp-for="Cat.Description" class="form-control" id="message" rows="4"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-check form-switch mb-4">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">I agree to the <a href="javascript:;" class="text-dark"><u>Terms and Conditions</u></a>.</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn bg-gradient-dark w-100">CREATE</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</section>
 
-    <div>
-        <label asp-for="Cat.AreaCats"></label>
-        <input asp-for="Cat.AreaCats" class="form-control" />
-        <span asp-validation-for="Cat.AreaCats" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.Gender"></label>
-        <select asp-for="Cat.Gender" class="form-control">
-            <option value="0">Male</option>
-            <option value="1">Female</option>
-        </select>
-        <span asp-validation-for="Cat.Gender" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.HealthStatus"></label>
-        <select asp-for="Cat.HealthStatus" class="form-control">
-            <option value="0">Unavailable</option>
-            <option value="1">Available</option>
-        </select>
-        <span asp-validation-for="Cat.HealthStatus" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.Breed"></label>
-        <input asp-for="Cat.Breed" class="form-control" />
-        <span asp-validation-for="Cat.Breed" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.Birthday"></label>
-        <input asp-for="Cat.Birthday" class="form-control" />
-        <span asp-validation-for="Cat.Birthday" class="text-danger"></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat.ImageUrl"></label>
-        <input asp-for="Cat.ImageUrl" class="form-control" />
-        <span asp-validation-for="Cat.ImageUrl" class="text-danger"></span>
-    </div>
-    <!-- Add other fields as needed -->
-    <!-- Submit button -->
-    <button type="submit">Create Cat</button>
-</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

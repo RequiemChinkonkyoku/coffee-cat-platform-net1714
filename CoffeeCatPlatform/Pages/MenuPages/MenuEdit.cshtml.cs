@@ -38,17 +38,15 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 
         }
 
-        public IActionResult OnPost(int id) 
-        {
-
-            /*if (!ModelState.IsValid)
+        public IActionResult OnPostEdit(int id) {
+            if (!ModelState.IsValid)
             {
                 // If the model state is not valid, return the page with validation errors
                 return Page();
             }
             */
 
-            var existingProduct = _productRepo.GetAll().FirstOrDefault(p => p.ProductId == id);
+            /*var existingProduct = _productRepo.GetAll().FirstOrDefault(p => p.ProductId == id);
 
             if (existingProduct == null)
             {
@@ -61,13 +59,31 @@ namespace CoffeeCatPlatform.Pages.MenuPages
             existingProduct.Price = Product.Price;
             existingProduct.Quantity = Product.Quantity;    
             existingProduct.ImageUrl = Product.ImageUrl;
-            existingProduct.Shop = Product.Shop;
-
-            _productRepo.Update(existingProduct);
+            existingProduct.Shop = Product.Shop;*/
+            Product.productStatus = 1;
+            _productRepo.Update(Product);
 
             TempData["SuccessMessage"] = "Product updated successfully.";
             return RedirectToPage("./Menu");
 
+        }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            var productToDelete = _productRepo.GetAll().FirstOrDefault(p => p.ProductId == Product.ProductId);
+
+            if (productToDelete == null)
+            {
+                TempData["ErrorMessage"] = "Product not found.";
+                return RedirectToPage("./Menu");
+            }
+
+            productToDelete.productStatus = 0;
+
+            _productRepo.Update(productToDelete);
+
+            TempData["SuccessMessage"] = "Product deleted successfully.";
+            return RedirectToPage("./Menu");
         }
     }
 }
