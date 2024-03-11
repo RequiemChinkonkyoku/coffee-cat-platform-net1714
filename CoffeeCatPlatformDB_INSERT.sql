@@ -11,10 +11,10 @@ VALUES ('Indoor Seating', 1),
        ('Private Lounge', 1);
 
 -- Insert sample data into the 'table' table
-INSERT INTO "table" (status, areaID)
-VALUES (1, 1),
-       (1, 2),
-       (1, 3);
+INSERT INTO "table" (seatCount, status, areaID)
+VALUES (5, 1, 1),
+       (7, 1, 2),
+       (3, 1, 3);
 
 -- Insert sample data into the 'customer' table
 INSERT INTO customer (name, phone, email, password, status)
@@ -62,10 +62,10 @@ VALUES ('No Promotion', 'No discount', 0, 0),
        ('Combo Deal', 'Buy one get one free', 0, 0);
 
 -- Insert sample data into the 'reservation' table
-INSERT INTO reservation (bookingDay, startTime, endTime, status, totalPrice, customerID)
-VALUES ('2024-03-25', '10:00', '12:00', 1, 100000, 1),
-       ('2024-04-26', '14:00', '18:00', 1, 200000, 2),
-       ('2024-05-27', '18:00', '19:00', 1, 50000, 3);
+INSERT INTO reservation (bookingDay, startTime, endTime, seatsBooked, status, totalPrice, customerID)
+VALUES ('2024-03-25', '10:00', '12:00', 2, 1, 100000, 1),
+       ('2024-04-26', '14:00', '18:00', 4, 1, 200000, 2),
+       ('2024-05-27', '18:00', '19:00', 6, 1, 50000, 3);
 
 -- Insert sample data into the 'reservationTable' table
 INSERT INTO reservationTable (reservationID, tableID)
