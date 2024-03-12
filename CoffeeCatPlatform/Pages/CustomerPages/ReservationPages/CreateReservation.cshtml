@@ -31,12 +31,16 @@
             <div class="form-group">
                 <div class="col-md-6">
                     <label asp-for="Reservation.SeatsBooked" class="control-label">Number of Seats</label>
-                    <input asp-for="Reservation.SeatsBooked" class="form-control" type="number" id="seatsBooked" min="1" value="1" />
+                    <input asp-for="Reservation.SeatsBooked" class="form-control" type="number" id="seatsBooked" min="1" />
                     <span asp-validation-for="Reservation.SeatsBooked" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <input type="button" id="tableSelectButton" value="Select Table" class="btn btn-primary" />
                 </div>
+            </div>
+            <div>
+                <ul id="">
+                </ul>
             </div>
             <div class="form-group">
                 <label asp-for="Reservation.TotalPrice" class="control-label">Total Price</label>
@@ -145,7 +149,7 @@
                         endTime: endTimeInput.value
                     };
 
-                    console.log(requestData);
+                    //console.log(requestData);
 
                     $.ajax({
                         type: "GET",
@@ -153,7 +157,7 @@
                         data: requestData,
                         dataType: "json",
                         success: function (result) {
-                            console.log(result);
+                            //console.log(result);
 
                             $('#modalContent').empty();
 
@@ -167,14 +171,15 @@
                                     result.forEach(function (table) {
                                         var tableHtml = '';
                                         tableHtml += '<div>';
-                                        tableHtml += '<p>Table ' + table.SeatCount + '</p>';
+                                        tableHtml += '<p>Table ' + table.TableId + ', Seats: ' + table.SeatCount + '</p>';
                                         tableHtml += '<input type="checkbox" value=' + table.TableId + '></input>';
+                                        tableHtml += '<input type="hidden" name="seatCount" value=' + table.SeatCount + '></input>';
                                         tableHtml += '</div>';
                                         $('#modalContent').append(tableHtml);
                                     });
                                 } else {
-                                    $('#modalContent').html('<p>There isnt enough seat in the time frame </p>');
-                                        }
+                                    $('#modalContent').html('<p>There are only ' + totalSeatCount + ' seats available</p>');
+                                }
                             } else {
                                 $('#modalContent').html('<p>There are no available tables in the time frame</p>');
                             }
@@ -190,27 +195,38 @@
 
             modalConfirmButton.addEventListener('click', function () {
                 var selectedTables = [];
+                var selectedSeatCount = 0;
 
                 $('#tableSelectModal input[type="checkbox"]').each(function () {
                     if ($(this).prop('checked')) {
                         selectedTables.push($(this).val());
+                        var seatCount = parseInt($(this).siblings('input[name="seatCount"]').val());
+                        selectedSeatCount += seatCount;
                     }
                 });
 
-                console.log(selectedTables);
+                console.log(selectedSeatCount);
 
                 if (selectedTables.length > 0) {
-                    selectedTables.forEach(function (tableId, index) {
-                        var tableIdInput = $('<input>').attr({
-                            type: 'hidden',
-                            class: 'selectedTableId',
-                            name: 'selectedTable',
-                            value: tableId
-                        }).appendTo('#reservationForm');
-                    });
-                }
+                    if (selectedSeatCount >= seatCountInput.value) {
+                        selectedTables.forEach(function (tableId, index) {
+                            var tableIdInput = $('<input>').attr({
+                                type: 'hidden',
+                                class: 'selectedTableId',
+                                name: 'selectedTable',
+                                value: tableId
+                            }).appendTo('#reservationForm');
+                        });
 
-                $('#tableSelectModal').modal('hide');
+                        $('#tableSelectModal').modal('hide');
+                    }
+                    else {
+                        alert('The selected table(s) can\'t cover all people');
+                    }
+                }
+                else {
+                    alert('You haven\'t chosen any table');
+                }
             });
         });
     </script>
