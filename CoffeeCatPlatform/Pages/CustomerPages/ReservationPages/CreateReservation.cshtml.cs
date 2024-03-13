@@ -54,6 +54,15 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
 
+            var customerId = HttpContext.Session.GetInt32(SessionKeyId);
+
+            var onGoingReservation = _reservationRepo.GetAll().Where(re => re.CustomerId == customerId && (re.Status == -1 || re.Status == 1));
+
+            if (onGoingReservation.Any())
+            {
+                TempData["OnGoingReservation"] = onGoingReservation;
+            }
+
             return Page();
         }
 
