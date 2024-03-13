@@ -10,6 +10,7 @@ using Models;
 using Repositories;
 using Repositories.Impl;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 namespace CoffeeCatPlatform.Pages.MenuPages
 {
@@ -22,17 +23,39 @@ namespace CoffeeCatPlatform.Pages.MenuPages
         public MenuModel()
         {
             _productRepo = new ProductRepository();
+
         }
+        [BindProperty(SupportsGet = true)]
+
+        public int CurrentPage { get; set; } = 1;
+        public int TotalItems { get; set; }
+        public int ItemsPerPage { get; set; } = 4;
+
 
         public IList<Product> Products { get; set; } = default!;
 
-        public void OnGet()
+        public int TotalPages => (int)Math.Ceiling((double)TotalItems / ItemsPerPage);
+
+        public IActionResult OnGet(string? currentPage)
         {
-            if (!_productRepo.GetAll().IsNullOrEmpty())
+            if (int.TryParse(currentPage, out int temp))
             {
-                Products = _productRepo.GetAll();
-                result = true;
+                CurrentPage = temp;
             }
+            else
+            {
+                CurrentPage = 1;
+            }
+
+            var allProducts = _productRepo.GetPaginated(CurrentPage, ItemsPerPage);
+
+            TotalItems = _productRepo.GetAll().Count;
+
+            Products = allProducts;
+
+            result = Products.Count > 0;
+
+            return Page();
         }
     }
 }
