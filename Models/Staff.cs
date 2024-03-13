@@ -8,22 +8,21 @@ public partial class Staff
 {
     public int StaffId { get; set; }
 
-    [Required(ErrorMessage = "Staff Name is required")]
+//    [Required(ErrorMessage = "Staff Name is required")]
     public string Name { get; set; } = null!;
 
-    [Required(ErrorMessage = "Staff Gender is required")]
     public int Gender { get; set; }
 
-    [Required(ErrorMessage = "Staff Phone is required")]
-    [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number.")]
+//   [Required(ErrorMessage = "Staff Phone is required")]
+//    [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number.")]
     public string Phone { get; set; } = null!;
 
-    [Required(ErrorMessage = "Staff Email is required")]
-    [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
+//    [Required(ErrorMessage = "Staff Email is required")]
+//    [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
 
     public string Email { get; set; } = null!;
-
-    [Required(ErrorMessage = "Staff Password is required")]
+    
+//    [Required(ErrorMessage = "Staff Password is required")]
     public string Password { get; set; } = null!;
 
     [Required(ErrorMessage = "Staff Status is required")]

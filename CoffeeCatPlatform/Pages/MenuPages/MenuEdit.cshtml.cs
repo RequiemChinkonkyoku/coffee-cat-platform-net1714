@@ -44,7 +44,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
                 // If the model state is not valid, return the page with validation errors
                 return Page();
             }
-            */
+            
 
             /*var existingProduct = _productRepo.GetAll().FirstOrDefault(p => p.ProductId == id);
 
