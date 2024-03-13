@@ -5,54 +5,83 @@
     ViewData["Title"] = "MenuCreate";
 }
 
-<h1>MenuCreate</h1>
-
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Product.Name" class="control-label"></label>
-                <input asp-for="Product.Name" class="form-control" />
-                <span asp-validation-for="Product.Name" class="text-danger"></span>
+<section>
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+                <h3 class="text-center">CREATING A NEW PRODUCT</h3>
+                <form role="form" id="contact-form" method="post" autocomplete="off">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="Product.Name"></label>
+                                <div class="input-group mb-4">
+                                    <input asp-for="Product.Name" class="form-control" placeholder="" aria-label="Name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label>Category</label>
+                                <div class="input-group">
+                                    <select asp-for="Product.CategoryId" class="form-control">
+                                        <option value="1">Drink</option>
+                                        <option value="2">Food</option>
+                                        <option value="3">Toys</option>
+                                        <option value="4">Cat Food</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 ps-2">
+                                <label asp-for="Product.Price"></label>
+                                <div class="input-group">
+                                    <input asp-for="Product.Price" style="width:7em" type="number" min="0" class="form-control" placeholder="" aria-label="Last Name...">
+                                </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                                <label>Starting quantity</label>
+                                <div class="input-group">
+                                    <input asp-for="Product.Quantity" style="display:flex" type="number" min="0" class="form-control" placeholder="" aria-label="Last Name...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label asp-for="Product.ImageUrl"></label>
+                            <div class="input-group">
+                                <input asp-for="Product.ImageUrl" type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label asp-for="Product.Description"></label>
+                            <textarea asp-for="Product.Description" class="form-control" id="message" rows="4"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-check form-switch mb-4">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">I agree to the <a href="javascript:;" class="text-dark"><u>Terms and Conditions</u></a>.</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn bg-gradient-dark w-100">CREATE</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Product.Description" class="control-label"></label>
-                <input asp-for="Product.Description" class="form-control" />
-                <span asp-validation-for="Product.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Price" class="control-label"></label>
-                <input asp-for="Product.Price" class="form-control" />
-                <span asp-validation-for="Product.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Quantity" class="control-label"></label>
-                <input asp-for="Product.Quantity" class="form-control" />
-                <span asp-validation-for="Product.Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.ImageUrl" class="control-label"></label>    
-                <input asp-for="Product.ImageUrl" class="form-control" />
-                <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.ShopId" class="control-label"></label>
-                <select asp-for="Product.ShopId" class ="form-control" asp-items="ViewBag.ShopId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="/Menu">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

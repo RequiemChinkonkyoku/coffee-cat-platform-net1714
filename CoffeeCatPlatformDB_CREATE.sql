@@ -52,7 +52,7 @@ CREATE TABLE reservation (
 	startTime TIME NOT NULL,
 	endTime TIME NOT NULL,
 	seatsBooked INT NOT NULL,
-    status INT CHECK (status IN (-1, 0, 1)) NOT NULL, -- 0 = cancelled, 1 = booked
+    status INT CHECK (status IN (-1, 0, 1, 2)) NOT NULL, -- -1 = waiting payment, 0 = cancelled, 1 = on-going, 2 = checked-out
 	totalPrice DECIMAL(10, 2),
     customerID INT REFERENCES customer(customerID)
 );
@@ -71,7 +71,8 @@ CREATE TABLE cat (
     birthday date NOT NULL,
     healthStatus INT Check(healthStatus IN (0, 1)) NOT NULL,-- 0 = availabled, 1 = unavailabled
     shopID INT REFERENCES shop(shopID),
-    imageUrl NVARCHAR(255) 
+    imageUrl NVARCHAR(255),
+	description NVARCHAR(MAX)
 );
 
 CREATE TABLE areaCat (

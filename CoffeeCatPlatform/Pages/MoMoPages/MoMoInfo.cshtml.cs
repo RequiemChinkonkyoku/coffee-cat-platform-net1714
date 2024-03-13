@@ -13,7 +13,7 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         public Reservation Reservation { get; set; }
 
-        public MoMoInfo(IMomoRepository momoRepo, ReservationRepository reservationRepo)
+        public MoMoInfo(IMomoRepository momoRepo, IRepositoryBase<Reservation> reservationRepo)
         {
             _momoRepo = momoRepo;
             _reservationRepo = reservationRepo;
