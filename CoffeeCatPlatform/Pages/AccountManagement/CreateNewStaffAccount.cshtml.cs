@@ -37,7 +37,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             return Page();
         }
 
-        public IActionResult OnPost(EmailAddressAttribute emailAddressAttribute)
+        public IActionResult OnPost()
         {
             /*
             if (!ModelState.IsValid) 
@@ -100,7 +100,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
                 return Page();
             }
 
-            if (!emailAddressAttribute.IsValid(Staff.Email))
+            if (!IsValidEmail(Staff.Email))
             {
                 ErrorMessage = "Please enter a valid email address.";
                 return Page();
@@ -124,6 +124,20 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             _staffRepo.Add(Staff);
 
             return RedirectToPage("./ViewAccount");
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            // Perform your custom email validation here
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
