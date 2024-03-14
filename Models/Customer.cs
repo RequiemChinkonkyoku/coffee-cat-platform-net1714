@@ -7,11 +7,11 @@ namespace Models;
 public partial class Customer
 {
     public int CustomerId { get; set; }
-    [Required(ErrorMessage = "Customer Name is required.")]
+    [Required(ErrorMessage = "Name is required.")]
     [StringLength(100, ErrorMessage = "Name field must not exceed 100 characters.")]
 
     public string? Name { get; set; }
-    [Required(ErrorMessage = " Customer Phone number is require.")]
+    [Required(ErrorMessage = "Phone number is required.")]
 
     public string? Phone { get; set; }
     [Required(ErrorMessage = "Email is required.")]
@@ -23,7 +23,7 @@ public partial class Customer
     [StringLength(100, ErrorMessage = "Password field must not exceed 100 characters.")]
     public string? Password { get; set; } = null!;
 
-    [Required(ErrorMessage = "Customer Status is required")]
+    [Required(ErrorMessage = "Status is required")]
     public int Status { get; set; }
 
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
