@@ -51,5 +51,10 @@ namespace Repositories.Impl
         {
             return set.OrderByDescending(keySelector).FirstOrDefault();
         }
+
+        public List<T> GetPaginated(int page, int pageSize)
+        {
+            return set.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
     }
 }

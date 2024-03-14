@@ -19,5 +19,7 @@ namespace Repositories
         public T FindById(int id);
 
         public T GetLast<TKey>(Func<T, TKey> keySelector);
+
+        public List<T> GetPaginated(int page, int pageSize);
     }
 }

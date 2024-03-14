@@ -7,18 +7,23 @@ namespace Models;
 public partial class Customer
 {
     public int CustomerId { get; set; }
+    [Required(ErrorMessage = "Name is required.")]
+    [StringLength(100, ErrorMessage = "Name field must not exceed 100 characters.")]
 
     [Required(ErrorMessage = "Customer Name is required")]
     public string? Name { get; set; }
+    [Required(ErrorMessage = " phone number is require.")]
 
     [Required(ErrorMessage = "Customer Phone is required")]
     public string? Phone { get; set; }
+    [Required(ErrorMessage = "Email is required.")]
+    [EmailAddress(ErrorMessage = "Invalid email address.")]
+    [StringLength(100, ErrorMessage = "Email field must not exceed 100 characters.")]
+    public string? Email { get; set; }
 
-    [Required(ErrorMessage = "Customer Email is required")]
-    public string Email { get; set; } = null!;
-
-    [Required(ErrorMessage = "Customer Password is required")]
-    public string Password { get; set; } = null!;
+    [Required(ErrorMessage = "Password is required.")]
+    [StringLength(100, ErrorMessage = "Password field must not exceed 100 characters.")]
+    public string? Password { get; set; } = null!;
 
     [Required(ErrorMessage = "Customer Status is required")]
     public int Status { get; set; }

@@ -14,7 +14,9 @@ namespace CoffeeCatPlatform.Pages
         public Customer Customer { get; set; }
 
         [BindProperty]
-        public string Message { get; set; }
+        public string? Message { get; set; }
+
+       
 
         private readonly IRepositoryBase<Customer> _customerRepo;
 
@@ -35,6 +37,11 @@ namespace CoffeeCatPlatform.Pages
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             _email = GetEmail();
             _password = GetPassword();
 
