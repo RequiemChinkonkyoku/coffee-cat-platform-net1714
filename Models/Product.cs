@@ -23,6 +23,8 @@ public partial class Product
 
     public int? CategoryId { get; set; }
 
+    public virtual Category? Category { get; set; }
+
     public virtual ICollection<BillProduct> BillProducts { get; set; } = new List<BillProduct>();
 
     public virtual Shop? Shop { get; set; }

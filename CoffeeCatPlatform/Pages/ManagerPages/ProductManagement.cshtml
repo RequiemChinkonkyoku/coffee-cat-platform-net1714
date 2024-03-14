@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/ProductManagement"
 @model CoffeeCatPlatform.Pages.ManagerPages.ProductManagementModel
 @{
     Layout = "_DashboardLayout";
@@ -181,113 +181,65 @@
                                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quantity</th>
                                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
-                                                    <th class="text-secondary opacity-7"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <img class="w-10 ms-3" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/yohji-yamamoto.jpg" alt="yohji">
-                                                            <h6 class="ms-3 my-auto">Y-3 Yohji Yamamoto</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-sm">Shoes</td>
-                                                    <td class="text-sm">$869</td>
-                                                    <td class="text-sm">725</td>
-                                                    <td class="align-middle text-center text-sm">
-                                                        <span class="badge badge-sm bg-gradient-success">In Stock</span>
-                                                    </td>
-                                                    <td class="text-sm">
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Preview product">
-                                                            <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
-                                                            <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
-                                                            <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <img class="w-10 ms-3" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/off-white-jacket.jpg" alt="off_white">
-                                                            <h6 class="ms-3 my-auto">Off White Cotton Bomber</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-sm">Clothing</td>
-                                                    <td class="text-sm">$1,869</td>
-                                                    <td class="text-sm">725</td>
-                                                    <td class="text-center text-sm">
-                                                        <span class="badge badge-sm bg-gradient-danger">Out Of Stock</span>
-                                                    </td>
-                                                    <td class="text-sm">
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Preview product">
-                                                            <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
-                                                            <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
-                                                            <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <img class="w-10 ms-3" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/metro-chair.jpg" alt="metro-chair">
-                                                            <h6 class="ms-3 my-auto">Metro Bar Stool</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-sm">Furniture</td>
-                                                    <td class="text-sm">$99</td>
-                                                    <td class="text-sm">978</td>
-                                                    <td>
-                                                        <span class="badge badge-success badge-sm">in Stock</span>
-                                                    </td>
-                                                    <td class="text-sm">
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Preview product">
-                                                            <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
-                                                            <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
-                                                            <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <img class="w-10 ms-3" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/macbook-pro.jpg" alt="mac">
-                                                            <h6 class="ms-3 my-auto">MacBook Pro</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-sm">Electronics</td>
-                                                    <td class="text-sm">$1,869</td>
-                                                    <td class="text-sm">0</td>
-                                                    <td>
-                                                        <span class="badge badge-danger badge-sm">Out of Stock</span>
-                                                    </td>
-                                                    <td class="text-sm">
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Preview product">
-                                                            <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
-                                                            <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
-                                                            <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                @foreach (var product in Model.Products)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <img class="w-10 ms-3" src="@product.ImageUrl" alt="mac"
+                                                                     style="max-width:50px; max-height:50px; display:block; width:auto; height:auto; min-width:50px; min-height:50px">
+                                                                <h6 class="ms-3 my-auto">@product.Name</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-sm">@product.Category.Name</td>
+                                                        <td class="text-sm">@product.Price</td>
+                                                        <td class="text-sm">@product.Quantity</td>
+                                                        <td class ="text-center text-sm">
+                                                            @if (product.productStatus == 1)
+                                                            {
+                                                                @if (product.Quantity == 0)
+                                                                {
+                                                                    <span class="badge badge-sm bg-gradient-danger">Out Of Stock</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="badge badge-sm bg-gradient-success">In Stock</span>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge badge-sm bg-gradient-secondary">Out Of Order</span>
+                                                            }
+                                                        </td>
+                                                        <td class="text-sm text-center">
+                                                            <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Preview product">
+                                                                <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a href="javascript:;" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
+                                                                <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
+                                                                <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
-                                    </div><div class="dataTable-bottom"><div class="dataTable-info">Showing 1 to 7 of 15 entries</div><nav class="dataTable-pagination"><ul class="dataTable-pagination-list"><li class="pager"><a href="#" data-page="1">‹</a></li><li class="active"><a href="#" data-page="1">1</a></li><li class=""><a href="#" data-page="2">2</a></li><li class=""><a href="#" data-page="3">3</a></li><li class="pager"><a href="#" data-page="2">›</a></li></ul></nav></div>
+                                    </div>
+                                    <div>
+                                        <ul class="pagination">
+                                            @for (var i = 1; i <= Model.TotalPages; i++)
+                                            {
+                                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                                    <a asp-page="./ProductManagement" asp-route-currentPage="@i.ToString()" class="page-link">@i</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
