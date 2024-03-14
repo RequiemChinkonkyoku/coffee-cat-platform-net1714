@@ -24,59 +24,6 @@ namespace CoffeeCatPlatform.Pages.MenuPages
         [BindProperty]
         public Product Product { get; set; }
 
-        /*
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null || _productRepo.GetAll() == null)
-            {
-                return NotFound();
-            }
-
-            var product =  await _context.Products.FirstOrDefaultAsync(m => m.ProductId == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            Product = product;
-           ViewData["ShopId"] = new SelectList(_context.Shops, "ShopId", "ShopId");
-            return Page();
-        }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Attach(Product).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(Product.ProductId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
-        }
-        
-        private bool ProductExists(int id)
-        {
-          return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
-        }
-        */
 
         public IActionResult OnGet(int id) {
             Product = _productRepo.GetAll().FirstOrDefault(p => p.ProductId == id);
@@ -97,6 +44,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
                 // If the model state is not valid, return the page with validation errors
                 return Page();
             }
+            
 
             /*var existingProduct = _productRepo.GetAll().FirstOrDefault(p => p.ProductId == id);
 
