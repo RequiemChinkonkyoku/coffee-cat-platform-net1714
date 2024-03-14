@@ -1,0 +1,177 @@
+﻿@page "/ViewAccount"
+@model CoffeeCatPlatform.Pages.AccountManagement.ViewAccountModel
+@using Microsoft.AspNetCore.Http
+@{
+}
+
+
+<h1>Account List</h1>
+
+<h2>Customer Account</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customers[0].Status)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+   
+    @if (!Model.result)
+    {
+        <tr>
+            <td>
+                There are no products.
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tbody>
+            @foreach (var CustomerAccount in Model.Customers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelAccount => CustomerAccount.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelAccount => CustomerAccount.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelAccount => CustomerAccount.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelAccount => CustomerAccount.Password)
+                    </td>
+
+                    @if (CustomerAccount.Status == 1)
+                    {
+                        <td>Active</td>
+                    }
+                    else
+                    {
+                        <td>Inactive</td>
+                    }
+                    <td>
+                        <a asp-page="./CustomerAccountUpdate" asp-route-id="@CustomerAccount.CustomerId">Edit</a> |
+                        
+                        <a asp-page="./CustomerAccountDelete" asp-route-id="@CustomerAccount.CustomerId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+<h2>Staff Account</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staffs[0].RoleId)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+
+    @if (!Model.result)
+    {
+        <tr>
+            <td>
+                There are no products.
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tbody>
+            @foreach (var StaffAccount in Model.Staffs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelAccount => StaffAccount.Name)
+                    </td>
+                    @if (StaffAccount.Gender == 0)
+                    {
+                        <td>Male</td>
+                    }
+                    else
+                    {
+                        <td>Female</td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelAccount => StaffAccount.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelAccount => StaffAccount.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelAccount => StaffAccount.Password)
+                    </td>
+
+                    @if (StaffAccount.Status == 1)
+                    {
+                        <td>Active</td>
+                    }
+                    else
+                    {
+                        <td>Inactive</td>
+                    }
+
+                    @if (StaffAccount.RoleId == 1)
+                    {
+                        <td>Manager</td>
+                    }
+                    else
+                    {
+                        <td>Staff</td>
+                    }
+                    <td>
+                        <a asp-page="./StaffAccountUpdate" asp-route-id="@StaffAccount.StaffId">Edit</a> |
+
+                        <a asp-page="./StaffAccountDelete" asp-route-id="@StaffAccount.StaffId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+<a asp-page="./CreateNewStaffAccount">Create New Staff</a>

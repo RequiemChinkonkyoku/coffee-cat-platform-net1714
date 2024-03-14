@@ -1,0 +1,50 @@
+﻿@page "/CreateNewStaffAccount"
+@model CoffeeCatPlatform.Pages.AccountManagement.CreateNewStaffAccountModel
+
+@{
+    ViewData["Title"] = "CreateNewStaffAccount";
+}
+
+<h1>Create New Staff Account</h1>
+
+<h4>Staff</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Staff.Name" class="control-label"></label>
+                <input asp-for="Staff.Name" class="form-control" />
+                <span asp-validation-for="Staff.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.Gender" class="control-label"></label>
+                <select asp-for="Staff.Gender" class="form-control">
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                </select>
+                <span asp-validation-for="Staff.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.Phone" class="control-label"></label>
+                <input asp-for="Staff.Phone" class="form-control" />
+                <span asp-validation-for="Staff.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.Email" class="control-label"></label>
+                <input asp-for="Staff.Email" class="form-control" />
+                <span asp-validation-for="Staff.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Staff.Password" class="control-label"></label>
+                <input asp-for="Staff.Password" class="form-control" />
+                <span asp-validation-for="Staff.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
