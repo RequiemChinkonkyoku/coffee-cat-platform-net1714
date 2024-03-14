@@ -16,6 +16,10 @@ namespace CoffeeCatPlatform.Pages.MyAccount
     {
         private readonly IRepositoryBase<Customer> _customerRepo;
 
+        private const string SessionKeyName = "_Name";
+        private const string SessionKeyId = "_Id";
+        private const string SessionKeyType = "_Type";
+
         public UpdateMyAccountModel(IRepositoryBase<Customer> customerRepo)
         {
             _customerRepo = customerRepo;
@@ -26,20 +30,16 @@ namespace CoffeeCatPlatform.Pages.MyAccount
 
         public IActionResult OnGet(int id)
         {
-            Customer = _customerRepo.GetAll().FirstOrDefault(p => p.CustomerId == id);
-
-            if (Customer == null)
+            if (SessionCheck() == false)
             {
-                TempData["ErrorMessage"] = "Customer not found.";
-                return RedirectToPage("./ViewMyAccount");
+                return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
-
+            var customerId = HttpContext.Session.GetInt32(SessionKeyId);
+            Customer = _customerRepo.GetAll().FirstOrDefault(p => p.CustomerId == customerId);
             return Page();
 
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public IActionResult OnPost(int id)
         {
 
@@ -48,8 +48,8 @@ namespace CoffeeCatPlatform.Pages.MyAccount
                 // If the model state is not valid, return the page with validation errors
                 return Page();
             }
-
-            var existingCustomer = _customerRepo.GetAll().FirstOrDefault(p => p.CustomerId == id);
+            var customerId = HttpContext.Session.GetInt32(SessionKeyId);
+            var existingCustomer = _customerRepo.GetAll().FirstOrDefault(p => p.CustomerId == customerId);
 
             if (existingCustomer == null)
             {
@@ -61,13 +61,24 @@ namespace CoffeeCatPlatform.Pages.MyAccount
             existingCustomer.Phone = Customer.Phone;
             existingCustomer.Email = Customer.Email;
             existingCustomer.Password = Customer.Password;
-            existingCustomer.Status = Customer.Status;
 
             _customerRepo.Update(existingCustomer);
 
             TempData["SuccessMessage"] = "Customer updated successfully.";
             return RedirectToPage("./ViewMyAccount");
 
+        }
+
+        private bool SessionCheck()
+        {
+            bool result = true;
+            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }
