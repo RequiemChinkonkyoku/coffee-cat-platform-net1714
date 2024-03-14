@@ -1,4 +1,24 @@
-﻿@page
+﻿@page "/ViewMyAccount"
 @model CoffeeCatPlatform.Pages.MyAccount.ViewMyAccountModel
 @{
+    ViewData["Title"] = "ViewMyAccount";
 }
+<h1>My Account</h1>
+<p>
+    Full Name: @Html.DisplayFor(modelAccount => Model.Customer.Name)
+</p>
+
+<p>
+    Email: @Html.DisplayFor(modelAccount => Model.Customer.Email)
+</p>
+
+<p>
+    Password: @Html.DisplayFor(modelAccount => Model.Customer.Password)
+</p>
+
+<p>
+    Phone Number: @Html.DisplayFor(modelAccount => Model.Customer.Phone)
+</p>
+<div>
+    <a asp-page="./UpdateMyAccount">Edit My Account</a>
+</div>

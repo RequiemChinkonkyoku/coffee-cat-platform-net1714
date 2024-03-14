@@ -56,12 +56,13 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
                 TempData["ErrorMessage"] = "Staff not found.";
                 return RedirectToPage("./ViewAccount");
             }
-
             existingStaff.Name = Staff.Name;
+            existingStaff.Gender = Staff.Gender;
             existingStaff.Phone = Staff.Phone;
             existingStaff.Email = Staff.Email;
             existingStaff.Password = Staff.Password;
             existingStaff.Status = Staff.Status;
+            existingStaff.RoleId = Staff.RoleId;
 
             _staffRepo.Update(existingStaff);
 
