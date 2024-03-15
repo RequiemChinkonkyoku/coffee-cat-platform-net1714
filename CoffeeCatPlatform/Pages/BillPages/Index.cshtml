@@ -16,7 +16,7 @@
             <th>Status</th>
             <th>Payment Time</th>
             <th>Promotion</th>
-            @* <th>Reservation ID</th> *@
+            <th>Reservation ID</th>
             <th>Staff Name</th>
             <th>Note</th>
             <th>Actions</th>
@@ -31,8 +31,8 @@
                 <td>@bill.Status</td>
                 <td>@bill.PaymentTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>@bill.Promotion.Name</td>
-                @* <td>@bill.Reservation.ReservationId</td> *@
-                <td>@bill.Staff.Name</td>
+                <td>@bill.Reservation?.ReservationId</td>
+                <td>@bill.Staff?.Name</td>
                 <td>@bill.Note</td>
                 <td>
                     <a asp-page="./Details" asp-route-id="@bill.BillId">Details</a> |

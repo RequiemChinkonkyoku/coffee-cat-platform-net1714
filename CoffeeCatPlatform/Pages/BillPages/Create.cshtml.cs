@@ -12,16 +12,19 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<BillProduct> _billProductRepository;
         private readonly IRepositoryBase<Promotion> _promotionRepository;
         private readonly IRepositoryBase<Reservation> _reservationRepository;
+        private readonly IRepositoryBase<Customer> _customerRepository;
 
         public List<Product> Products { get; set; }
         public List<Promotion> Promotions { get; set; }
+        public List<Reservation> Reservations { get; set; }
 
         public CreateModel(
            IRepositoryBase<Product> productRepository,
            IRepositoryBase<Bill> billRepository,
            IRepositoryBase<BillProduct> billProductRepository,
            IRepositoryBase<Promotion> promotionRepository,
-           IRepositoryBase<Reservation> reservationRepository
+           IRepositoryBase<Reservation> reservationRepository,
+           IRepositoryBase<Customer> customerRepository
            )
         {
             _productRepository = productRepository;
@@ -29,9 +32,11 @@ namespace CoffeeCatPlatform.Pages.BillPages
             _billProductRepository = billProductRepository;
             _promotionRepository = promotionRepository;
             _reservationRepository = reservationRepository;
+            _customerRepository = customerRepository;
 
             Products = new List<Product>();
             Promotions = new List<Promotion>();
+            Reservations = new List<Reservation>();
         }
 
         public IActionResult OnGet()
@@ -39,9 +44,17 @@ namespace CoffeeCatPlatform.Pages.BillPages
             // Retrieve all products for display
             Products = _productRepository.GetAll();
             Promotions = _promotionRepository.GetAll();
+            Reservations = _reservationRepository.GetAll().Where(r => r.BookingDay == DateTime.Now.Date).ToList();
+
+            foreach (var reservation in Reservations)
+            {
+                reservation.Customer = _customerRepository.GetAll()
+                    .FirstOrDefault(c => c.CustomerId == reservation.CustomerId);
+            }
+
             return Page();
         }
-        public IActionResult OnPost(Dictionary<int, int> productQuantities, List<int> selectedProducts, string note, int? promotionId)
+        public IActionResult OnPost(Dictionary<int, int> productQuantities, List<int> selectedProducts, string note, int? promotionId, int? reservationId)
         {
             if (selectedProducts == null || selectedProducts.Count == 0)
             {
@@ -59,7 +72,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 PaymentTime = DateTime.Now,
                 PromotionId = promotionId,
                 Note = note,
-                StaffId = staffId
+                StaffId = staffId,
+                ReservationId = reservationId
 
                 // Set other properties of the Bill if needed
             };
