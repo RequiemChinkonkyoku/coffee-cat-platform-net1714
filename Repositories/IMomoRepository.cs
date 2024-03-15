@@ -12,5 +12,6 @@ namespace Repositories
     {
         Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel model, int reservationID);
         MomoExecuteResponseModel PaymentExecuteAsync(IQueryCollection collection);
+        Task<MomoCreateRefundResponseModel> CreateRefundAsync(OrderInfoModel model, int reservationID);
     }
 }

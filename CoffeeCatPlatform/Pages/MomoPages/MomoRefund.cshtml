@@ -1,27 +1,17 @@
-﻿@page "/MomoInfo"
-@model CoffeeCatPlatform.Pages.MoMoPages.MoMoInfo;
+﻿@page "/MomoRefund"
+@model CoffeeCatPlatform.Pages.MomoPages.MomoRefundModel
 @{
-    ViewData["Title"] = "Momo Info";
+    ViewData["Title"] = "Momo Refund";
 }
 
 <div>
-    <h1>Thanh toán Momo</h1>
+    <h1>Hoàn tiền Momo</h1>
 
     <div class="form-container">
         <form method="POST">
             <input type="hidden" name="ReservationID" value="@Model.Reservation.ReservationId" />
             <div class="form-group">
-                <label for="FullName">Tên khách hàng</label>
-                <input class="form-control"
-                       id="FullName"
-                       name="FullName"
-                       type="text"
-                       value="TNK"
-                       readonly>
-            </div>
-            <br />
-            <div class="form-group">
-                <label for="Amount">Số tiền</label>
+                <label for="Amount">Số tiền hoàn trả</label>
                 <input class="form-control"
                        id="Amount"
                        name="Amount"
@@ -36,10 +26,10 @@
                           cols="20"
                           id="OrderInfo"
                           name="OrderInfo"
-                          rows="2">Thanh toán MoMo</textarea>
+                          rows="2">Hoàn tiền MoMo</textarea>
             </div>
             <br />
-            <button type="submit" class="btn btn-primary">Thanh toán (Checkout)</button>
+            <button type="submit" class="btn btn-primary">Hoàn tiền (Refund)</button>
         </form>
     </div>
 </div>
