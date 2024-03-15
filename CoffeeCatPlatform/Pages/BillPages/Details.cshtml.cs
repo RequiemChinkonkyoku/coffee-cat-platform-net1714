@@ -14,6 +14,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<Product> _productRepository;
         private readonly IRepositoryBase<Promotion> _promotionRepository;
         private readonly IRepositoryBase<Staff> _staffRepository;
+        private readonly IRepositoryBase<Reservation> _reservationRepository;
+        private readonly IRepositoryBase<Customer> _customerRepository;
 
         public List<BillProduct> BillProducts { get; set; }
         public List<Bill> Bills { get; set; }
@@ -22,6 +24,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
         public string SelectedPromotionName { get; set; }
         public Bill Bill { get; set; }
         public Promotion Promotion { get; set; }
+        public Reservation Reservation { get; set; }
         public Staff Staff { get; set; }
 
         public DetailsModel(
@@ -29,7 +32,9 @@ namespace CoffeeCatPlatform.Pages.BillPages
             IRepositoryBase<Bill> billRepository,
             IRepositoryBase<Product> productRepository,
             IRepositoryBase<Promotion> promotionRepository,
-            IRepositoryBase<Staff> staffRepository)
+            IRepositoryBase<Staff> staffRepository,
+            IRepositoryBase<Reservation> reservationRepository,
+            IRepositoryBase<Customer> customerRepository)
         {
             _billProductRepository = billProductRepository;
             _billRepository = billRepository;
@@ -38,17 +43,21 @@ namespace CoffeeCatPlatform.Pages.BillPages
             _promotionRepository = promotionRepository;
             Bill = new Bill();
             Promotion = new Promotion();
+            Reservation = new Reservation();
 
             BillProducts = new List<BillProduct>();
             Bills = new List<Bill>();
             Products = new List<Product>();
             _staffRepository = staffRepository;
+            _reservationRepository = reservationRepository;
+            _customerRepository = customerRepository;
         }
 
         public IActionResult OnGet(int id)
         {
             Bills = _billRepository.GetAll();
             Products = _productRepository.GetAll();
+
 
             foreach (BillProduct billProduct in _billProductRepository.GetAll())
             {
@@ -76,7 +85,10 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             Promotion = _promotionRepository.GetAll().FirstOrDefault(p => p.PromotionId == Bill.PromotionId);
 
-            Staff = _staffRepository.GetAll().FirstOrDefault(p => p.StaffId == Bill.StaffId);
+            Reservation = _reservationRepository.GetAll().FirstOrDefault(r => r.ReservationId == Bill.ReservationId);
+            Reservation.Customer = _customerRepository.GetAll().FirstOrDefault(c => c.CustomerId == Reservation.CustomerId);
+
+            Staff = _staffRepository.GetAll().FirstOrDefault(s => s.StaffId == Bill.StaffId);
 
             // Retrieve and set the selected promotion name
             SelectedPromotionName = _promotionRepository.GetAll()
