@@ -13,6 +13,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<Bill> _billRepository;
         private readonly IRepositoryBase<Product> _productRepository;
         private readonly IRepositoryBase<Promotion> _promotionRepository;
+        private readonly IRepositoryBase<Staff> _staffRepository;
 
         public List<BillProduct> BillProducts { get; set; }
         public List<Bill> Bills { get; set; }
@@ -21,12 +22,14 @@ namespace CoffeeCatPlatform.Pages.BillPages
         public string SelectedPromotionName { get; set; }
         public Bill Bill { get; set; }
         public Promotion Promotion { get; set; }
+        public Staff Staff { get; set; }
 
         public DetailsModel(
             IRepositoryBase<BillProduct> billProductRepository,
             IRepositoryBase<Bill> billRepository,
             IRepositoryBase<Product> productRepository,
-            IRepositoryBase<Promotion> promotionRepository)
+            IRepositoryBase<Promotion> promotionRepository,
+            IRepositoryBase<Staff> staffRepository)
         {
             _billProductRepository = billProductRepository;
             _billRepository = billRepository;
@@ -39,6 +42,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
             BillProducts = new List<BillProduct>();
             Bills = new List<Bill>();
             Products = new List<Product>();
+            _staffRepository = staffRepository;
         }
 
         public IActionResult OnGet(int id)
@@ -71,6 +75,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
             Bill = _billRepository.GetAll().FirstOrDefault(b => b.BillId == id);
 
             Promotion = _promotionRepository.GetAll().FirstOrDefault(p => p.PromotionId == Bill.PromotionId);
+
+            Staff = _staffRepository.GetAll().FirstOrDefault(p => p.StaffId == Bill.StaffId);
 
             // Retrieve and set the selected promotion name
             SelectedPromotionName = _promotionRepository.GetAll()

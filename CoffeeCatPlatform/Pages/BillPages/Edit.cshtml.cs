@@ -12,6 +12,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<Bill> _billRepository;
         private readonly IRepositoryBase<BillProduct> _billProductRepository;
         private readonly IRepositoryBase<Promotion> _promotionRepository;
+        private readonly IRepositoryBase<Staff> _staffRepository;
 
         public List<Product> Products { get; set; }
         public List<Promotion> Promotions { get; set; }
@@ -27,13 +28,15 @@ namespace CoffeeCatPlatform.Pages.BillPages
             IRepositoryBase<Product> productRepository,
             IRepositoryBase<Bill> billRepository,
             IRepositoryBase<BillProduct> billProductRepository,
-            IRepositoryBase<Promotion> promotionRepository
+            IRepositoryBase<Promotion> promotionRepository,
+            IRepositoryBase<Staff> staffRepository
         )
         {
             _productRepository = productRepository;
             _billRepository = billRepository;
             _billProductRepository = billProductRepository;
             _promotionRepository = promotionRepository;
+            _staffRepository = staffRepository;
 
             Products = new List<Product>();
             Promotions = new List<Promotion>();

@@ -11,6 +11,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<Bill> _billRepository;
         private readonly IRepositoryBase<BillProduct> _billProductRepository;
         private readonly IRepositoryBase<Promotion> _promotionRepository;
+        private readonly IRepositoryBase<Reservation> _reservationRepository;
 
         public List<Product> Products { get; set; }
         public List<Promotion> Promotions { get; set; }
@@ -19,13 +20,15 @@ namespace CoffeeCatPlatform.Pages.BillPages
            IRepositoryBase<Product> productRepository,
            IRepositoryBase<Bill> billRepository,
            IRepositoryBase<BillProduct> billProductRepository,
-           IRepositoryBase<Promotion> promotionRepository
+           IRepositoryBase<Promotion> promotionRepository,
+           IRepositoryBase<Reservation> reservationRepository
            )
         {
             _productRepository = productRepository;
             _billRepository = billRepository;
             _billProductRepository = billProductRepository;
             _promotionRepository = promotionRepository;
+            _reservationRepository = reservationRepository;
 
             Products = new List<Product>();
             Promotions = new List<Promotion>();
@@ -46,6 +49,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 return OnGet();
             }
 
+            int? staffId = HttpContext.Session.GetInt32("_Id");
+
             // Step 1: Create a new Bill
             var newBill = new Bill
             {
@@ -53,7 +58,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 Status = 1,
                 PaymentTime = DateTime.Now,
                 PromotionId = promotionId,
-                Note = note
+                Note = note,
+                StaffId = staffId
 
                 // Set other properties of the Bill if needed
             };
