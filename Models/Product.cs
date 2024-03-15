@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models;
 
@@ -7,16 +8,22 @@ public partial class Product
 {
     public int ProductId { get; set; }
 
+    [Required(ErrorMessage = "Product Name is required")]
     public string Name { get; set; } = null!;
 
+    [Required(ErrorMessage = "Product Description is required")]
     public string? Description { get; set; }
 
+    [Required(ErrorMessage = "Product Price is required")]
     public decimal Price { get; set; }
 
+    [Required(ErrorMessage = "Product Quantity is required")]
     public int Quantity { get; set; }
 
+    [Required(ErrorMessage = "Product Status is required")]
     public int? productStatus { get; set; }
 
+    [Required(ErrorMessage = "Product Image is required")]
     public string ImageUrl { get; set; }
 
     public int? ShopId { get; set; }

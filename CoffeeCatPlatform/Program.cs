@@ -23,6 +23,12 @@ builder.Services.AddScoped<IRepositoryBase<Customer>, CustomerRepository>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<IRepositoryBase<Product>, ProductRepository>();
 
+builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<IRepositoryBase<Customer>, CustomerRepository>();
+
+builder.Services.AddScoped<StaffRepository>();
+builder.Services.AddScoped<IRepositoryBase<Staff>, StaffRepository>();
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
