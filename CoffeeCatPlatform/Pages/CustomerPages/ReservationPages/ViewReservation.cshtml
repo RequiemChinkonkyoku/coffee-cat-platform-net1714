@@ -1,0 +1,88 @@
+﻿@page "/ViewReservation"
+@model CoffeeCatPlatform.Pages.CustomerPages.ReservationPages.ViewReservationModel
+
+@{
+    ViewData["Title"] = "ViewReservation";
+}
+
+<h1>ViewReservation</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationList[0].BookingDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationList[0].StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationList[0].EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationList[0].SeatsBooked)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationList[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationList[0].TotalPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ReservationList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatsBooked)
+                </td>
+                <td>
+                    @switch (item.Status)
+                    {
+                        case -1:
+                            <text>Payment pending</text>
+                            break;
+                        case 0:
+                            <text>Cancelled</text>
+                            break;
+                        case 1:
+                            <text>On-going</text>
+                            break;
+                        case 2:
+                            <text>Checked-out</text>
+                            break;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <a asp-page="./ReservationDetail" asp-route-id="@item.ReservationId">Detail</a>
+
+                    @if (item.Status != 2)
+                    {
+                        <text> | </text>
+                        <a asp-page="./CancelReservation" asp-route-id="@item.ReservationId">Cancel</a>
+                    }
+
+                    @if (item.Status == -1)
+                    {
+                        <text> | </text>
+                        <a asp-page="/MomoPages/MomoInfo" asp-route-id="@item.ReservationId">Proceed with payment</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
