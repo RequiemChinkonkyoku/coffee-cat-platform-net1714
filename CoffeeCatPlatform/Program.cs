@@ -18,6 +18,7 @@ builder.Services.AddScoped<IMomoRepository, MomoRepository>();
 builder.Services.AddScoped<IRepositoryBase<Reservation>, ReservationRepository>();
 builder.Services.AddScoped<IRepositoryBase<Table>, TableRepository>();
 builder.Services.AddScoped<IRepositoryBase<ReservationTable>, ReservationTableRepository>();
+builder.Services.AddScoped<IRepositoryBase<Customer>, CustomerRepository>();
 
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<IRepositoryBase<Product>, ProductRepository>();
