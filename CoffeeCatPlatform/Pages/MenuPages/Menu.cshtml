@@ -7,6 +7,16 @@
 
 <a asp-page="./MenuCreate">Create New Product</a>
 
+
+<div>
+	<form method="post">
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Search by product name" name="searchQuery" value="@Model.SearchQuery" />
+			<button class="btn btn-outline-secondary" type="submit">Search</button>
+		</div>
+	</form>
+</div>
+
 <section class="py-5">
 	<div class="container">
 		<div class="row">
@@ -34,16 +44,14 @@
 			}
 		</div>
 
-		<div>
-			<ul class="pagination">
-				@for (var i = 1; i <= Model.TotalPages; i++)
-				{
-					<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-						<a asp-page="./Menu" asp-route-currentPage="@i.ToString()" class="page-link">@i</a>
-					</li>
-				}
-			</ul>
-		</div>
+		<ul class="pagination">
+			@for (var i = 1; i <= Model.TotalPages; i++)
+			{
+				<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+					<a asp-page="./Menu" asp-route-currentPage="@i.ToString()" asp-route-searchQuery="@Model.SearchQuery" class="page-link">@i</a>
+				</li>
+			}
+		</ul>
 
 		<div class="row pt-7 pb-6">
 			<div class="col-lg-6">
