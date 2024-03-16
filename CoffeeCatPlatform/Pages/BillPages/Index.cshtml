@@ -28,7 +28,14 @@
             <tr>
                 <td>@bill.BillId</td>
                 <td>@bill.TotalPrice</td>
-                <td>@bill.Status</td>
+                @if (bill.Status == 1)
+                {
+                    <td>Finished</td>
+                }
+                else
+                {
+                    <td>Ongoing</td>
+                }
                 <td>@bill.PaymentTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>@bill.Promotion.Name</td>
                 <td>@bill.Reservation?.Customer.Name</td>
@@ -36,7 +43,15 @@
                 <td>@bill.Note</td>
                 <td>
                     <a asp-page="./Details" asp-route-id="@bill.BillId">Details</a> |
-                    <a asp-page="./Edit" asp-route-id="@bill.BillId">Edit</a>
+                    <a asp-page="./Edit" asp-route-id="@bill.BillId">Edit</a> |
+
+                    @if (bill.Status == 0)
+                    {
+                        <form method="post" asp-page-handler="CloseBill">
+                            <input type="hidden" name="billId" value="@bill.BillId" />  
+                            <button type="submit" class="btn btn-primary">Close Bill</button>
+                        </form>
+                    }
                 </td>
             </tr>
         }

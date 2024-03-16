@@ -24,6 +24,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
             _reservationRepository = reservationRepository;
             _staffRepository = staffRepository;
             _customerRepository = customerRepository;
+
+            Bills = new List<Bill>();
         }
 
         public IActionResult OnGet()
@@ -55,6 +57,19 @@ namespace CoffeeCatPlatform.Pages.BillPages
             }
 
             return Page();
+        }
+
+        public IActionResult OnPostCloseBill(int billId)
+        {
+            var bill = _billRepository.GetAll().FirstOrDefault(b => b.BillId == billId);
+
+            if (bill != null)
+            {
+                bill.Status = 1;
+                _billRepository.Update(bill);
+            }
+
+            return RedirectToPage("Index");
         }
     }
 }

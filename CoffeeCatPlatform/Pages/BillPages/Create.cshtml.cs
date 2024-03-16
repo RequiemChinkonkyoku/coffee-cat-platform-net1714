@@ -68,7 +68,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
             var newBill = new Bill
             {
                 TotalPrice = 0,
-                Status = 1,
+                Status = 0,
                 PaymentTime = DateTime.Now,
                 PromotionId = promotionId,
                 Note = note,
