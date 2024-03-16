@@ -11,17 +11,19 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<Promotion> _promotionRepository;
         private readonly IRepositoryBase<Reservation> _reservationRepository;
         private readonly IRepositoryBase<Staff> _staffRepository;
+        private readonly IRepositoryBase<Customer> _customerRepository;
         public List<Bill> Bills { get; set; }
         public List<Promotion> Promotions { get; set; }
         public List<Reservation> Reservations { get; set; }
         public List<Staff> Staffs { get; set; }
 
-        public IndexModel(IRepositoryBase<Bill> billRepository, IRepositoryBase<Promotion> promotionRepository, IRepositoryBase<Reservation> reservationRepository, IRepositoryBase<Staff> staffRepository)
+        public IndexModel(IRepositoryBase<Bill> billRepository, IRepositoryBase<Promotion> promotionRepository, IRepositoryBase<Reservation> reservationRepository, IRepositoryBase<Staff> staffRepository, IRepositoryBase<Customer> customerRepository)
         {
             _billRepository = billRepository;
             _promotionRepository = promotionRepository;
             _reservationRepository = reservationRepository;
             _staffRepository = staffRepository;
+            _customerRepository = customerRepository;
         }
 
         public IActionResult OnGet()
@@ -43,6 +45,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 if (reservation != null)
                 {
                     bill.Reservation = reservation;
+                    bill.Reservation.Customer = _customerRepository.GetAll().FirstOrDefault(c => c.CustomerId == bill.Reservation.CustomerId);
                 }
                 var staff = Staffs.FirstOrDefault(p => p.StaffId == bill.StaffId);
                 if (staff != null)

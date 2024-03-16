@@ -86,7 +86,10 @@ namespace CoffeeCatPlatform.Pages.BillPages
             Promotion = _promotionRepository.GetAll().FirstOrDefault(p => p.PromotionId == Bill.PromotionId);
 
             Reservation = _reservationRepository.GetAll().FirstOrDefault(r => r.ReservationId == Bill.ReservationId);
-            Reservation.Customer = _customerRepository.GetAll().FirstOrDefault(c => c.CustomerId == Reservation.CustomerId);
+            if (Reservation != null)
+            {
+                Reservation.Customer = _customerRepository.GetAll().FirstOrDefault(c => c.CustomerId == Reservation.CustomerId);
+            }
 
             Staff = _staffRepository.GetAll().FirstOrDefault(s => s.StaffId == Bill.StaffId);
 
