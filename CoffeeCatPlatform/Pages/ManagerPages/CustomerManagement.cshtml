@@ -217,6 +217,48 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        @foreach (var Customer in Model.Customers)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm">@Customer.Name</h6>
+                                                            <p class="text-xs text-secondary mb-0">@Customer.Email</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-xs font-weight-bold mb-0">@Customer.Phone</p>
+                                                </td>
+                                                @if (Customer.Status == 0)
+                                                {
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-danger">Deactivated</span>
+                                                    </td>
+                                                }
+                                                else if (Customer.Status == 1)
+                                                {
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-success">Activated</span>
+                                                    </td>
+                                                }
+                                                else if (Customer.Status == 2)
+                                                {
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-secondary">Not activated</span>
+                                                    </td>
+                                                }
+                                                <td class="align-middle text-center">
+                                                    <span class="text-secondary text-xs font-weight-bold">@Customer.CustomerId</span>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        Edit
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
