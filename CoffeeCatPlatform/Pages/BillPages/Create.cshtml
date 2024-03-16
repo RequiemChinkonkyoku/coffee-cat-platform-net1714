@@ -42,6 +42,23 @@
         }
     </select>
     </br>
+    
+    <label for="reservationId">Select Reservation For Today:</label>
+    <select id="reservationId" name="reservationId">
+        @if (Model.Reservations.Any())
+        {
+            <option value="@Model.Reservations.First().ReservationId">@Model.Reservations.First().Customer.Name</option>
+        }
+        else
+        {
+            <option value="">No reservations available</option>
+        }
+        @foreach (var reservation in Model.Reservations .Skip(1))
+        {
+            <option value="@reservation.ReservationId">@reservation.Customer.Name</option>
+        }
+    </select>
+    </br>
 
     <label for="note">Note:</label>
     <textarea id="note" name="note" rows="4" cols="50"></textarea>

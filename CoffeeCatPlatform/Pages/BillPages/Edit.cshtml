@@ -50,6 +50,26 @@
             }
         }
     </select>
+    </br> 
+    
+    <label for="reservationId">Select Reservation For Today:</label>
+    <select id="reservationId" name="reservationId">
+        @if (Model.Reservations.Any() == false)
+        {
+            <option value="">No reservations available</option>
+        }
+        @foreach (var reservation in Model.Reservations)
+        {
+            if (Model.SelectedReservations.Contains(reservation.ReservationId))
+            {
+                <option value="@reservation.ReservationId" selected>@reservation.Customer.Name</option>
+            }
+            else
+            {
+                <option value="@reservation.ReservationId">@reservation.Customer.Name</option>
+            }
+        }
+    </select>
     </br>
 
     <label for="note">Note:</label>
