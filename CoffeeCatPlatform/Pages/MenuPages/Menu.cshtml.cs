@@ -24,7 +24,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 		public MenuModel()
 		{
 			_productRepo = new ProductRepository();
-
+			Products = new List<Product>();
 		}
 		[BindProperty(SupportsGet = true)]
 
@@ -35,13 +35,20 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 		[BindProperty(SupportsGet = true)]
 		public string SearchQuery { get; set; }
 
+		[BindProperty(SupportsGet = true)]
+		public decimal MinPrice { get; set; }
+
+		[BindProperty(SupportsGet = true)]
+		public decimal MaxPrice { get; set; }
 		public IList<Product> Products { get; set; } = default!;
 
 		public int TotalPages => (int)Math.Ceiling((double)TotalItems / ItemsPerPage);
 
-		public IActionResult OnGet(string? currentPage, string? searchQuery)
+		public IActionResult OnGet(string? currentPage, string? searchQuery, decimal minPrice, decimal maxPrice)
 		{
 			SearchQuery = searchQuery;
+			MinPrice = minPrice;
+			MaxPrice = maxPrice;
 
 			if (int.TryParse(currentPage, out int temp))
 			{
@@ -52,55 +59,25 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 				CurrentPage = 1;
 			}
 
+			IEnumerable<Product> query = _productRepo.GetAll();
+
 			if (!string.IsNullOrEmpty(searchQuery))
 			{
-				Products = _productRepo.GetAll()
-					.Where(p => p.Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-					.ToList();
-
-				TotalItems = Products.Count;
-
-				Products = Products.Skip((CurrentPage - 1) * ItemsPerPage)
-								   .Take(ItemsPerPage)
-								   .ToList();
+				query = query.Where(p => p.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
 			}
-			else
+
+			if (MinPrice > 0 && MaxPrice > 0)
 			{
-				var allProducts = _productRepo.GetPaginated(CurrentPage, ItemsPerPage);
-				TotalItems = _productRepo.GetAll().Count;
-				Products = allProducts;
+				query = query.Where(p => p.Price >= MinPrice && p.Price <= MaxPrice);
 			}
+
+			TotalItems = query.Count();
+
+			Products = query.Skip((CurrentPage - 1) * ItemsPerPage)
+							.Take(ItemsPerPage)
+							.ToList();
 
 			result = Products.Count > 0;
-
-			return Page();
-		}
-
-		public IActionResult OnPost(string? currentPage, string? searchQuery)
-		{
-
-			 if (!string.IsNullOrEmpty(searchQuery))
-			{
-				Products = _productRepo.GetAll()
-					.Where(p => p.Name.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0)
-					.ToList();
-
-				TotalItems = Products.Count;
-
-				Products = Products.Skip((CurrentPage - 1) * ItemsPerPage)
-								   .Take(ItemsPerPage)
-								   .ToList();
-			}
-			else
-			{
-				var allProducts = _productRepo.GetPaginated(CurrentPage, ItemsPerPage);
-				TotalItems = _productRepo.GetAll().Count;
-				Products = allProducts;
-			}
-
-			result = Products.Count > 0;
-
-			
 
 			return Page();
 		}

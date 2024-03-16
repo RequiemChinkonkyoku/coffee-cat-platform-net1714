@@ -9,11 +9,31 @@
 
 
 <div>
-	<form method="post">
+	<form method="get">
 		<div class="input-group mb-3">
 			<input type="text" class="form-control" placeholder="Search by product name" name="searchQuery" value="@Model.SearchQuery" />
 			<button class="btn btn-outline-secondary" type="submit">Search</button>
 		</div>
+	</form>
+</div>
+
+<div>
+	<form method="get">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group mb-3">
+					<span class="input-group-text">$</span>
+					<input type="number" class="form-control" placeholder="Min Price" name="minPrice" min="0" value="@Model.MinPrice" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group mb-3">
+					<span class="input-group-text">$</span>
+					<input type="number" class="form-control" placeholder="Max Price" name="maxPrice" min ="0" value="@Model.MaxPrice" />
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary" type="submit">Filter</button>
 	</form>
 </div>
 
@@ -48,7 +68,12 @@
 			@for (var i = 1; i <= Model.TotalPages; i++)
 			{
 				<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-					<a asp-page="./Menu" asp-route-currentPage="@i.ToString()" asp-route-searchQuery="@Model.SearchQuery" class="page-link">@i</a>
+					<a asp-page="./Menu"
+					   asp-route-currentPage="@i.ToString()"
+					   asp-route-searchQuery="@Model.SearchQuery"
+					   asp-route-minPrice="@Model.MinPrice"
+					   asp-route-maxPrice="@Model.MaxPrice"
+					   class="page-link">@i</a>
 				</li>
 			}
 		</ul>
