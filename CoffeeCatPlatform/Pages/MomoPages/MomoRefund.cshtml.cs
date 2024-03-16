@@ -2,11 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories;
-using Repositories.Impl;
 
-namespace CoffeeCatPlatform.Pages.MoMoPages
+namespace CoffeeCatPlatform.Pages.MomoPages
 {
-    public class MoMoInfo : PageModel
+    public class MomoRefundModel : PageModel
     {
         private readonly IMomoRepository _momoRepo;
         private readonly IRepositoryBase<Reservation> _reservationRepo;
@@ -17,22 +16,24 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
 
         public Reservation Reservation { get; set; }
 
-        public MoMoInfo(IMomoRepository momoRepo, IRepositoryBase<Reservation> reservationRepo)
+        public MomoRefundModel(IMomoRepository momoRepo, IRepositoryBase<Reservation> reservationRepo)
         {
             _momoRepo = momoRepo;
             _reservationRepo = reservationRepo;
         }
 
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet(int id)
         {
             if (SessionCheck() == false)
             {
                 return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
 
-            if (id != null)
+            var reservation = _reservationRepo.GetAll().FirstOrDefault(r => r.ReservationId == id);
+
+            if (reservation != null)
             {
-                Reservation = _reservationRepo.FindById(id.Value);
+                Reservation = reservation;
             }
             else
             {
@@ -42,10 +43,22 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
             return Page();
         }
 
-        public async Task<IActionResult> OnPost(OrderInfoModel model, int reservationID)
+        public async Task<IActionResult> OnPost(OrderInfoModel model, int reservationId)
         {
-            var response = await _momoRepo.CreatePaymentAsync(model, reservationID);
-            return Redirect(response.PayUrl);
+            //var response = await _momoRepo.CreateRefundAsync(model, reservationId);
+            //return Redirect(response.PayUrl);
+
+            var reservation = _reservationRepo.FindById(reservationId);
+
+            if (reservation != null)
+            {
+                Reservation = reservation;
+            }
+
+            Reservation.Status = 0;
+            _reservationRepo.Update(Reservation);
+
+            return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");
         }
 
         private bool SessionCheck()

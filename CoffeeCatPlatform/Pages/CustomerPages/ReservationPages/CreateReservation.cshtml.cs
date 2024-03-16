@@ -80,14 +80,13 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
             SelectedTables.Clear();
 
-            foreach (var key in Request.Form.Keys)
+            string[] selectedTableIds = Request.Form["selectedTable"];
+
+            foreach (var tableIdStr in selectedTableIds)
             {
-                if (key.StartsWith("selectedTable"))
+                if (int.TryParse(tableIdStr, out int tableId))
                 {
-                    if (int.TryParse(Request.Form[key], out int tableId))
-                    {
-                        SelectedTables.Add(tableId);
-                    }
+                    SelectedTables.Add(tableId);
                 }
             }
 
@@ -111,8 +110,8 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
             if (Reservation.TotalPrice > (decimal)0.00)
             {
-                TempData["ReservationID"] = Reservation.ReservationId;
-                return RedirectToPage("/MomoPages/MomoInfo");
+                //TempData["ReservationID"] = Reservation.ReservationId;
+                return RedirectToPage("/MomoPages/MomoInfo", new { id = Reservation.ReservationId });
             }
             else
             {
