@@ -17,25 +17,30 @@
 	</form>
 </div>
 
-<div>
-	<form method="get">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="input-group mb-3">
-					<span class="input-group-text">$</span>
-					<input type="number" class="form-control" placeholder="Min Price" name="minPrice" min="0" value="@Model.MinPrice" />
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="input-group mb-3">
-					<span class="input-group-text">$</span>
-					<input type="number" class="form-control" placeholder="Max Price" name="maxPrice" min ="0" value="@Model.MaxPrice" />
-				</div>
+<form method="get">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="input-group mb-3">
+				<span class="input-group-text">$</span>
+				<input type="number" class="form-control" placeholder="Min Price" name="minPrice" value="@Model.MinPrice" />
 			</div>
 		</div>
-		<button class="btn btn-primary" type="submit">Filter</button>
-	</form>
-</div>
+		<div class="col-md-6">
+			<div class="input-group mb-3">
+				<span class="input-group-text">$</span>
+				<input type="number" class="form-control" placeholder="Max Price" name="maxPrice" value="@Model.MaxPrice" />
+			</div>
+		</div>
+		<div class="col-md-6">
+			<select class="form-select" name="sortBy">
+				<option value="asc">Low to High Price</option>
+				<option value="desc">High to Low Price</option>
+			</select>
+		</div>
+	</div>
+	<input type="hidden" name="searchQuery" value="@Model.SearchQuery" />
+	<button class="btn btn-primary" type="submit">Filter</button>
+</form>
 
 <section class="py-5">
 	<div class="container">
@@ -73,6 +78,7 @@
 					   asp-route-searchQuery="@Model.SearchQuery"
 					   asp-route-minPrice="@Model.MinPrice"
 					   asp-route-maxPrice="@Model.MaxPrice"
+					   asp-route-sortBy="@Model.SortBy"
 					   class="page-link">@i</a>
 				</li>
 			}
