@@ -42,17 +42,21 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 		public decimal MaxPrice { get; set; }
 
 		[BindProperty(SupportsGet = true)]
-		public string SortBy { get; set; }
+		public string SortByPrice { get; set; }
+
+		[BindProperty(SupportsGet = true)]
+		public string SortByName { get; set; }
 		public IList<Product> Products { get; set; } = default!;
 
 		public int TotalPages => (int)Math.Ceiling((double)TotalItems / ItemsPerPage);
 
-		public IActionResult OnGet(string? currentPage, string? searchQuery, decimal minPrice, decimal maxPrice, string sortBy)
+		public IActionResult OnGet(string? currentPage, string? searchQuery, decimal minPrice, decimal maxPrice, string sortByPrice, string sortByName)
 		{
 			SearchQuery = searchQuery;
 			MinPrice = minPrice;
 			MaxPrice = maxPrice;
-			SortBy = sortBy;
+			SortByPrice = sortByPrice;
+			SortByName = sortByName;
 
 			if (int.TryParse(currentPage, out int temp))
 			{
@@ -75,13 +79,22 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 				query = query.Where(p => p.Price >= MinPrice && p.Price <= MaxPrice);
 			}
 
-			if (SortBy == "asc")
+			if (sortByPrice == "asc")
 			{
 				query = query.OrderBy(p => p.Price);
 			}
-			else if (SortBy == "desc")
+			else if (sortByPrice == "desc")
 			{
 				query = query.OrderByDescending(p => p.Price);
+			}
+
+			if (sortByName == "asc")
+			{
+				query = query.OrderBy(p => p.Name);
+			}
+			else if (sortByName == "desc")
+			{
+				query = query.OrderByDescending(p => p.Name);
 			}
 
 			TotalItems = query.Count();
