@@ -27,7 +27,6 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 			Products = new List<Product>();
 		}
 		[BindProperty(SupportsGet = true)]
-
 		public int CurrentPage { get; set; } = 1;
 		public int TotalItems { get; set; }
 		public int ItemsPerPage { get; set; } = 4;

@@ -8,8 +8,10 @@ public partial class Cat
     public int CatId { get; set; }
 
     [Required(ErrorMessage = "Name is required")]
+    [RegularExpression(@"^[a-zA-Z''-'\s]{1,50}$", ErrorMessage = "Name can only contain letters and spaces")]
     public string Name { get; set; } = null!;
 
+    [Range(0, 1, ErrorMessage = "Invalid gender value")]
     public int? Gender { get; set; }
 
     [Required(ErrorMessage = "Breed is required")]

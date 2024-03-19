@@ -12,7 +12,7 @@ public partial class Customer
 
     public string? Name { get; set; }
     [Required(ErrorMessage = "Phone number is required.")]
-
+    [RegularExpression(@"^\d{10,11}$", ErrorMessage = "Phone number must be 10-11 digits.")]
     public string? Phone { get; set; }
     [Required(ErrorMessage = "Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email address.")]

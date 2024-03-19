@@ -42,6 +42,13 @@ namespace CoffeeCatPlatform.Pages
                 return Page();
             }
 
+            var existingEmail = _customerRepo.GetAll().FirstOrDefault(c => c.Email.Equals(Customer.Email));
+            if (existingEmail != null)
+            {
+                ModelState.AddModelError("Customer.Email", "Email is already in use.");
+                return Page();
+            }
+
             _email = GetEmail();
             _password = GetPassword();
 
