@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories.Impl;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
-    public class ProductManagementModel : PageModel
+    public class ProductManagementModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Product> _productRepo;
         private readonly IRepositoryBase<Category> _categoryRepo;
@@ -45,6 +46,12 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
 
         public IActionResult OnGet(string? currentPage, string? searchQuery, decimal minPrice, decimal maxPrice, string sortByPrice, string sortByName)
         {
+            IActionResult auth = ManagerAuthorize();
+            if (auth != null)
+            {
+                return auth;
+            }
+
             if (int.TryParse(currentPage, out int temp))
             {
                 CurrentPage = temp;

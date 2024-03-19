@@ -4,10 +4,11 @@ using Models;
 using Repositories.Impl;
 using Repositories;
 using Microsoft.IdentityModel.Tokens;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
-    public class StaffManagementModel : PageModel
+    public class StaffManagementModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Staff> _staffRepo;
 
@@ -19,13 +20,21 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
         }
         public IList<Staff> StaffList { get; set; } = default!;
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            IActionResult auth = ManagerAuthorize();
+            if (auth != null)
+            {
+                return auth;
+            }
+
             if (!_staffRepo.GetAll().IsNullOrEmpty())
             {
                 StaffList = _staffRepo.GetAll();
                 result = true;
             }
+
+            return Page();
         }
     }
 }

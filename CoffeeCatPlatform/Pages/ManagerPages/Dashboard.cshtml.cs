@@ -7,15 +7,11 @@ using System.Diagnostics;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
-    public class DashboardModel : PageModel
+    public class DashboardModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Customer> _customerRepo;
         private readonly IRepositoryBase<Bill> _billRepo;
-
-        private const string SessionKeyName = "_Name";
-        private const string SessionKeyId = "_Id";
-        private const string SessionKeyType = "_Type";
 
         [BindProperty]
         public int todaySales { get; set; }
@@ -39,14 +35,10 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
 
         public IActionResult OnGet()
         {
-            if (SessionCheck() == false)
+            IActionResult auth = ManagerAuthorize();
+            if (auth != null)
             {
-                return RedirectToPage("/ErrorPages/NotLoggedInError");
-            }
-            else if (!(HttpContext.Session.GetString(SessionKeyType) == "Manager"))
-            {
-                Debug.WriteLine(HttpContext.Session.GetString(SessionKeyType));
-                return RedirectToPage("/ErrorPages/NotAuthorizedError");
+                return auth;
             }
 
             todaySales = 0;
@@ -96,18 +88,6 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
             }
 
             return Page();
-        }
-
-        private bool SessionCheck()
-        {
-            bool result = true;
-            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
-            {
-                result = false;
-            }
-            return result;
         }
     }
 }
