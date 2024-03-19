@@ -48,7 +48,8 @@ CREATE TABLE "table" (
 
 CREATE TABLE reservation (
     reservationID INT IDENTITY(1, 1) PRIMARY KEY,
-    bookingDay DATE NOT NULL,
+	createTime DATETIME NOT NULL,
+    arrivalDate DATE NOT NULL,
 	startTime TIME NOT NULL,
 	endTime TIME NOT NULL,
 	seatsBooked INT NOT NULL,
@@ -142,3 +143,23 @@ CREATE TABLE billProduct (
     billID INT REFERENCES bill(billID),
     productID INT REFERENCES product(productID),
 );
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE UpdateReservationStatusProcedure
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @CurrentTime DATETIME;
+
+	SET @CurrentTime = GETDATE();
+
+	UPDATE reservation
+	SET status = 0
+	WHERE status = -1
+	AND DATEDIFF(HOUR, createTime, @CurrentTime) >= 2
+END
+GO

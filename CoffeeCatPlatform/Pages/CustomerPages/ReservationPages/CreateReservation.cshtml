@@ -19,7 +19,7 @@
         {
             <p>
                 <strong>Reservation ID: </strong> @reservation.ReservationId <br />
-                <strong>Reservation Date: </strong> @reservation.BookingDay <br />
+                <strong>Reservation Arrival Date: </strong> @reservation.ArrivalDate <br />
                 <strong>Reservation Start Time: </strong> @reservation.StartTime <br />
                 <strong>Reservation End Time: </strong> @reservation.EndTime <br />
             </p>
@@ -31,10 +31,10 @@
             <form method="post" id="reservationForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Reservation.BookingDay" class="control-label">Booking Day</label>
-                    <input asp-for="Reservation.BookingDay" class="form-control" type="date" id="bookingDay"
+                    <label asp-for="Reservation.ArrivalDate" class="control-label">Arrival Day</label>
+                    <input asp-for="Reservation.ArrivalDate" class="form-control" type="date" id="arrivalDate"
                            min="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                    <span asp-validation-for="Reservation.BookingDay" class="text-danger"></span>
+                    <span asp-validation-for="Reservation.ArrivalDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Reservation.StartTime" class="control-label">Start Time</label>
@@ -76,13 +76,13 @@
 
         <div class="col-md-4">
             <p>
-                Price is calculated based on the staying time.
+                Price is calculated based on the staying time and seats booked.
             </p>
             <p>
-                If the time is 2 hours or less, it's free.
+                The first 2 hours are free, each hour thereafter cost 50000 VND
             </p>
             <p>
-                For each hour thereafter, the cost is 50000VND.
+                The first 4 seats are free, each seat thereafter cost 20000 VND
             </p>
             <p>
                 Payment will be done through Momo.
@@ -125,7 +125,7 @@
             var tableSelectButton = document.getElementById('tableSelectButton');
             var modalConfirmButton = document.getElementById('modalConfirmButton');
 
-            var bookingDayInput = document.getElementById('bookingDay');
+            var arrivalDateInput = document.getElementById('arrivalDate');
             var startTimeInput = document.getElementById('startTime');
             var endTimeInput = document.getElementById('endTime');
 
@@ -173,9 +173,9 @@
 
             //Show modal and get available tables
             tableSelectButton.addEventListener('click', function () {
-                if (seatCountInput.value >= 1 && bookingDayInput.value && startTimeInput.value && endTimeInput.value) {
+                if (seatCountInput.value >= 1 && arrivalDateInput.value && startTimeInput.value && endTimeInput.value) {
                     var requestData = {
-                        bookingDay: bookingDayInput.value,
+                        arrivalDate: arrivalDateInput.value,
                         startTime: startTimeInput.value,
                         endTime: endTimeInput.value
                     };

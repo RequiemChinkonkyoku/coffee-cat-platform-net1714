@@ -92,6 +92,7 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
             if (SelectedTables.Count > 0)
             {
+                Reservation.CreateTime = DateTime.Now;
                 Reservation.Status = -1;
                 _reservationRepo.Add(Reservation);
 
@@ -110,7 +111,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
             if (Reservation.TotalPrice > (decimal)0.00)
             {
-                //TempData["ReservationID"] = Reservation.ReservationId;
                 return RedirectToPage("/MomoPages/MomoInfo", new { id = Reservation.ReservationId });
             }
             else
@@ -122,23 +122,23 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             return RedirectToPage("/Homepage");
         }
 
-        public IActionResult OnGetGetTable(DateTime bookingDay, TimeSpan startTime, TimeSpan endTime)
+        public IActionResult OnGetGetTable(DateTime arrivalDate, TimeSpan startTime, TimeSpan endTime)
         {
-            var tableList = CheckAvailableTable(bookingDay, startTime, endTime);
+            var tableList = CheckAvailableTable(arrivalDate, startTime, endTime);
 
             var result = JsonSerializer.Serialize(tableList, new JsonSerializerOptions());
 
             return Content(result, "application/json");
         }
 
-        private List<Table> CheckAvailableTable(DateTime bookingDate, TimeSpan startTime, TimeSpan endTime)
+        private List<Table> CheckAvailableTable(DateTime arrivalDate, TimeSpan startTime, TimeSpan endTime)
         {
             var availableTables = _tableRepo.GetAll();
             var reservationOfTheDay = new List<Reservation>();
 
             foreach (var reservation in _reservationRepo.GetAll())
             {
-                if (reservation.BookingDay.Date.Equals(bookingDate))
+                if (reservation.ArrivalDate.Date.Equals(arrivalDate) && (reservation.Status == 1))
                 {
                     reservationOfTheDay.Add(reservation);
                 }

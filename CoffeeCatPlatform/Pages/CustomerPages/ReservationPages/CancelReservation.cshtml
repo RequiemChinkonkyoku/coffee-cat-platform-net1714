@@ -13,10 +13,16 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.BookingDay)
+            @Html.DisplayNameFor(model => model.Reservation.CreateTime)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.BookingDay)
+            @Html.DisplayFor(model => model.Reservation.CreateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reservation.ArrivalDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reservation.ArrivalDate)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reservation.StartTime)

@@ -45,10 +45,10 @@ namespace CoffeeCatPlatform.Pages.MomoPages
 
         public async Task<IActionResult> OnPost(OrderInfoModel model, int reservationId)
         {
-            var response = await _momoRepo.CreateRefundAsync(model, reservationId);
-            return Redirect("/CustomerPages/ReservationPages/ViewReservation");
+            //var response = await _momoRepo.CreateRefundAsync(model, reservationId);
+            //return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");
 
-            /*var reservation = _reservationRepo.FindById(reservationId);
+            var reservation = _reservationRepo.FindById(reservationId);
 
             if (reservation != null)
             {
@@ -58,7 +58,7 @@ namespace CoffeeCatPlatform.Pages.MomoPages
             Reservation.Status = 0;
             _reservationRepo.Update(Reservation);
 
-            return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");*/
+            return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");
         }
 
         private bool SessionCheck()
