@@ -31,7 +31,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
             if (Product == null)
             {
                 TempData["ErrorMessage"] = "Product not found.";
-                return RedirectToPage("./Menu");
+                return RedirectToPage("/ManagerPages/ProductManagement");
             }
 
             return Page();
@@ -44,27 +44,12 @@ namespace CoffeeCatPlatform.Pages.MenuPages
                 // If the model state is not valid, return the page with validation errors
                 return Page();
             }
-            
 
-            /*var existingProduct = _productRepo.GetAll().FirstOrDefault(p => p.ProductId == id);
-
-            if (existingProduct == null)
-            {
-                TempData["ErrorMessage"] = "Product not found.";
-                return RedirectToPage("./Menu");
-            }
-
-            existingProduct.Name = Product.Name;
-            existingProduct.Description = Product.Description; 
-            existingProduct.Price = Product.Price;
-            existingProduct.Quantity = Product.Quantity;    
-            existingProduct.ImageUrl = Product.ImageUrl;
-            existingProduct.Shop = Product.Shop;*/
             Product.productStatus = 1;
             _productRepo.Update(Product);
 
             TempData["SuccessMessage"] = "Product updated successfully.";
-            return RedirectToPage("./Menu");
+            return RedirectToPage("/ManagerPages/ProductManagement");
 
         }
 
@@ -75,7 +60,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
             if (productToDelete == null)
             {
                 TempData["ErrorMessage"] = "Product not found.";
-                return RedirectToPage("./Menu");
+                return RedirectToPage("/ManagerPages/ProductManagement");
             }
 
             productToDelete.productStatus = 0;
@@ -83,7 +68,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
             _productRepo.Update(productToDelete);
 
             TempData["SuccessMessage"] = "Product deleted successfully.";
-            return RedirectToPage("./Menu");
+            return RedirectToPage("/ManagerPages/ProductManagement");
         }
     }
 }

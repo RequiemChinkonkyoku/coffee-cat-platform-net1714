@@ -36,16 +36,5 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
                 result = true;
             }
         }
-
-        /*
-        public void OnGet() 
-        { 
-            if (!_customerRepo.GetAll().IsNullOrEmpty()) 
-            {   
-                Customers = _customerRepo.GetAll();
-                result = true;
-            }
-        }
-        */
     }
 }

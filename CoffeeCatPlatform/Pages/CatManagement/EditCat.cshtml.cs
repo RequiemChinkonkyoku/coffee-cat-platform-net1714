@@ -26,7 +26,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             if (temp == null)
             {
                 TempData["ErrorMessage"] = "Cat not found.";
-                return RedirectToPage("./ViewCat");
+                return RedirectToPage("/ManagerPages/CatManagement");
             }
             Cat = temp;
 
@@ -68,7 +68,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             _catRepository.Update(Cat);
 
             TempData["SuccessMessage"] = "Cat updated successfully.";
-            return RedirectToPage("./ViewCat");
+            return RedirectToPage("/ManagerPages/CatManagement");
         }
 
         public IActionResult OnPostDelete(int id)
@@ -78,7 +78,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             if (catToDelete == null)
             {
                 TempData["ErrorMessage"] = "Cat not found.";
-                return RedirectToPage("./ViewCat");
+                return RedirectToPage("/ManagerPages/CatManagement");
             }
 
             // Update the HealthStatus to 0 (unhealthy)
@@ -88,7 +88,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             _catRepository.Update(catToDelete);
 
             TempData["SuccessMessage"] = "Cat deleted successfully.";
-            return RedirectToPage("./ViewCat");
+            return RedirectToPage("/ManagerPages/CatManagement");
         }
     }
 }

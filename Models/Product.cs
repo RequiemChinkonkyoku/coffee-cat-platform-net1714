@@ -34,6 +34,8 @@ public partial class Product
     [Range(1, 4, ErrorMessage = "Invalid Category value")]
     public int? CategoryId { get; set; }
 
+    public virtual Category? Category { get; set; }
+
     public virtual ICollection<BillProduct> BillProducts { get; set; } = new List<BillProduct>();
 
     public virtual Shop? Shop { get; set; }
