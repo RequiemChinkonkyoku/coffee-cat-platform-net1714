@@ -20,6 +20,7 @@ public partial class Cat
     public DateTime Birthday { get; set; }
 
     [Required(ErrorMessage = "HealthStatus is required")]
+    [Range(0, 1, ErrorMessage = "Invalid HealthStatus value")]
     public int? HealthStatus { get; set; }
 
     public int? ShopId { get; set; }

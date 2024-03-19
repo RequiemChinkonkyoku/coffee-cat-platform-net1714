@@ -12,12 +12,15 @@ public partial class Product
     public string Name { get; set; } = null!;
 
     [Required(ErrorMessage = "Product Description is required")]
+    [MaxLength(500, ErrorMessage = "Description must not exceed 500 characters")]
     public string? Description { get; set; }
 
     [Required(ErrorMessage = "Product Price is required")]
+    [Range(0, double.MaxValue, ErrorMessage = "Price must be a non-negative number")]
     public decimal Price { get; set; }
 
     [Required(ErrorMessage = "Product Quantity is required")]
+    [Range(0, double.MaxValue, ErrorMessage = "Quantity must be a non-negative number")]
     public int Quantity { get; set; }
 
     [Required(ErrorMessage = "Product Status is required")]
@@ -28,6 +31,7 @@ public partial class Product
 
     public int? ShopId { get; set; }
 
+    [Range(1, 4, ErrorMessage = "Invalid Category value")]
     public int? CategoryId { get; set; }
 
     public virtual ICollection<BillProduct> BillProducts { get; set; } = new List<BillProduct>();
