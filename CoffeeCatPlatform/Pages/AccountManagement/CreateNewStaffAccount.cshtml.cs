@@ -123,7 +123,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             Staff.Status = 1;
             _staffRepo.Add(Staff);
 
-            return RedirectToPage("./ViewAccount");
+            return RedirectToPage("/ManagerPages/StaffManagement");
         }
 
         private bool IsValidEmail(string email)
