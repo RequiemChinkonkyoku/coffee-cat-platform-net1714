@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Models;
 using Repositories;
 using Repositories.Impl;
@@ -11,6 +10,11 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
     {
         private readonly IMomoRepository _momoRepo;
         private readonly IRepositoryBase<Reservation> _reservationRepo;
+
+        private const string SessionKeyName = "_Name";
+        private const string SessionKeyId = "_Id";
+        private const string SessionKeyType = "_Type";
+
         public Reservation Reservation { get; set; }
 
         public MoMoInfo(IMomoRepository momoRepo, IRepositoryBase<Reservation> reservationRepo)
@@ -19,13 +23,20 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
             _reservationRepo = reservationRepo;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
-            var reservationID = int.Parse(TempData["ReservationID"].ToString());
-
-            if (reservationID != null)
+            if (SessionCheck() == false)
             {
-                Reservation = _reservationRepo.FindById(reservationID);
+                return RedirectToPage("/ErrorPages/NotLoggedInError");
+            }
+
+            if (id != null)
+            {
+                Reservation = _reservationRepo.FindById(id.Value);
+            }
+            else
+            {
+                return NotFound();
             }
 
             return Page();
@@ -35,6 +46,18 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
         {
             var response = await _momoRepo.CreatePaymentAsync(model, reservationID);
             return Redirect(response.PayUrl);
+        }
+
+        private bool SessionCheck()
+        {
+            bool result = true;
+            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
+                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
+            {
+                result = false;
+            }
+            return result;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/Momoinfo"
+﻿@page "/MomoInfo"
 @model CoffeeCatPlatform.Pages.MoMoPages.MoMoInfo;
 @{
     ViewData["Title"] = "Momo Info";
@@ -9,7 +9,7 @@
 
     <div class="form-container">
         <form method="POST">
-            <input type="hidden" name="ReservationID" value="@Model.Reservation.ReservationId"/>
+            <input type="hidden" name="ReservationID" value="@Model.Reservation.ReservationId" />
             <div class="form-group">
                 <label for="FullName">Tên khách hàng</label>
                 <input class="form-control"

@@ -18,6 +18,7 @@ builder.Services.AddScoped<IMomoRepository, MomoRepository>();
 builder.Services.AddScoped<IRepositoryBase<Reservation>, ReservationRepository>();
 builder.Services.AddScoped<IRepositoryBase<Table>, TableRepository>();
 builder.Services.AddScoped<IRepositoryBase<ReservationTable>, ReservationTableRepository>();
+builder.Services.AddScoped<IRepositoryBase<Customer>, CustomerRepository>();
 
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<IRepositoryBase<Product>, ProductRepository>();
@@ -32,7 +33,7 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(1);
+    options.IdleTimeout = TimeSpan.FromMinutes(5);
     options.Cookie.IsEssential = true;
     options.Cookie.HttpOnly = true;
     options.Cookie.Name = ".CCP.Session";

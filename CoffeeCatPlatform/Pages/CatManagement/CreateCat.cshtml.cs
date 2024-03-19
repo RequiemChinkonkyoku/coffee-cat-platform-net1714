@@ -35,12 +35,13 @@ namespace CoffeeCatPlatform.Pages.CatManagement
                 // If the model state is not valid, return the page with validation errors
                 return Page();
             }
+            Cat.HealthStatus = 1;
             Cat.ShopId = 1;
             // Add the new cat to the repository
             _catRepository.Add(Cat);
 
             TempData["SuccessMessage"] = "Cat created successfully.";
-            return RedirectToPage("./ViewCat");
+            return RedirectToPage("/ManagerPages/CatManagement");
         }
     }
 }

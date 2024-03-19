@@ -7,6 +7,36 @@
 
 <a asp-page="./MenuCreate">Create New Product</a>
 
+
+<form method="get">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="input-group mb-3">
+				<span class="input-group-text">$</span>
+				<input type="number" class="form-control" placeholder="Min Price" name="minPrice" min="0" value="@Model.MinPrice" />
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="input-group mb-3">
+				<span class="input-group-text">$</span>
+				<input type="number" class="form-control" placeholder="Max Price" name="maxPrice" min="0" value="@Model.MaxPrice" />
+			</div>
+		</div>
+		<button class="btn btn-primary" type="submit">Filter</button>
+		<div class="col-md-6">
+			<button type="submit" class="btn btn-primary" name="SortByPrice" value="asc">Low to High Price</button>
+			<button type="submit" class="btn btn-primary" name="SortByPrice" value="desc">High to Low Price</button>
+			<button type="submit" class="btn btn-primary" name="SortByName" value="asc">Sort A to Z</button>
+			<button type="submit" class="btn btn-primary" name="SortByName" value="desc">Sort Z to A</button>
+		</div>
+	</div>
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" placeholder="Search by product name" name="searchQuery" value="@Model.SearchQuery" />
+		<button class="btn btn-outline-secondary" type="submit">Search</button>
+	</div>
+	<input type="hidden" name="sortBy" id="sortBy" />
+</form>
+
 <section class="py-5">
 	<div class="container">
 		<div class="row">
@@ -15,44 +45,51 @@
 				<h2>MENU</h2>
 			</div>
 		</div>
+		
 		<div class="row mt-md-5 mt-4">
-			@foreach (var product in Model.Products)
+			@if (Model.Products.Any())
 			{
-				<div class="col-lg-3 col-6 mb-lg-0 mb-4">
-					<div class="card shadow-xl">
-						<div class="card-body text-center bg-white border-radius-lg p-3">
-							<a href="javascript:;">
-								<img class="w-100 border-radius-md" src="@product.ImageUrl" alt="card image"
-									 style="max-width:256px; max-height:256px; display:block; width:auto; height:auto; min-width:256px; min-height:256px">
-							</a>
-							<h5 class="mt-3 mb-1 d-md-block d-none">@product.Name</h5>
-							<p class="mb-1 d-md-none d-block text-sm font-weight-bold text-darker">@product.Name</p>
-							<p class="mb-0 text-xs font-weight-bolder text-info text-gradient text-uppercase">@product.Price</p>
+				@foreach (var product in Model.Products)
+				{
+					<div class="col-lg-3 col-6 mb-lg-0 mb-4">
+						<div class="card shadow-xl">
+							<div class="card-body text-center bg-white border-radius-lg p-3">
+								<a href="javascript:;">
+									<img class="w-100 border-radius-md" src="@product.ImageUrl" alt="card image"
+										 style="max-width:256px; max-height:256px; display:block; width:auto; height:auto; min-width:256px; min-height:256px">
+								</a>
+								<h5 class="mt-3 mb-1 d-md-block d-none">@product.Name</h5>
+								<p class="mb-1 d-md-none d-block text-sm font-weight-bold text-darker">@product.Name</p>
+								<p class="mb-0 text-xs font-weight-bolder text-info text-gradient text-uppercase">@product.Price</p>
+							</div>
 						</div>
+					</div>
+				}
+			}
+			else
+			{
+				<div class="row mt-md-5 mt-4">
+					<div class="col-md-12 text-center">
+						<p>No products found.</p>
 					</div>
 				</div>
 			}
 		</div>
 
-		<div>
-			<ul class="pagination">
-				@for (var i = 1; i <= Model.TotalPages; i++)
-				{
-					<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-						<a asp-page="./Menu" asp-route-currentPage="@i.ToString()" class="page-link">@i</a>
-					</li>
-				}
-			</ul>
-		</div>
-
-		<div class="row pt-7 pb-6">
-			<div class="col-lg-6">
-				<h2>Get your own app</h2>
-				<p>The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.</p>
-			</div>
-			<div class="col-lg-6 text-end d-flex flex-column justify-content-center">
-				<button type="button" class="btn bg-gradient-info mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2">Join Team</button>
-			</div>
-		</div>
+		<ul class="pagination">
+			@for (var i = 1; i <= Model.TotalPages; i++)
+			{
+				<li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+					<a asp-page="./Menu"
+					   asp-route-currentPage="@i.ToString()"
+					   asp-route-searchQuery="@Model.SearchQuery"
+					   asp-route-minPrice="@Model.MinPrice"
+					   asp-route-maxPrice="@Model.MaxPrice"
+					   asp-route-sortByPrice="@Model.SortByPrice"
+					   asp-route-sortByName="@Model.SortByName"
+					   class="page-link">@i</a>
+				</li>
+			}
+		</ul>
 	</div>
 </section>
