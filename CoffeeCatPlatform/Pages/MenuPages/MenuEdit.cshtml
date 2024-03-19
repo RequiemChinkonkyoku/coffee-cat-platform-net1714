@@ -63,6 +63,12 @@
                             <label asp-for="Product.Description"></label>
                             <textarea asp-for="Product.Description" class="form-control" id="message" rows="4"></textarea>
                         </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.productStatus"></label>
+                            <div class="input-group mb-4">
+                                <input asp-for="Product.productStatus" class="form-control" placeholder="" aria-label="Name" type="hidden" value="1">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-check form-switch mb-4">

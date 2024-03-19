@@ -30,11 +30,12 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 
         public IActionResult OnPost()
         {
+            Product.ShopId = 1;
             Product.productStatus = 1;
             _productRepo.Add(Product);
 
             TempData["SuccessMessage"] = "Product created successfully.";
-            return RedirectToPage("./Menu");
+            return RedirectToPage("/ManagerPages/ProductManagement");
         }
     }
 }

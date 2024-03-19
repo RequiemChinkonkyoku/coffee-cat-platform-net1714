@@ -31,7 +31,7 @@ VALUES ('Whiskers', 0, 'Tabby', '2020-01-01', 1, 1,'https://imgflip.com/s/meme/C
 -- Insert sample data into the 'role' table
 INSERT INTO role (name, description)
 VALUES ('Manager', 'Manages the coffee shop'),
-       ('Staff', 'Serves customers');
+       ('Waiter', 'Serves customers');
        
 	   
 -- Insert sample data into the 'staff' table
