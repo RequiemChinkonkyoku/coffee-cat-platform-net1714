@@ -30,7 +30,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             if (Staff == null)
             {
                 TempData["ErrorMessage"] = "Staff not found.";
-                return RedirectToPage("./ViewAccount");
+                return RedirectToPage("/ManagerPages/StaffManagement");
             }
 
             return Page();
@@ -43,7 +43,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             if (staffToDelete == null)
             {
                 TempData["ErrorMessage"] = "Staff not found.";
-                return RedirectToPage("./ViewAccount");
+                return RedirectToPage("/ManagerPages/StaffManagement");
             }
 
             staffToDelete.Status = 0;
@@ -51,7 +51,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             _staffRepo.Update(staffToDelete);
 
             TempData["SuccessMessage"] = "Customer deleted successfully.";
-            return RedirectToPage("./ViewAccount");
+            return RedirectToPage("/ManagerPages/StaffManagement");
         }
 
     }

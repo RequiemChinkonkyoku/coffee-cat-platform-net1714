@@ -27,7 +27,7 @@
                         <li class="nav-item d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                                <span class="d-sm-inline d-none">@HttpContext.Session.GetString("_Name")</span>
                             </a>
                         </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -178,7 +178,7 @@
                                                     <span class="text-secondary text-xs font-weight-bold">@Customer.CustomerId</span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    <a asp-page="/CustomerAccountUpdate" asp-route-id="@Customer.CustomerId" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                         Edit
                                                     </a>
                                                 </td>
@@ -191,9 +191,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <br />
         </div>
     </main>
 </body>
