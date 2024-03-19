@@ -44,79 +44,6 @@
                                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                             </a>
                         </li>
-                        <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell cursor-pointer"></i>
-                            </a>
-                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="~/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New message</span> from Laur
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    13 minutes ago
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="~/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New album</span> by Travis Scott
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    1 day
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                                                <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                    <title>credit-card</title>
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                            <g transform="translate(1716.000000, 291.000000)">
-                                                                <g transform="translate(453.000000, 454.000000)">
-                                                                    <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                                                    <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </g>
-                                                </svg>
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    Payment successfully completed
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    2 days
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -136,7 +63,7 @@
                                 </div>
                                 <div class="ms-auto my-auto mt-lg-0 mt-4">
                                     <div class="ms-auto my-auto">
-                                        <a href="./new-product.html" class="btn bg-gradient-primary btn-sm mb-0" target="_blank">+&nbsp; New Product</a>
+                                        <a href="/MenuCreate" class="btn bg-gradient-primary btn-sm mb-0">New Product</a>
                                         <button type="button" class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#import">
                                             Import
                                         </button>
@@ -169,83 +96,100 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pb-0">
+                            <form method="GET">
+                                <div class="col-lg-4 mx-auto">
+                                    <div class="input-group mb-4">
+                                        <span class="input-group-text"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" placeholder="Search by product name" name="searchQuery" value="@Model.SearchQuery" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-body px-0 pb-0">
                             <div class="table-responsive">
                                 <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-                                    <div class="dataTable-top"><div class="dataTable-dropdown"><label><select class="dataTable-selector"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option></select> entries per page</label></div><div class="dataTable-search"><input class="dataTable-input" placeholder="Search..." type="text"></div></div><div class="dataTable-container">
-                                        <table class="table table-flush dataTable-table" id="products-list">
-                                            <thead class="thead-light">
+                                    <table class="table table-flush dataTable-table" id="products-list">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quantity</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var product in Model.Products)
+                                            {
                                                 <tr>
-                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product</th>
-                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
-                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
-                                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quantity</th>
-                                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var product in Model.Products)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <img class="w-10 ms-3" src="@product.ImageUrl" alt="mac"
-                                                                     style="max-width:50px; max-height:50px; display:block; width:auto; height:auto; min-width:50px; min-height:50px">
-                                                                <h6 class="ms-3 my-auto">@product.Name</h6>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-sm">@product.Category.Name</td>
-                                                        <td class="text-sm">@product.Price</td>
-                                                        <td class="text-sm">@product.Quantity</td>
-                                                        <td class ="text-center text-sm">
-                                                            @if (product.productStatus == 1)
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <img class="w-10 ms-3" src="@product.ImageUrl" alt="mac"
+                                                                 style="max-width:50px; max-height:50px; display:block; width:auto; height:auto; min-width:50px; min-height:50px">
+                                                            <h6 class="ms-3 my-auto">@product.Name</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-xs font-weight-bold mb-0">@product.Category.Name</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-xs font-weight-bold mb-0">@product.Price</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-xs font-weight-bold mb-0">@product.Quantity</p>
+                                                    </td>
+                                                    <td class="text-center text-sm">
+                                                        @if (product.productStatus == 1)
+                                                        {
+                                                            @if (product.Quantity == 0)
                                                             {
-                                                                @if (product.Quantity == 0)
-                                                                {
-                                                                    <span class="badge badge-sm bg-gradient-danger">Out Of Stock</span>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <span class="badge badge-sm bg-gradient-success">In Stock</span>
-                                                                }
+                                                                <span class="badge badge-sm bg-gradient-danger">Out Of Stock</span>
                                                             }
                                                             else
                                                             {
-                                                                <span class="badge badge-sm bg-gradient-secondary">Out Of Order</span>
+                                                                <span class="badge badge-sm bg-gradient-success">In Stock</span>
                                                             }
-                                                        </td>
-                                                        <td class="text-sm text-center">
-                                                            <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Preview product">
-                                                                <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
-                                                            </a>
-                                                            <a href="javascript:;" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
-                                                                <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
-                                                            </a>
-                                                            <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
-                                                                <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div>
-                                        <ul class="pagination">
-                                            @for (var i = 1; i <= Model.TotalPages; i++)
-                                            {
-                                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                                                    <a asp-page="./ProductManagement" asp-route-currentPage="@i.ToString()" class="page-link">@i</a>
-                                                </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-sm bg-gradient-secondary">Out Of Order</span>
+                                                        }
+                                                    </td>
+                                                    <td class="text-sm text-center">
+                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Preview product">
+                                                            <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a asp-page="/MenuPages/MenuEdit" asp-route-id="@product.ProductId" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
+                                                            <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a href="javascript:;" data-bs-toggle="tooltip" data-bs-original-title="Delete product">
+                                                            <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             }
-                                        </ul>
-                                    </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-lg-4 mx-auto">
+                                    <ul class="pagination pagination-primary m-4">
+                                        @for (var i = 1; i <= Model.TotalPages; i++)
+                                        {
+                                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                                <a asp-page="./ProductManagement" asp-route-currentPage="@i.ToString()" class="page-link">@i</a>
+                                            </li>
+                                        }
+                                    </ul>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 </body>

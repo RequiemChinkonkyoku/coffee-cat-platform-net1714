@@ -22,13 +22,28 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;
         public int TotalItems { get; set; }
-        public int ItemsPerPage { get; set; } = 5;
+        public int ItemsPerPage { get; set; } = 10;
+
+        [BindProperty(SupportsGet = true)]
+        public string SearchQuery { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public decimal MinPrice { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public decimal MaxPrice { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SortByPrice { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SortByName { get; set; }
 
         public IList<Product> Products { get; set; } = default!;
 
         public int TotalPages => (int)Math.Ceiling((double)TotalItems / ItemsPerPage);
 
-        public IActionResult OnGet(string? currentPage)
+        public IActionResult OnGet(string? currentPage, string? searchQuery, decimal minPrice, decimal maxPrice, string sortByPrice, string sortByName)
         {
             if (int.TryParse(currentPage, out int temp))
             {
@@ -56,6 +71,48 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
                     product.Category = category;
                 }
             }
+
+            SearchQuery = searchQuery;
+            MinPrice = minPrice;
+            MaxPrice = maxPrice;
+            SortByPrice = sortByPrice;
+            SortByName = sortByName;
+
+            IEnumerable<Product> query = _productRepo.GetAll();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(p => p.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (MinPrice > 0 && MaxPrice > 0)
+            {
+                query = query.Where(p => p.Price >= MinPrice && p.Price <= MaxPrice);
+            }
+
+            if (sortByPrice == "asc")
+            {
+                query = query.OrderBy(p => p.Price);
+            }
+            else if (sortByPrice == "desc")
+            {
+                query = query.OrderByDescending(p => p.Price);
+            }
+
+            if (sortByName == "asc")
+            {
+                query = query.OrderBy(p => p.Name);
+            }
+            else if (sortByName == "desc")
+            {
+                query = query.OrderByDescending(p => p.Name);
+            }
+
+            TotalItems = query.Count();
+
+            Products = query.Skip((CurrentPage - 1) * ItemsPerPage)
+                            .Take(ItemsPerPage)
+                            .ToList();
 
             return Page();
         }

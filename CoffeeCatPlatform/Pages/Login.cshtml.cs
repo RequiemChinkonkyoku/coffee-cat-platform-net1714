@@ -37,7 +37,6 @@ namespace CoffeeCatPlatform.Pages
         }
 
         public IActionResult OnPost()
-
         {
             string type = "Customer";
             var customer = _customerRepo.GetAll().FirstOrDefault(c =>
@@ -63,7 +62,8 @@ namespace CoffeeCatPlatform.Pages
 
         public IActionResult OnPostStaff()
         {
-            string type = "Staff";
+            string type1 = "Manager";
+            string type2 = "Waiter";
             var staff = _staffRepo.GetAll().FirstOrDefault(c =>
                 c.Email.Equals(Email) &&
                 c.Password.Equals(Password));
@@ -78,7 +78,14 @@ namespace CoffeeCatPlatform.Pages
                 {
                     HttpContext.Session.SetString(SessionKeyName, staff.Name);
                     HttpContext.Session.SetInt32(SessionKeyId, staff.StaffId);
-                    HttpContext.Session.SetString(SessionKeyType, type);
+                    if (staff.RoleId == 1)
+                    {
+                        HttpContext.Session.SetString(SessionKeyType, type1);
+                    }
+                    else if (staff.RoleId == 2)
+                    {
+                        HttpContext.Session.SetString(SessionKeyType, type2);
+                    }
                 }
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });
             }
