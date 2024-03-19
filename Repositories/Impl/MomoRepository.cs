@@ -60,7 +60,6 @@ namespace Repositories.Impl
             return JsonConvert.DeserializeObject<MomoCreatePaymentResponseModel>(responseContent);
         }
 
-
         public MomoExecuteResponseModel PaymentExecuteAsync(IQueryCollection collection)
         {
             var amount = collection.First(s => s.Key == "amount").Value;
@@ -100,7 +99,13 @@ namespace Repositories.Impl
             model.OrderId = DateTime.UtcNow.Ticks.ToString();
             model.OrderInfo = "Refund for reservation: " + reservationID + ", Amount: " + model.Amount;
             var rawData =
-                $"partnerCode={_options.Value.PartnerCode}&accessKey={_options.Value.AccessKey}&requestId={model.OrderId}&amount={model.Amount}&orderId={model.OrderId}&orderInfo={model.OrderInfo}&transId={model.OrderInfo}";
+                $"partnerCode={_options.Value.PartnerCode}" +
+                $"&accessKey={_options.Value.AccessKey}" +
+                $"&requestId={model.OrderId}" +
+                $"&amount={model.Amount}" +
+                $"&orderId={model.OrderId}" +
+                $"&orderinfo={model.OrderInfo}" +
+                $"&transId={model.OrderInfo}";
 
             var signature = ComputeHmacSha256(rawData, _options.Value.SecretKey);
 
@@ -113,7 +118,7 @@ namespace Repositories.Impl
                 orderId = model.OrderId,
                 trandId = model.OrderId,
                 amount = model.Amount,
-                orderInfo = model.OrderInfo,
+                orderinfo = model.OrderInfo,
                 requestId = model.OrderId,
                 signature = signature
             };
