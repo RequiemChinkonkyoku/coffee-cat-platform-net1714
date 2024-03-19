@@ -44,7 +44,7 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
             todaySales = 0;
             foreach (var reservation in _reservationRepo.GetAll())
             {
-                if (reservation.BookingDay.Date.Equals(DateTime.Today.Date)
+                if (reservation.ArrivalDate.Date.Equals(DateTime.Today.Date)
                     && (reservation.Status == 1 || reservation.Status == 2))
                 {
                     todaySales += (int)reservation.TotalPrice;
@@ -62,7 +62,7 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
             todayCustomers = 0;
             foreach (var reservation in _reservationRepo.GetAll())
             {
-                if (reservation.BookingDay.Date.Equals(DateTime.Today.Date)
+                if (reservation.ArrivalDate.Date.Equals(DateTime.Today.Date)
                     && (reservation.Status == 1 || reservation.Status == 2))
                 {
                     todayCustomers += 1;
@@ -72,7 +72,7 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
             monthlySales = 0;
             foreach (var reservation in _reservationRepo.GetAll())
             {
-                if (reservation.BookingDay.Month.Equals(DateTime.Today.Month)
+                if (reservation.ArrivalDate.Month.Equals(DateTime.Today.Month)
                     && (reservation.Status == 1 || reservation.Status == 2))
                 {
                     monthlySales += (int)reservation.TotalPrice;

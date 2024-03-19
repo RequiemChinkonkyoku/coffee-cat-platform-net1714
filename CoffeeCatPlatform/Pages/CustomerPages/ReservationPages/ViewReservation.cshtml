@@ -76,7 +76,7 @@
                 <td>
                     <a asp-page="./ReservationDetail" asp-route-id="@item.ReservationId">Detail</a>
 
-                    @if (item.Status != 2)
+                    @if (item.Status != 0 && item.Status != 2)
                     {
                         <text> | </text>
                         <a asp-page="./CancelReservation" asp-route-id="@item.ReservationId">Cancel</a>

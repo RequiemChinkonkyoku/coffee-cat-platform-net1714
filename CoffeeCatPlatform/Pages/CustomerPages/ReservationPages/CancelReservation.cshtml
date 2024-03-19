@@ -46,19 +46,27 @@
             @Html.DisplayNameFor(model => model.Reservation.Status)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Status)
+            @switch (Model.Reservation.Status)
+            {
+                case -1:
+                    <text>Payment pending</text>
+                    break;
+                case 0:
+                    <text>Cancelled</text>
+                    break;
+                case 1:
+                    <text>On-going</text>
+                    break;
+                case 2:
+                    <text>Checked-out</text>
+                    break;
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Reservation.TotalPrice)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Reservation.TotalPrice)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.Customer)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Customer.Email)
         </dd>
     </dl>
 
