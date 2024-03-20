@@ -50,7 +50,7 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
                 return RedirectToPage("./ViewArea");
             }
 
-            tableToAssign.AreaId = Area.AreaId;
+            tableToAssign.AreaId = Table.AreaId;
             _tableRepository.Update(tableToAssign);
 
             TempData["SuccessMessage"] = "Table assign to new area successfully.";
