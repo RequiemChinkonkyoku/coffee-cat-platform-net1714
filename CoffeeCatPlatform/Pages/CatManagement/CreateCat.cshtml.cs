@@ -8,14 +8,18 @@ namespace CoffeeCatPlatform.Pages.CatManagement
     public class CreateCatModel : PageModel
     {
         private readonly IRepositoryBase<Cat> _catRepository;
+        private readonly IRepositoryBase<AreaCat> _areacatRepository;
 
-        public CreateCatModel(IRepositoryBase<Cat> catRepository)
+        public CreateCatModel(IRepositoryBase<Cat> catRepository, IRepositoryBase<AreaCat> areacatRepository)
         {
             _catRepository = catRepository;
+            _areacatRepository = areacatRepository;
         }
 
         [BindProperty]
         public Cat Cat { get; set; }
+        [BindProperty]
+        public AreaCat AreaCat { get; set; }
 
         public IActionResult OnGet()
         {
@@ -39,6 +43,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             Cat.ShopId = 1;
             // Add the new cat to the repository
             _catRepository.Add(Cat);
+            _areacatRepository.Add(AreaCat);
 
             TempData["SuccessMessage"] = "Cat created successfully.";
             return RedirectToPage("/ManagerPages/CatManagement");

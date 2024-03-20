@@ -54,7 +54,11 @@
                             <div class="col-md-6 ps-2">
                                 <label>Area</label>
                                 <div class="input-group">
-                                    <input asp-for="Cat.AreaCats" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                    <select asp-for="AreaCat.AreaId" class="form-control">
+                                        <option value="1">Indoor Seating</option>
+                                        <option value="2">Outdoor Patio</option>
+                                        <option value="3">Private Lounge</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
