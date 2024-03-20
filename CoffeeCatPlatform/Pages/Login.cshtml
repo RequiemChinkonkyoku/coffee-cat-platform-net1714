@@ -51,10 +51,10 @@
                                     <a href="/LoginStaff" class="text-primary text-gradient font-weight-bold">Login for Staff</a>
                                 </p>
                             </div>
-                            @if (TempData["ErrorMessage"] != null)
+                            @if (TempData["LoginErrorMessage"] != null)
                             {
                                 <div class="alert alert-danger" role="alert">
-                                    @TempData["ErrorMessage"]
+                                    @TempData["LoginErrorMessage"]
                                 </div>
                             }
                         </div>

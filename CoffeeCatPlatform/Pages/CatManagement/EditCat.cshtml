@@ -15,7 +15,7 @@
                             <div class="mb-4">
                                 <label asp-for="Cat.CatId"></label>
                                 <div class="input-group">
-                                    <input asp-for="Cat.CatId" class="form-control" readonly>
+                                    <input id="id" name="id" asp-for="Cat.CatId" class="form-control" readonly>
                                 </div>
                             </div>
                         </div>
@@ -87,6 +87,13 @@
                             <div>
                                 <div asp-validation-summary="All" class="text-danger"></div>
                             </div>
+                            <input type="hidden" asp-for="Cat.CatId" />
+                            @if (TempData["CatEditErrorMessage"] != null)
+                            {
+                                <div>
+                                    @TempData["CatEditErrorMessage"]
+                                </div>
+                            }
                             <div class="col-md-12">
                                 <button type="submit" class="btn bg-gradient-dark w-100">SAVE CHANGES</button>
                             </div>

@@ -9,7 +9,7 @@ public partial class Product
     public int ProductId { get; set; }
 
     [Required(ErrorMessage = "Product Name is required")]
-    public string Name { get; set; } = null!;
+	public string Name { get; set; } = null!;
 
     [Required(ErrorMessage = "Product Description is required")]
     [MaxLength(500, ErrorMessage = "Description must not exceed 500 characters")]

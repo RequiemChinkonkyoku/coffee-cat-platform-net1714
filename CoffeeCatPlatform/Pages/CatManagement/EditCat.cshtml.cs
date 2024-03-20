@@ -20,7 +20,6 @@ namespace CoffeeCatPlatform.Pages.CatManagement
 
         public IActionResult OnGet(int? id)
         {
-            // Retrieve the Cat from the repository based on the provided id
             var temp = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
             if (temp == null)
@@ -33,7 +32,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             return Page();
         }
 
-        public IActionResult OnPostEdit(int id)
+        public IActionResult OnPostEdit(int? id)
         {
             if (!ModelState.IsValid)
             {
@@ -42,29 +41,9 @@ namespace CoffeeCatPlatform.Pages.CatManagement
 
             if (id != Cat.CatId)
             {
-                // CatId cannot be changed, return an error
-                ModelState.AddModelError(string.Empty, "CatId cannot be changed.");
+                TempData["CatEditErrorMessage"] = "Changing CatId is not allowed.";
                 return Page();
             }
-            // Retrieve the existing Cat from the repository based on the provided id
-            //var existingCat = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
-
-            //if (existingCat == null)
-            //{
-            //    TempData["ErrorMessage"] = "Cat not found.";
-            //    return RedirectToPage("./ViewCat");
-            //}
-
-            // Update the properties of the existingCat with the values from the posted Cat
-            /*            existingCat.Name = Cat.Name;
-                        existingCat.AreaCats = Cat.AreaCats;
-                        existingCat.HealthStatus = Cat.HealthStatus;
-                        existingCat.Breed = Cat.Breed;
-                        existingCat.Birthday = Cat.Birthday;
-                        existingCat.ImageUrl = Cat.ImageUrl;
-                        existingCat.Description = Cat.Description;*/
-
-            // Update the existingCat in the repository
             _catRepository.Update(Cat);
 
             TempData["SuccessMessage"] = "Cat updated successfully.";

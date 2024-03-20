@@ -45,7 +45,7 @@ namespace CoffeeCatPlatform.Pages
 
             if (customer == null)
             {
-                TempData["ErrorMessage"] = "Invalid username or password.";
+                TempData["LoginErrorMessage"] = "Invalid username or password.";
                 return Page();
             }
             else

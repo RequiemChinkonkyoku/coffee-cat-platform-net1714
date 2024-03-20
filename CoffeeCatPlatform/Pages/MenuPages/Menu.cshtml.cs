@@ -32,6 +32,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 		public int TotalItems { get; set; }
 		public int ItemsPerPage { get; set; } = 4;
 
+		[StringLength(100, ErrorMessage = "Search query cannot exceed 100 characters.")]
 		[BindProperty(SupportsGet = true)]
 		public string SearchQuery { get; set; }
 
@@ -104,8 +105,6 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 			Products = query.Skip((CurrentPage - 1) * ItemsPerPage)
 							.Take(ItemsPerPage)
 							.ToList();
-
-			
 
 			return Page();
 		}
