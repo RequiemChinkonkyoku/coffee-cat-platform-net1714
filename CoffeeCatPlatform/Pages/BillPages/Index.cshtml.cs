@@ -12,12 +12,16 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<Reservation> _reservationRepository;
         private readonly IRepositoryBase<Staff> _staffRepository;
         private readonly IRepositoryBase<Customer> _customerRepository;
+        private readonly IRepositoryBase<BillProduct> _billProductRepository;
+        private readonly IRepositoryBase<Product> _productRepository;
         public List<Bill> Bills { get; set; }
         public List<Promotion> Promotions { get; set; }
         public List<Reservation> Reservations { get; set; }
         public List<Staff> Staffs { get; set; }
+        public List<int?> SelectedProducts { get; set; }
 
-        public IndexModel(IRepositoryBase<Bill> billRepository, IRepositoryBase<Promotion> promotionRepository, IRepositoryBase<Reservation> reservationRepository, IRepositoryBase<Staff> staffRepository, IRepositoryBase<Customer> customerRepository)
+
+        public IndexModel(IRepositoryBase<Bill> billRepository, IRepositoryBase<Promotion> promotionRepository, IRepositoryBase<Reservation> reservationRepository, IRepositoryBase<Staff> staffRepository, IRepositoryBase<Customer> customerRepository, IRepositoryBase<BillProduct> billProductRepository, IRepositoryBase<Product> productRepository)
         {
             _billRepository = billRepository;
             _promotionRepository = promotionRepository;
@@ -26,6 +30,9 @@ namespace CoffeeCatPlatform.Pages.BillPages
             _customerRepository = customerRepository;
 
             Bills = new List<Bill>();
+            SelectedProducts = new List<int?>();
+            _billProductRepository = billProductRepository;
+            _productRepository = productRepository;
         }
 
         public IActionResult OnGet()
@@ -63,11 +70,32 @@ namespace CoffeeCatPlatform.Pages.BillPages
         {
             var bill = _billRepository.GetAll().FirstOrDefault(b => b.BillId == billId);
 
-            if (bill != null)
+            if (bill == null)
             {
-                bill.Status = 1;
-                _billRepository.Update(bill);
+                return NotFound();
             }
+
+            var billProducts = _billProductRepository.GetAll().Where(bp => bp.BillId == bill.BillId).ToList();
+
+            foreach (var billProduct in billProducts)
+            {
+                var product = _productRepository.GetAll().FirstOrDefault(p => p.ProductId == billProduct.ProductId);
+
+                if (product != null)
+                {
+                    product.Quantity -= billProduct.Quantity;
+
+                    if (product.Quantity < 0)
+                    {
+                        product.Quantity = 0;
+                    }
+
+                    _productRepository.Update(product);
+                }
+            }
+
+            bill.Status = 1;
+            _billRepository.Update(bill);
 
             return RedirectToPage("Index");
         }

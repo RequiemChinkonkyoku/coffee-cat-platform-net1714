@@ -54,7 +54,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             return Page();
         }
-        public IActionResult OnPost(Dictionary<int, int> productQuantities, List<int> selectedProducts, string note, int? promotionId, int? reservationId)
+        public IActionResult OnPost(Dictionary<int, int> productQuantities, List<int> selectedProducts, string? note, int? promotionId, int? reservationId)
         {
             if (selectedProducts == null || selectedProducts.Count == 0)
             {
@@ -63,6 +63,12 @@ namespace CoffeeCatPlatform.Pages.BillPages
             }
 
             int? staffId = HttpContext.Session.GetInt32("_Id");
+
+            if (reservationId == null)
+            {
+                ModelState.AddModelError("", "Must choose a reservation!");
+                return OnGet();
+            }
 
             // Step 1: Create a new Bill
             var newBill = new Bill

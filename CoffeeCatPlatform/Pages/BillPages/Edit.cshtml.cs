@@ -116,7 +116,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
             return Page();
         }
 
-        public IActionResult OnPost(int id, Dictionary<int, int> productQuantities, List<int> selectedProducts, string note, int? promotionId, int? reservationId)
+        public IActionResult OnPost(int id, Dictionary<int, int> productQuantities, List<int> selectedProducts, string? note, int? promotionId, int? reservationId)
         {
             if (selectedProducts == null || selectedProducts.Count == 0)
             {
