@@ -18,7 +18,8 @@ VALUES (2, 1, 1),
 
 -- Insert sample data into the 'customer' table
 INSERT INTO customer (name, phone, email, password, status)
-VALUES ('John Doe', '555-1234', 'john@gmail.com', '123', 1),
+VALUES ('Default Customer', '0000000000', 'default@customer', '123', 1),
+	   ('John Doe', '555-1234', 'john@gmail.com', '123', 1),
        ('Jane Smith', '555-5678', 'jane@gmail.com', '123', 1),
        ('Bob Johnson', '555-8765', 'bob@gmail.com', '123', 1);
 

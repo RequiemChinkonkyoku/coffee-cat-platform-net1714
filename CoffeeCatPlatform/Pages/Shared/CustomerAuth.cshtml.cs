@@ -3,19 +3,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CoffeeCatPlatform.Pages.Shared
 {
-    public class ManagerAuthModel : PageModel
+    public class CustomerAuthModel : PageModel
     {
         private const string SessionKeyName = "_Name";
         private const string SessionKeyId = "_Id";
         private const string SessionKeyType = "_Type";
 
-        public IActionResult ManagerAuthorize()
+        public IActionResult CustomerAuthorize()
         {
             if (SessionCheck() == false)
             {
                 return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
-            else if (ManagerCheck() == false)
+            else if (CustomerCheck() == false)
             {
                 return RedirectToPage("/ErrorPages/NotAuthorizedError");
             }
@@ -34,10 +34,10 @@ namespace CoffeeCatPlatform.Pages.Shared
             return result;
         }
 
-        private bool ManagerCheck()
+        private bool CustomerCheck()
         {
             bool result = false;
-            if (HttpContext.Session.GetString(SessionKeyType) == "Manager")
+            if (HttpContext.Session.GetString(SessionKeyType) == "Customer")
             {
                 result = true;
             }
