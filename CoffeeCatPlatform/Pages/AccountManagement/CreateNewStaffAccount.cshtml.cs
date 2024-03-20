@@ -106,6 +106,12 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
                 return Page();
             }
 
+            if (_staffRepo.GetAll().Any(s => s.Email == Staff.Email))
+            {
+                ErrorMessage = "This email address is already in use.";
+                return Page();
+            }
+
             if (string.IsNullOrEmpty(Staff.Password))
             {
                 ErrorMessage = "Password is required.";

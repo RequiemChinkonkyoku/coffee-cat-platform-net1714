@@ -9,12 +9,14 @@ public partial class Cat
 
     [Required(ErrorMessage = "Name is required")]
     [RegularExpression(@"^[a-zA-Z''-'\s]{1,50}$", ErrorMessage = "Name can only contain letters and spaces")]
+    [MaxLength(100, ErrorMessage ="Name cannot exceed 100 characters")]
     public string Name { get; set; } = null!;
 
     [Range(0, 1, ErrorMessage = "Invalid gender value")]
     public int? Gender { get; set; }
 
     [Required(ErrorMessage = "Breed is required")]
+    [MaxLength(100, ErrorMessage ="Breed cannot Excceed more than 100 characters")]
     public string Breed { get; set; } = null!;
 
     public DateTime Birthday { get; set; }

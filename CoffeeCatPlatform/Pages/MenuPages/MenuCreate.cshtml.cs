@@ -30,6 +30,10 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 
         public IActionResult OnPost()
         {
+            if(ModelState.IsValid)
+            {
+                return Page();
+            }
             Product.ShopId = 1;
             Product.productStatus = 1;
             _productRepo.Add(Product);
