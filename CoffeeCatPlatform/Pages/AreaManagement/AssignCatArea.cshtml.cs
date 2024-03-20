@@ -18,37 +18,36 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
         private readonly IRepositoryBase<Cat> _catRepository;
         private readonly IRepositoryBase<AreaCat> _areacatRepository;
 
-        public AssignCatAreaModel(AreaCatRepository areaCatRepository)
+        public AssignCatAreaModel(IRepositoryBase<AreaCat> areaCatRepo)
         {
-            _areacatRepository = areaCatRepository;
+            _areacatRepository = areaCatRepo;
         }
 
         [BindProperty]
         public AreaCat AreaCat { get; set; } = default!;
         public Cat Cat { get; set; }
 
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet(int id)
         {
-            var temp = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == id);
+            AreaCat = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
-            if (temp == null)
+            if (AreaCat == null)
             {
                 TempData["ErrorMessage"] = "Cat not found.";
-                return RedirectToPage("/ManagerPages/CatManagement");
+                return RedirectToPage("/ViewArea");
             }
-            AreaCat = temp;
 
             return Page();
         }
 
-        public IActionResult OnPostEdit(int id)
+        public IActionResult OnPost(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var CatToAssign = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == Cat.CatId);
+            var CatToAssign = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == AreaCat.CatId);
 
             if (CatToAssign == null)
             {
@@ -62,7 +61,5 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
             TempData["SuccessMessage"] = "Cat assign to new area successfully.";
             return RedirectToPage("./ViewArea");
         }
-
-        
     }
 }
