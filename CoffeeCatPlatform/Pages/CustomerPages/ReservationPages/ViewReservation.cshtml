@@ -11,7 +11,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationList[0].BookingDay)
+                @Html.DisplayNameFor(model => model.ReservationList[0].CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationList[0].ArrivalDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ReservationList[0].StartTime)
@@ -36,7 +39,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookingDay)
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartTime)
@@ -70,7 +76,7 @@
                 <td>
                     <a asp-page="./ReservationDetail" asp-route-id="@item.ReservationId">Detail</a>
 
-                    @if (item.Status != 2)
+                    @if (item.Status != 0 && item.Status != 2)
                     {
                         <text> | </text>
                         <a asp-page="./CancelReservation" asp-route-id="@item.ReservationId">Cancel</a>

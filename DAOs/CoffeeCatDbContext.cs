@@ -257,9 +257,12 @@ public partial class CoffeeCatDbContext : DbContext
             entity.ToTable("reservation", tb => tb.HasTrigger("CalculateTotalPrice"));
 
             entity.Property(e => e.ReservationId).HasColumnName("reservationID");
-            entity.Property(e => e.BookingDay)
+            entity.Property(e => e.CreateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("createTime");
+            entity.Property(e => e.ArrivalDate)
                 .HasColumnType("date")
-                .HasColumnName("bookingDay");
+                .HasColumnName("arrivalDate");
             entity.Property(e => e.CustomerId).HasColumnName("customerID");
             entity.Property(e => e.EndTime).HasColumnName("endTime");
             entity.Property(e => e.StartTime).HasColumnName("startTime");

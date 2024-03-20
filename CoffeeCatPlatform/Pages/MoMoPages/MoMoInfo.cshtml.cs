@@ -17,6 +17,9 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
 
         public Reservation Reservation { get; set; }
 
+        [BindProperty]
+        public string CustomerName { get; set; }
+
         public MoMoInfo(IMomoRepository momoRepo, IRepositoryBase<Reservation> reservationRepo)
         {
             _momoRepo = momoRepo;
@@ -29,6 +32,8 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
             {
                 return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
+
+            CustomerName = HttpContext.Session.GetString(SessionKeyName);
 
             if (id != null)
             {
