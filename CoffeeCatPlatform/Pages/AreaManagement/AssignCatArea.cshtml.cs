@@ -29,14 +29,14 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
 
         public IActionResult OnGet(int? id)
         {
-            var temp = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
+            var temp = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
             if (temp == null)
             {
                 TempData["ErrorMessage"] = "Cat not found.";
                 return RedirectToPage("/ManagerPages/CatManagement");
             }
-            Cat = temp;
+            AreaCat = temp;
 
             return Page();
         }
@@ -48,16 +48,19 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
                 return Page();
             }
 
-            var catoAssign = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == Cat.CatId);
+            var CatToAssign = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == Cat.CatId);
 
-            if (catoAssign == null)
+            if (CatToAssign == null)
             {
                 TempData["ErrorMessage"] = "Cat not found.";
-                return RedirectToPage("/ManagerPages/CatManagement");
+                return RedirectToPage("/ViewArea");
             }
-            catoAssign.AreaId = AreaCat.AreaId;
+            CatToAssign.AreaId = AreaCat.AreaId;
 
-            return RedirectToPage("./Index");
+            _areacatRepository.Update(CatToAssign);
+
+            TempData["SuccessMessage"] = "Cat assign to new area successfully.";
+            return RedirectToPage("./ViewArea");
         }
 
         
