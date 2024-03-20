@@ -16,6 +16,9 @@ namespace CoffeeCatPlatform.Pages.MomoPages
 
         public Reservation Reservation { get; set; }
 
+        [BindProperty]
+        public string CustomerName { get; set; }
+
         public MomoRefundModel(IMomoRepository momoRepo, IRepositoryBase<Reservation> reservationRepo)
         {
             _momoRepo = momoRepo;
@@ -28,6 +31,8 @@ namespace CoffeeCatPlatform.Pages.MomoPages
             {
                 return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
+
+            CustomerName = HttpContext.Session.GetString(SessionKeyName);
 
             var reservation = _reservationRepo.GetAll().FirstOrDefault(r => r.ReservationId == id);
 
@@ -46,7 +51,7 @@ namespace CoffeeCatPlatform.Pages.MomoPages
         public async Task<IActionResult> OnPost(OrderInfoModel model, int reservationId)
         {
             //var response = await _momoRepo.CreateRefundAsync(model, reservationId);
-            //return Redirect(response.PayUrl);
+            //return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");
 
             var reservation = _reservationRepo.FindById(reservationId);
 
