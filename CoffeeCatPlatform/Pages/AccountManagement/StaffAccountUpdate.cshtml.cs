@@ -33,9 +33,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
                 TempData["ErrorMessage"] = "Staff not found.";
                 return RedirectToPage("./ViewAccount");
             }
-
             return Page();
-
         }
 
         public IActionResult OnPost(int id)
