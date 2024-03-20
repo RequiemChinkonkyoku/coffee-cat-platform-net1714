@@ -11,12 +11,21 @@
         <form method="POST">
             <input type="hidden" name="ReservationID" value="@Model.Reservation.ReservationId" />
             <div class="form-group">
+                <label for="Fullname">Tên Khách Hàng</label>
+                <input class="form-control"
+                       id="Fullname"
+                       name="Fullname"
+                       type="text"
+                       value="@Model.CustomerName"
+                       readonly>
+            </div>
+            <br /><div class="form-group">
                 <label for="Amount">Số tiền hoàn trả</label>
                 <input class="form-control"
                        id="Amount"
                        name="Amount"
                        type="text"
-                       value="@Model.Reservation.TotalPrice"
+                       value="@Model.RefundAmount"
                        readonly>
             </div>
             <br />
