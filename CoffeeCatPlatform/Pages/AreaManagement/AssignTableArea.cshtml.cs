@@ -8,71 +8,53 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
+using Repositories;
 
 namespace CoffeeCatPlatform.Pages.AreaManagement
 {
     public class AssignTableAreaModel : PageModel
     {
-        private readonly DAOs.CoffeeCatDbContext _context;
+        private readonly IRepositoryBase<Table> _tableRepository;
 
-        public AssignTableAreaModel(DAOs.CoffeeCatDbContext context)
+        public AssignTableAreaModel(IRepositoryBase<Table> tableRepo)
         {
-            _context = context;
+            _tableRepository = tableRepo;
         }
 
         [BindProperty]
         public Table Table { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null || _context.Tables == null)
-            {
-                return NotFound();
-            }
+        [BindProperty]
+        public Area Area { get; set; } = default!;
 
-            var table =  await _context.Tables.FirstOrDefaultAsync(m => m.TableId == id);
-            if (table == null)
+        public IActionResult OnGet(int id)
+        {
+            Table = _tableRepository.GetAll().FirstOrDefault(t => t.TableId == id);
+
+            if (Table == null) 
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Table not found.";
+                return RedirectToPage("./ViewArea");
             }
-            Table = table;
-           ViewData["AreaId"] = new SelectList(_context.Areas, "AreaId", "Location");
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost(int id)
         {
-            if (!ModelState.IsValid)
+
+            var tableToAssign = _tableRepository.GetAll().FirstOrDefault(t => t.TableId == id);
+
+            if (tableToAssign == null)
             {
-                return Page();
+                TempData["ErrorMessage"] = "Table not found.";
+                return RedirectToPage("./ViewArea");
             }
 
-            _context.Attach(Table).State = EntityState.Modified;
+            tableToAssign.AreaId = Area.AreaId;
+            _tableRepository.Update(tableToAssign);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TableExists(Table.TableId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
-        }
-
-        private bool TableExists(int id)
-        {
-          return (_context.Tables?.Any(e => e.TableId == id)).GetValueOrDefault();
+            TempData["SuccessMessage"] = "Table assign to new area successfully.";
+            return RedirectToPage("./ViewArea");
         }
     }
 }

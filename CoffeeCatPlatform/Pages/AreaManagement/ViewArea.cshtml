@@ -17,9 +17,6 @@
                 @Html.DisplayNameFor(model => model.Areas[0].Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Areas[0].ShopId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Areas[0].AreaCats)
             </th>
             <th>
@@ -49,14 +46,11 @@
                         @Html.DisplayFor(area => Area.Location)
                     </td>
                     <td>
-                        @Html.DisplayFor(area => Area.ShopId)
-                    </td>
-                    <td>
                         @foreach (var Cat in Model.AreaCats)
                         {
                             if (Cat.AreaId == Area.AreaId)
                             {
-                                @Html.DisplayFor(table => Cat.CatId)
+                                @Html.DisplayFor(area => Cat.CatId)
                                 <a asp-page="./AssignCatArea" asp-route-id="@Cat.CatId">Edit</a>
                             }
                         }
@@ -66,7 +60,7 @@
                         {
                             if (Table.AreaId == Area.AreaId)
                             {
-                                @Html.DisplayFor(table => Table.TableId)
+                                @Html.DisplayFor(area => Table.TableId)
                                 <a asp-page="./AssignTableArea" asp-route-id="@Table.TableId">Edit</a>
                             }
                         }
