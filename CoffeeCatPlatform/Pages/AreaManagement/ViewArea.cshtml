@@ -1,4 +1,79 @@
-﻿@page
+﻿@page "/ViewArea"
 @model CoffeeCatPlatform.Pages.AreaManagement.ViewAreaModel
+@using Microsoft.AspNetCore.Http
+
 @{
 }
+
+<h1>Area List</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Areas[0].AreaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Areas[0].Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Areas[0].ShopId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Areas[0].AreaCats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Areas[0].Tables)
+            </th>
+        </tr>
+    </thead>
+
+    @if (!Model.result)
+    {
+        <tr>
+            <td>
+                There are no Area.
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tbody>
+            @foreach (var Area in Model.Areas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(area => Area.AreaId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(area => Area.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(area => Area.ShopId)
+                    </td>
+                    <td>
+                        @foreach (var Cat in Model.AreaCats)
+                        {
+                            if (Cat.AreaId == Area.AreaId)
+                            {
+                                @Html.DisplayFor(table => Cat.CatId)
+                                <a asp-page="./AssignCatArea" asp-route-id="@Cat.CatId">Edit</a>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @foreach (var Table in Model.Tables)
+                        {
+                            if (Table.AreaId == Area.AreaId)
+                            {
+                                @Html.DisplayFor(table => Table.TableId)
+                                <a asp-page="./AssignTableArea" asp-route-id="@Table.TableId">Edit</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+
+</table>

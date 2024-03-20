@@ -91,3 +91,8 @@ VALUES (2, 1, 1),
        (1, 2, 2),
        (3, 3, 3);
 	    
+INSERT INTO "table" (seatCount, status, areaID)
+VALUES (3, 1, 1)
+
+INSERT INTO reservationTable (reservationID, tableID)
+VALUES (4, 4)
