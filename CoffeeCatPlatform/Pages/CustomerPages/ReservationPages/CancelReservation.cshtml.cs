@@ -65,9 +65,10 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 Reservation = reservation;
             }
 
-            if (Reservation.TotalPrice > 0 && Reservation.Status == 1)
+            if (Reservation.TotalPrice > 0 && Reservation.Status == 1
+                && (DateTime.Compare(Reservation.ArrivalDate.Date, DateTime.Now.Date) != 0))
             {
-                return RedirectToPage("/MomoPages/MomoRefund", new { id = reservation.ReservationId, refundAmount = reservation.TotalPrice });
+                return RedirectToPage("/MomoPages/MomoRefund", new { id = reservation.ReservationId });
             }
 
             Reservation.Status = 0;
