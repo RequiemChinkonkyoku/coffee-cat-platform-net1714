@@ -44,7 +44,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
             // Retrieve all products for display
             Products = _productRepository.GetAll();
             Promotions = _promotionRepository.GetAll();
-            Reservations = _reservationRepository.GetAll().Where(r => r.BookingDay == DateTime.Now.Date).ToList();
+            Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date).ToList();
 
             foreach (var reservation in Reservations)
             {

@@ -62,10 +62,10 @@ VALUES ('No Promotion', 'No discount', 0, 0),
        ('Combo Deal', 'Buy one get one free', 0, 0);
 
 -- Insert sample data into the 'reservation' table
-INSERT INTO reservation (bookingDay, startTime, endTime, seatsBooked, status, totalPrice, customerID)
-VALUES ('2024-03-25', '10:00', '12:00', 2, 2, 100000, 1),
-       ('2024-04-26', '14:00', '18:00', 4, 2, 200000, 2),
-       ('2024-05-27', '18:00', '19:00', 6, 2, 50000, 3);
+INSERT INTO reservation (createTime, arrivalDate, startTime, endTime, seatsBooked, status, totalPrice, customerID)
+VALUES ('2024-01-20','2024-03-25', '10:00', '12:00', 2, 2, 100000, 1),
+       ('2024-02-20','2024-03-26', '14:00', '18:00', 4, 2, 200000, 2),
+       ('2024-03-20','2024-03-27', '18:00', '19:00', 6, 2, 50000, 3);
 
 -- Insert sample data into the 'reservationTable' table
 INSERT INTO reservationTable (reservationID, tableID)

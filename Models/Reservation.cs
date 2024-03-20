@@ -7,7 +7,9 @@ public partial class Reservation
 {
     public int ReservationId { get; set; }
 
-    public DateTime BookingDay { get; set; }
+    public DateTime CreateTime { get; set; }
+
+    public DateTime ArrivalDate { get; set; }
 
     public TimeSpan StartTime { get; set; }
 
