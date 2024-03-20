@@ -17,7 +17,8 @@
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Reservation.CreateTime)
-            </dd><dt class="col-sm-2">
+            </dd>
+            <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Reservation.ArrivalDate)
             </dt>
             <dd class="col-sm-10">
@@ -96,4 +97,82 @@
 </div>
 <div>
     <a asp-page="./ViewReservation">Back to List</a>
+</div>
+
+<div class="container-fluid py-4">
+    <div class="row mt-3">
+        <div class="col-12 col-md-6 col-xl-6 mt-md-0 mt-4">
+            <div class="card h-100">
+                <div class="card-header pb-0 p-3">
+                    <div class="row">
+                        <div class="col-md-8 d-flex align-items-center">
+                            <h3 class="mb-0">Reservation Detail</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <hr class="horizontal gray-light my-4">
+                    <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Creation time:</strong> @Model.Reservation.CreateTime.ToShortDateString()</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Arrival date:</strong> @Model.Reservation.ArrivalDate.ToShortDateString()</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Start time:</strong> @Model.Reservation.StartTime</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">End time:</strong> @Model.Reservation.EndTime</li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Seats booked:</strong> @Model.Reservation.SeatsBooked</li>
+                        <li class="list-group-item border-0 ps-0 text-sm">
+                            <strong class="text-dark">Status:</strong>
+                            @if (Model.Reservation.Status == -1)
+                            {
+                                <span class="badge badge-sm bg-gradient-info">Payment pending</span>
+                            }
+                            else if (Model.Reservation.Status == 0)
+                            {
+                                <span class="badge badge-sm bg-gradient-danger">Cancelled</span>
+                            }
+                            else if (Model.Reservation.Status == 1)
+                            {
+                                <span class="badge badge-sm bg-gradient-primary">On-going</span>
+                            }
+                            else if (Model.Reservation.Status == 2)
+                            {
+                                <span class="badge badge-sm bg-gradient-success">Checked-out</span>
+                            }
+                        </li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Total price:</strong> @Model.Reservation.TotalPrice VND</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-6 mt-md-0 mt-4">
+            <div class="card h-100">
+                <div class="card-header pb-0 p-3">
+                    <div class="row">
+                        <div class="col-md-8 d-flex align-items-center">
+                            <h3 class="mb-0">Bill Products</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <hr class="horizontal gray-light my-4">
+                    @if (Model.BillProducts.Count == 0)
+                    {
+                        <strong>There are no products in the bill</strong>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model.BillProducts)
+                        {
+                            <div class="row">
+                                <strong class="col-sm-6">@item.Product.Name</strong>
+                                <span class="col-md-6">@item.Quantity</span>
+                            </div>
+                        }
+                        <div class="row">
+                            <strong class="col-sm-6">Total Price</strong>
+                            <span class="col-md-6">@Model.Bill.TotalPrice VND</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

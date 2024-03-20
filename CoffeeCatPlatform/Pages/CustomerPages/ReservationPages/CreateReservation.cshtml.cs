@@ -11,10 +11,11 @@ using Repositories;
 using Repositories.Impl;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Text.Json;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 {
-    public class CreateReservationModel : PageModel
+    public class CreateReservationModel : CustomerAuthModel
     {
         [BindProperty]
         public Reservation Reservation { get; set; } = default!;
@@ -27,10 +28,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Table> _tableRepo;
         private readonly IRepositoryBase<ReservationTable> _reservationTableRepo;
-
-        private const string SessionKeyName = "_Name";
-        private const string SessionKeyId = "_Id";
-        private const string SessionKeyType = "_Type";
 
         public CreateReservationModel(IRepositoryBase<Reservation> reservationRepo,
                                       IRepositoryBase<Table> tableRepo,
@@ -49,12 +46,13 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         public IActionResult OnGet()
         {
-            if (SessionCheck() == false)
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
             {
-                return RedirectToPage("/ErrorPages/NotLoggedInError");
+                return auth;
             }
 
-            var customerId = HttpContext.Session.GetInt32(SessionKeyId);
+            var customerId = HttpContext.Session.GetInt32("_Id");
 
             var onGoingReservation = _reservationRepo.GetAll().Where(re => re.CustomerId == customerId && (re.Status == -1 || re.Status == 1));
 
@@ -73,10 +71,13 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 return Page();
             }
 
-            if (SessionCheck() == true)
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
             {
-                Reservation.CustomerId = HttpContext.Session.GetInt32(SessionKeyId);
+                return auth;
             }
+            Reservation.CustomerId = HttpContext.Session.GetInt32("_Id");
+            
 
             SelectedTables.Clear();
 
@@ -170,18 +171,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             }
 
             return availableTables;
-        }
-
-        private bool SessionCheck()
-        {
-            bool result = true;
-            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
-            {
-                result = false;
-            }
-            return result;
         }
     }
 }
