@@ -223,6 +223,8 @@
         </div>
     </aside>
     @RenderBody()
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 <div class="fixed-plugin">

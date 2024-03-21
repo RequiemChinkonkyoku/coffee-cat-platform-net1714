@@ -2,9 +2,10 @@
 @model CoffeeCatPlatform.Pages.CatManagement.EditCatModel
 @{
     ViewData["Title"] = "EditCat";
+    Layout = "_DashboardLayout";
 }
 
-<section>
+@* <section>
     <div class="container py-4">
         <div class="row">
             <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
@@ -130,7 +131,191 @@
             </div>
         </div>
     </div>
-</section>
+</section> *@
+
+<body class="g-sidenav-show  bg-gray-100">
+    <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Cats</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Create a new cat</h6>
+                </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group">
+                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" placeholder="Type here...">
+                        </div>
+                    </div>
+                    <ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                                <span class="d-sm-inline d-none">@HttpContext.Session.GetString("_Name")</span>
+                            </a>
+                        </li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0">
+                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <h5 class="mb-0">New Cat</h5>
+                            <p class="text-sm mb-0">
+                                Adding a new cat to database.
+                            </p>
+                        </div>
+                        <div class="card-body px-0 pb-0">
+                            <form role="form" id="contact-form" method="POST" autocomplete="off" asp-page-handler="Edit">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="mb-4">
+                                            <label asp-for="Cat.CatId"></label>
+                                            <div class="input-group">
+                                                <input asp-for="Cat.CatId" class="form-control" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label asp-for="Cat.Name"></label>
+                                            <div class="input-group mb-4">
+                                                <input asp-for="Cat.Name" class="form-control" placeholder="" aria-label="Name" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ps-2">
+                                            <label asp-for="Cat.Breed"></label>
+                                            <div class="input-group">
+                                                <input asp-for="Cat.Breed" type="text" class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label asp-for="Cat.Birthday"></label>
+                                            <div class="input-group mb-4">
+                                                <input asp-for="Cat.Birthday" class="form-control" placeholder="" aria-label="Name" type="date">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ps-2">
+                                            <label asp-for="Cat.Gender"></label>
+                                            <div class="input-group">
+                                                <select asp-for="Cat.Gender" class="form-control">
+                                                    <option value="0">Male</option>
+                                                    <option value="1">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label asp-for="Cat.HealthStatus"></label>
+                                            <div class="input-group mb-4">
+                                                <select asp-for="Cat.HealthStatus" class="form-control">
+                                                    <option value="0">Unavailable</option>
+                                                    <option value="1">Available</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ps-2">
+                                            <label>Area</label>
+                                            <div class="input-group">
+                                                <input asp-for="Cat.AreaCats" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Cat.ImageUrl"></label>
+                                        <div class="input-group">
+                                            <input asp-for="Cat.ImageUrl" type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label asp-for="Cat.Description"></label>
+                                        <textarea asp-for="Cat.Description" class="form-control" id="message" rows="4"></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div>
+                                            <div asp-validation-summary="All" class="text-danger"></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn bg-gradient-dark w-100">SAVE CHANGES</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="col-sm-3 col-6 mx-auto">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn bg-gradient-danger w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    DELETE
+                                </button>
+
+                                <!-- Modal -->
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">COMFIRM YOUR DELETION</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                On accepting this change, the cat's status will be set to Unavailable.
+                                                <br><br>
+                                                Are you sure?
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">On second thoughts...</button>
+
+                                                <form method="POST" asp-page-handler="Delete">
+                                                    <input type="hidden" asp-for="@Model.Cat.CatId" />
+                                                    <button type="submit" class="btn bg-gradient-danger">Confirm</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="col-md-12 d-flex align-items-center justify-content-center">
+                                        <a href="/CatManagement">
+                                            <button type="button" class="btn bg-gradient-danger w-100">
+                                                BACK TO LIST
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+</body>
 
 @section Scripts {
     @{
