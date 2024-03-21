@@ -23,7 +23,6 @@ namespace CoffeeCatPlatform.Pages.PromotionPages
 		public Promotion Promotion { get; set; } = default!;
 
 
-		// To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
 		public IActionResult OnPost()
 		{
 			if (!ModelState.IsValid)
