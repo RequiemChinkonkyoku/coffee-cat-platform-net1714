@@ -43,10 +43,12 @@
                 <td>@bill.Note</td>
                 <td>
                     <a asp-page="./Details" asp-route-id="@bill.BillId">Details</a> |
-                    <a asp-page="./Edit" asp-route-id="@bill.BillId">Edit</a> |
+                    
 
                     @if (bill.Status == 0)
                     {
+                        <a asp-page="./Edit" asp-route-id="@bill.BillId">Edit</a>
+
                         <form method="post" asp-page-handler="CloseBill">
                             <input type="hidden" name="billId" value="@bill.BillId" />  
                             <button type="submit" class="btn btn-primary">Close Bill</button>
