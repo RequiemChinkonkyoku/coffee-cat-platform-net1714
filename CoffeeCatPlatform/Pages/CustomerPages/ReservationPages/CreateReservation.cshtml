@@ -5,7 +5,180 @@
     ViewData["Title"] = "CreateReservation";
 }
 
-<h1>CreateReservation</h1>
+@if (Model.TempData["OnGoingReservation"] != null)
+{
+    <h3>You cannot create a new reservation if there is an on-going reservation</h3>
+    <h4>Ongoing reservation's details:</h4>
+
+    @foreach (var reservation in (IEnumerable<Models.Reservation>)Model.TempData["OnGoingReservation"])
+    {
+        <p>
+            <strong>Reservation ID: </strong> @reservation.ReservationId <br />
+            <strong>Reservation Arrival Date: </strong> @reservation.ArrivalDate.ToShortDateString() <br />
+            <strong>Reservation Start Time: </strong> @reservation.StartTime <br />
+            <strong>Reservation End Time: </strong> @reservation.EndTime <br />
+        </p>
+    }
+}
+else
+{
+    <div class="page-header">
+        <div class="position-absolute fixed-top ms-auto w-50 h-100 rounded-3 z-index-0 d-none d-sm-none d-md-block me-n4" style="background-image: url(https://www.kittytowncoffee.com/cdn/shop/files/CatDrinking_1500x.jpg?v=1687641869); background-size: cover;">
+        </div>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-7 d-flex justify-content-center flex-column">
+                    <div class="card card-body d-flex justify-content-center shadow-lg p-5 blur align-items-center" style="width: 710px; height: 840px">
+                        <h3 class="text-center">Creating a reservation</h3>
+                        <form role="form" id="reservationForm" method="post" autocomplete="off">
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Reservation.ArrivalDate" class="control-label">Arrival Date</label>
+                                        <input asp-for="Reservation.ArrivalDate" class="form-control" type="date" id="arrivalDate"
+                                               min="@DateTime.Today.ToString("yyyy-MM-dd")" style="width: 570px; height: 40px" />
+                                        <span asp-validation-for="Reservation.ArrivalDate" class="text-danger"></span>
+                                    </div>
+                                    @if (ModelState["Invalid_ArrivalDate"] != null)
+                                    {
+                                        <span>@ModelState["Invalid_ArrivalDate"].Errors.First().ErrorMessage</span>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Reservation.StartTime" class="control-label">Start Time</label>
+                                            <input asp-for="Reservation.StartTime" class="form-control" type="time" id="startTime" min="07:00"
+                                                   max="21:00" style="width: 275px; height: 40px" />
+                                            <span asp-validation-for="Reservation.StartTime" class="text-danger"></span>
+                                        </div>
+                                        @if (ModelState["Invalid_StartTime"] != null)
+                                        {
+                                            <span>@ModelState["Invalid_StartTime"].Errors.First().ErrorMessage</span>
+                                        }
+
+                                        @if (ModelState["MinimumStartTimeError"] != null)
+                                        {
+                                            <span>@ModelState["MinimumStartTimeError"].Errors.First().ErrorMessage</span>
+                                        }
+
+                                        @if (ModelState["WorkingHoursError"] != null)
+                                        {
+                                            <span>@ModelState["WorkingHoursError"].Errors.First().ErrorMessage</span>
+                                        }
+                                    </div>
+                                    <div class="col-md-6 ps-2">
+                                        <div class="form-group">
+                                            <label asp-for="Reservation.EndTime" class="control-label">End Time</label>
+                                            <input asp-for="Reservation.EndTime" class="form-control" type="time" id="endTime" min="07:00"
+                                                   max="21:00" style="width: 275px; height: 40px" />
+                                            <span asp-validation-for="Reservation.EndTime" class="text-danger"></span>
+                                        </div>
+                                        @if (ModelState["Invalid_EndTime"] != null)
+                                        {
+                                            <span>@ModelState["Invalid_EndTime"].Errors.First().ErrorMessage</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label asp-for="Reservation.SeatsBooked" class="control-label">Number of Seats</label>
+                                            <input asp-for="Reservation.SeatsBooked" class="form-control" type="number" id="seatsBooked"
+                                                   min="1" />
+                                            <span asp-validation-for="Reservation.SeatsBooked" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="button" id="tableSelectButton" value="Select Table" class="btn bg-gradient-primary" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <ul id="tableIdList">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="form-group">
+                                        <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            View Policy
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-4 row">
+                                    <div class="form-group">
+                                        <label asp-for="Reservation.TotalPrice" class="control-label">Total Price</label>
+                                        <input asp-for="Reservation.TotalPrice" class="form-control" readonly />
+                                        <span asp-validation-for="Reservation.TotalPrice" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="submit" class="btn bg-gradient-primary" id="formSubmitButton" value="Create" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="tableSelectModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Table Selector</h4>
+            </div>
+            <div class="modal-body" id="modalContent">
+            </div>
+            <div class="modal-footer">
+                <div class="modal-alert-message"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="modalConfirmButton">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Our booking policy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Price is calculated based on the staying time and seats booked.
+                </p>
+                <p>
+                    The first 2 hours are free, each hour thereafter cost 50000 VND
+                </p>
+                <p>
+                    The first 4 seats are free, each seat thereafter cost 20000 VND
+                </p>
+                <p>
+                    Payment will be done through Momo
+                </p>
+                <p>
+                    The reservation will be cancelled if not paid for within 2 hours
+                </p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@* <h1>CreateReservation</h1>
 
 <h4>Reservation</h4>
 <hr />
@@ -141,7 +314,7 @@
 
 <div>
     <a asp-page="/Homepage">Back to Homepage</a>
-</div>
+</div> *@
 
 @section Scripts {
     <script>
