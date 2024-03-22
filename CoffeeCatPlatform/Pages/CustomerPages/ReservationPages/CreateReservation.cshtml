@@ -56,7 +56,7 @@
 
                 @if (ModelState["MinimumStartTimeError"] != null)
                 {
-                    <span>@ModelState["MinimumStartTime"].Errors.First().ErrorMessage</span>
+                    <span>@ModelState["MinimumStartTimeError"].Errors.First().ErrorMessage</span>
                 }
 
                 @if (ModelState["WorkingHoursError"] != null)
@@ -274,7 +274,6 @@
                 }
             });
 
-
             //Clear selected tables after seat count change
             seatCountInput.addEventListener('change', function () {
                 var tableIdList = document.getElementById('tableIdList');
@@ -367,6 +366,8 @@
                         hiddenTableIds.forEach(function (input) {
                             input.parentNode.removeChild(input);
                         });
+
+                        updateTotalPrice();
 
                         if (totalSeatCount > 4) {
                             var totalPriceInput = document.getElementById('Reservation_TotalPrice');
