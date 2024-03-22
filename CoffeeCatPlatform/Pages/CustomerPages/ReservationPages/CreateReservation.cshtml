@@ -36,18 +36,46 @@
                            min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="Reservation.ArrivalDate" class="text-danger"></span>
                 </div>
+
+                @if (ModelState["Invalid_ArrivalDate"] != null)
+                {
+                    <span>@ModelState["Invalid_ArrivalDate"].Errors.First().ErrorMessage</span>
+                }
+
                 <div class="form-group">
                     <label asp-for="Reservation.StartTime" class="control-label">Start Time</label>
                     <input asp-for="Reservation.StartTime" class="form-control" type="time" id="startTime" min="07:00"
                            max="21:00" />
                     <span asp-validation-for="Reservation.StartTime" class="text-danger"></span>
                 </div>
+
+                @if (ModelState["Invalid_StartTime"] != null)
+                {
+                    <span>@ModelState["Invalid_StartTime"].Errors.First().ErrorMessage</span>
+                }
+
+                @if (ModelState["MinimumStartTimeError"] != null)
+                {
+                    <span>@ModelState["MinimumStartTime"].Errors.First().ErrorMessage</span>
+                }
+
+                @if (ModelState["WorkingHoursError"] != null)
+                {
+                    <span>@ModelState["WorkingHoursError"].Errors.First().ErrorMessage</span>
+                }
+
                 <div class="form-group">
                     <label asp-for="Reservation.EndTime" class="control-label">End Time</label>
                     <input asp-for="Reservation.EndTime" class="form-control" type="time" id="endTime" min="07:00"
                            max="21:00" />
                     <span asp-validation-for="Reservation.EndTime" class="text-danger"></span>
                 </div>
+
+                @if (ModelState["Invalid_EndTime"] != null)
+                {
+                    <span>@ModelState["Invalid_EndTime"].Errors.First().ErrorMessage</span>
+                }
+
                 <div class="form-group">
                     <div class="col-md-6">
                         <label asp-for="Reservation.SeatsBooked" class="control-label">Number of Seats</label>
@@ -85,7 +113,7 @@
                 The first 4 seats are free, each seat thereafter cost 20000 VND
             </p>
             <p>
-                Payment will be done through Momo.
+                Payment will be done through Momo
             </p>
             <p>
                 The reservation will be cancelled if not paid for within 2 hours
@@ -194,7 +222,6 @@
 </div>
 
 @section Scripts {
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var startTimeInput = document.getElementById('startTime');
@@ -230,9 +257,16 @@
 
             //Check if there are tables selected before submitting
             document.getElementById('formSubmitButton').addEventListener('click', function (event) {
+                var startTime = new Date('1970-01-01T' + startTimeInput.value);
+                var endTime = new Date('1970-01-01T' + endTimeInput.value);
+
                 var tableIdListElement = document.querySelectorAll('.selectedTableId');
 
-                if (tableIdListElement.length > 0) {
+                if (endTime <= startTime) {
+                    alert("End time must be after start time.");
+                    return;
+                }
+                else if (tableIdListElement.length > 0) {
                     document.getElementById('reservationForm').submit();
                 } else {
                     alert('Unable to get selectedTableIds');

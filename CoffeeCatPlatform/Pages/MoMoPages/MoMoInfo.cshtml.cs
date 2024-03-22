@@ -49,6 +49,8 @@ namespace CoffeeCatPlatform.Pages.MoMoPages
 
         public async Task<IActionResult> OnPost(OrderInfoModel model, int reservationID)
         {
+            model.Amount = (double)_reservationRepo.FindById(reservationID).TotalPrice;
+
             var response = await _momoRepo.CreatePaymentAsync(model, reservationID);
             return Redirect(response.PayUrl);
         }
