@@ -27,14 +27,17 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Table> _tableRepo;
         private readonly IRepositoryBase<ReservationTable> _reservationTableRepo;
+        private readonly IRepositoryBase<Area> _areaRepo;
 
         public CreateReservationModel(IRepositoryBase<Reservation> reservationRepo,
                                       IRepositoryBase<Table> tableRepo,
-                                      IRepositoryBase<ReservationTable> reservationTableRepo)
+                                      IRepositoryBase<ReservationTable> reservationTableRepo,
+                                      IRepositoryBase<Area> areaRepo)
         {
             _reservationRepo = reservationRepo;
             _tableRepo = tableRepo;
             _reservationTableRepo = reservationTableRepo;
+            _areaRepo = areaRepo;
 
             TableList = new List<Table>();
             ReservationTables = new List<ReservationTable>();
@@ -156,6 +159,16 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
         {
             var tableList = CheckAvailableTable(arrivalDate, startTime, endTime);
 
+            if (tableList != null && tableList.Count() > 0)
+            {
+                var areaList = _areaRepo.GetAll();
+
+                foreach (var table in tableList)
+                {
+                    table.Area = areaList.FirstOrDefault(al => al.AreaId == table.AreaId);
+                }
+            }
+
             var result = JsonSerializer.Serialize(tableList, new JsonSerializerOptions());
 
             return Content(result, "application/json");
@@ -197,6 +210,8 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                         }
                     }
                 }
+
+                availableTables.RemoveAll(t => t.Status == 0);
             }
 
             return availableTables;
