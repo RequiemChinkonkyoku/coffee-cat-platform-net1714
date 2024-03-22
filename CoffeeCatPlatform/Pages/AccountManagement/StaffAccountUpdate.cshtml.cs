@@ -38,19 +38,20 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public IActionResult OnPost(int id)
         {
 
             if (!ModelState.IsValid)
             {
-                // If the model state is not valid, return the page with validation errors
                 return Page();
             }
 
-            var existingStaff = _staffRepo.GetAll().FirstOrDefault(p => p.StaffId == id);
-
+            var existingStaff = _staffRepo.GetAll().FirstOrDefault(p => p.Email == Staff.Email && p.StaffId != id);
+            if(existingStaff !=null)
+            {
+                TempData["StaffUpdateErrorMessage"] = "This email address is already in use.";
+                return Page();
+            }
             if (existingStaff == null)
             {
                 TempData["ErrorMessage"] = "Staff not found.";

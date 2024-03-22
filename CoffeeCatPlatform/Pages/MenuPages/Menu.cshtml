@@ -15,14 +15,18 @@
 				<span class="input-group-text">$</span>
 				<input type="number" class="form-control" placeholder="Min Price" name="minPrice" min="0" value="@Model.MinPrice" />
 			</div>
+			<span asp-validation-for="MinPrice" class="text-danger"></span>
+
 		</div>
 		<div class="col-md-6">
 			<div class="input-group mb-3">
 				<span class="input-group-text">$</span>
 				<input type="number" class="form-control" placeholder="Max Price" name="maxPrice" min="0" value="@Model.MaxPrice" />
 			</div>
+			<span asp-validation-for="MaxPrice" class="text-danger"></span>
 		</div>
 		<button class="btn btn-primary" type="submit">Filter</button>
+
 		<div class="col-md-6">
 			<button type="submit" class="btn btn-primary" name="SortByPrice" value="asc">Low to High Price</button>
 			<button type="submit" class="btn btn-primary" name="SortByPrice" value="desc">High to Low Price</button>

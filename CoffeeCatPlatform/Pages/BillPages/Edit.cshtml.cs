@@ -116,7 +116,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
             return Page();
         }
 
-        public IActionResult OnPost(int id, Dictionary<int, int> productQuantities, List<int> selectedProducts, string note, int? promotionId, int? reservationId)
+        public IActionResult OnPost(int id, Dictionary<int, int> productQuantities, List<int> selectedProducts, string? note, int? promotionId, int? reservationId)
         {
             if (selectedProducts == null || selectedProducts.Count == 0)
             {
@@ -124,26 +124,24 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 return OnGet(id);
             }
 
-            // Step 1: Retrieve the existing Bill from the database
             var existingBill = _billRepository.GetAll()
                 .FirstOrDefault(b => b.BillId == id);
 
 
             if (existingBill != null)
             {
-                // Step 2: Update properties of the existing Bill
+                // Update properties of the existing Bill
                 existingBill.Note = note;
                 existingBill.PaymentTime = DateTime.Now;
                 existingBill.PromotionId = promotionId;
                 existingBill.ReservationId = reservationId;
 
-                // Manually load BillProducts for the existingBill
                 existingBill.BillProducts = _billProductRepository
                     .GetAll()
                     .Where(bp => bp.BillId == existingBill.BillId)
                     .ToList();
 
-                // Step 3: Update or add BillProducts based on selected products and remove unchecked products
+                // Update or add BillProducts based on selected products, remove unchecked products
 
                 var productsToRemove = existingBill.BillProducts
                          .Where(bp => bp.ProductId.HasValue && selectedProducts.Contains(bp.ProductId.Value) == false)
@@ -176,13 +174,12 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
                             if (product != null)
                             {
-                                // Ensure that the BillProducts collection is loaded
                                 existingBill.BillProducts = _billProductRepository
                                     .GetAll()
                                     .Where(bp => bp.BillId == existingBill.BillId)
                                     .ToList();
 
-                                // Make sure to initialize the BillProducts collection if it's null
+                                // initialize the BillProducts collection if it's null
                                 existingBill.BillProducts ??= new List<BillProduct>();
 
                                 billProduct = new BillProduct
@@ -209,7 +206,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
                         .FirstOrDefault(p => p.ProductId == billProduct.ProductId);
                 }
 
-                // Step 4: Calculate the new TotalPrice
+                // Calculate the new TotalPrice
                 if (existingBill.BillProducts != null)
                 {
                     existingBill.TotalPrice = existingBill.BillProducts.Sum(bp => bp.Quantity * (bp.Product?.Price ?? 0));
@@ -236,13 +233,11 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
 
 
-                // Step 5: Update the existing Bill entity in the repository
                 _billRepository.Update(existingBill);
 
                 return RedirectToPage("Index");
             }
 
-            // Handle the case where the existing Bill is not found
             ModelState.AddModelError("", "Bill not found.");
             return OnGet(Bill.BillId);
         }

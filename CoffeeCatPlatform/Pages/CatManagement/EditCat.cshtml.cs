@@ -20,7 +20,6 @@ namespace CoffeeCatPlatform.Pages.CatManagement
 
         public IActionResult OnGet(int? id)
         {
-            // Retrieve the Cat from the repository based on the provided id
             var temp = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
             if (temp == null)
@@ -33,33 +32,22 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             return Page();
         }
 
-        public IActionResult OnPostEdit(int id)
+        public IActionResult OnPostEdit(int? id)
         {
             if (!ModelState.IsValid)
             {
-                // If the model state is not valid, return the page with validation errors
                 return Page();
             }
-
-            // Retrieve the existing Cat from the repository based on the provided id
-            //var existingCat = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
-
-            //if (existingCat == null)
-            //{
-            //    TempData["ErrorMessage"] = "Cat not found.";
-            //    return RedirectToPage("./ViewCat");
-            //}
-
-            // Update the properties of the existingCat with the values from the posted Cat
-/*            existingCat.Name = Cat.Name;
-            existingCat.AreaCats = Cat.AreaCats;
-            existingCat.HealthStatus = Cat.HealthStatus;
-            existingCat.Breed = Cat.Breed;
-            existingCat.Birthday = Cat.Birthday;
-            existingCat.ImageUrl = Cat.ImageUrl;
-            existingCat.Description = Cat.Description;*/
-
-            // Update the existingCat in the repository
+            if (Cat.Birthday > DateTime.Today)
+            {
+                TempData["CatEditErrorMessage"] = "Cat Birthday cannot further than current day.";
+                return Page();
+            }
+            if (id != Cat.CatId)
+            {
+                TempData["CatEditErrorMessage"] = "Changing CatId is not allowed.";
+                return Page();
+            }
             _catRepository.Update(Cat);
 
             TempData["SuccessMessage"] = "Cat updated successfully.";
@@ -76,10 +64,8 @@ namespace CoffeeCatPlatform.Pages.CatManagement
                 return RedirectToPage("/ManagerPages/CatManagement");
             }
 
-            // Update the HealthStatus to 0 (unhealthy)
             catToDelete.HealthStatus = 0;
 
-            // Update the existing cat in the repository
             _catRepository.Update(catToDelete);
 
             TempData["SuccessMessage"] = "Cat deleted successfully.";

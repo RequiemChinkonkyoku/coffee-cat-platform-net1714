@@ -60,7 +60,6 @@ namespace CoffeeCatPlatform.Pages.PromotionPages
 			existingPromotion.PromotionType = Promotion.PromotionType;
 			existingPromotion.PromotionAmount = Promotion.PromotionAmount;
 
-			// Update the existingCat in the repository
 			_promotionRepository.Update(existingPromotion);
 
 			TempData["Success"] = "Promotion updated successfully.";

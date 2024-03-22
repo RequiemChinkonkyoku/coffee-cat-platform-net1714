@@ -16,7 +16,7 @@
                             <div class="mb-4">
                                 <label asp-for="Product.ProductId"></label>
                                 <div class="input-group">
-                                    <input asp-for="Product.ProductId" class="form-control" readonly>
+                                    <input id="id" name="id" asp-for="Product.ProductId" class="form-control" readonly>
                                 </div>
                             </div>
                         </div>
@@ -79,13 +79,18 @@
                             <div>
                                 <div asp-validation-summary="All" class="text-danger"></div>
                             </div>
+                            @if (TempData["MenuEditErrorMessage"] != null)
+                            {
+                                <div>
+                                    @TempData["MenuEditErrorMessage"]
+                                </div>
+                            }
                             <div class="col-md-12">
                                 <button type="submit" class="btn bg-gradient-dark w-100">SAVE CHANGES</button>
                             </div>
                         </div>
                     </div>
-                </form>
-
+                </form>                
                 <div class="col-sm-3 col-6 mx-auto">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn bg-gradient-danger w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
