@@ -78,6 +78,12 @@
                             <div>
                                 <div asp-validation-summary="All" class="text-danger"></div>
                             </div>
+                            @if (TempData["CatCreateErrorMessage"] != null)
+                            {
+                                <div>
+                                    @TempData["CatCreateErrorMessage"]
+                                </div>
+                            }
                             <div class="col-md-12">
                                 <button type="submit" class="btn bg-gradient-dark w-100">CREATE</button>
                             </div>

@@ -38,7 +38,11 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             {
                 return Page();
             }
-
+            if (Cat.Birthday > DateTime.Today)
+            {
+                TempData["CatEditErrorMessage"] = "Cat Birthday cannot further than current day.";
+                return Page();
+            }
             if (id != Cat.CatId)
             {
                 TempData["CatEditErrorMessage"] = "Changing CatId is not allowed.";
@@ -60,10 +64,8 @@ namespace CoffeeCatPlatform.Pages.CatManagement
                 return RedirectToPage("/ManagerPages/CatManagement");
             }
 
-            // Update the HealthStatus to 0 (unhealthy)
             catToDelete.HealthStatus = 0;
 
-            // Update the existing cat in the repository
             _catRepository.Update(catToDelete);
 
             TempData["SuccessMessage"] = "Cat deleted successfully.";

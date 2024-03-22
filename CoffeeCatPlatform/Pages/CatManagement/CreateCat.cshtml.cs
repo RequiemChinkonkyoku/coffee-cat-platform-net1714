@@ -19,7 +19,6 @@ namespace CoffeeCatPlatform.Pages.CatManagement
 
         public IActionResult OnGet()
         {
-            // This is the handler for the GET request when loading the page
             return Page();
         }
         public string DisplayGender
@@ -28,16 +27,17 @@ namespace CoffeeCatPlatform.Pages.CatManagement
         }
         public IActionResult OnPost()
         {
-            // This is the handler for the POST request when submitting the form
-
+            if (Cat.Birthday > DateTime.Today)
+            {
+                TempData["CatCreateErrorMessage"] = "Cat Birthday cannot further than current day.";
+                return Page();
+            }
             if (!ModelState.IsValid)
             {
-                // If the model state is not valid, return the page with validation errors
                 return Page();
             }
             Cat.HealthStatus = 1;
             Cat.ShopId = 1;
-            // Add the new cat to the repository
             _catRepository.Add(Cat);
 
             TempData["SuccessMessage"] = "Cat created successfully.";

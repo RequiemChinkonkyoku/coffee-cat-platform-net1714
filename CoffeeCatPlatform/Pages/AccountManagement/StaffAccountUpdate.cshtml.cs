@@ -46,8 +46,12 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
                 return Page();
             }
 
-            var existingStaff = _staffRepo.GetAll().FirstOrDefault(p => p.StaffId == id);
-
+            var existingStaff = _staffRepo.GetAll().FirstOrDefault(p => p.Email == Staff.Email && p.StaffId != id);
+            if(existingStaff !=null)
+            {
+                TempData["StaffUpdateErrorMessage"] = "This email address is already in use.";
+                return Page();
+            }
             if (existingStaff == null)
             {
                 TempData["ErrorMessage"] = "Staff not found.";

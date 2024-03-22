@@ -20,7 +20,6 @@ namespace CoffeeCatPlatform.Pages.CatManagement
 
         public IActionResult OnGet(int? id)
         {
-            // Retrieve the Cat from the repository based on the provided id
             var temp = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
             if (temp == null)
