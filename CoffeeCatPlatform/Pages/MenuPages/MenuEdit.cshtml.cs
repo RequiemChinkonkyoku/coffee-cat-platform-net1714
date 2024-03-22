@@ -10,10 +10,11 @@ using DAOs;
 using Models;
 using Repositories;
 using Microsoft.CodeAnalysis;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.MenuPages
 {
-    public class MenuEditModel : PageModel
+    public class MenuEditModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Product> _productRepo;
 

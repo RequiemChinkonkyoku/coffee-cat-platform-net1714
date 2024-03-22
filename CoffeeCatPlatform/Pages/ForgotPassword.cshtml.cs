@@ -3,19 +3,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories;
 using Repositories.Impl;
-using System.Net;
 using System.Net.Mail;
+using System.Net;
 
 namespace CoffeeCatPlatform.Pages
 {
-    public class RegisterModel : PageModel
+    public class ForgotPasswordModel : PageModel
     {
-        [BindProperty]
-        public Customer Customer { get; set; }
-
-        [BindProperty]
-        public string? Message { get; set; }
-
         private readonly IRepositoryBase<Customer> _customerRepo;
 
         private string _email;
@@ -23,7 +17,13 @@ namespace CoffeeCatPlatform.Pages
 
         private string _verificationToken;
 
-        public RegisterModel()
+        [BindProperty]
+        public string? Message { get; set; }
+
+        [BindProperty]
+        public string? Email { get; set; }
+
+        public ForgotPasswordModel()
         {
             _customerRepo = new CustomerRepository();
         }
@@ -33,36 +33,34 @@ namespace CoffeeCatPlatform.Pages
             Message = message;
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string message)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return Page();
-            }
+            }*/
 
-            var existingEmail = _customerRepo.GetAll().FirstOrDefault(c => c.Email.Equals(Customer.Email));
-            if (existingEmail != null)
+            var existingEmail = _customerRepo.GetAll().FirstOrDefault(c => c.Email.Equals(Email));
+            if (existingEmail == null)
             {
-                ModelState.AddModelError("Customer.Email", "Email is already in use.");
+                ModelState.AddModelError("Customer.Email", "This email has not registered!");
                 return Page();
             }
 
             _email = GetEmail();
             _password = GetPassword();
 
-            if (_customerRepo.GetAll() == null || Customer == null)
+            if (_customerRepo.GetAll() == null || Email == null)
             {
                 return Page();
             }
-            Customer.Status = 0;
-            _customerRepo.Add(Customer);
 
-            string token = Customer.CustomerId + Customer.Email + Customer.Password;
+            string token = Email + DateTime.Today.ToString();
             _verificationToken = BCrypt.Net.BCrypt.HashString(token);
 
-            string verify = SendVerificationEmail(_email, Customer.Email, "Verification Email",
-                "http://localhost:5117/AccountVerification?_verificationToken=" + _verificationToken);
-            return RedirectToPage("/Register", new { message = verify });
+            string verify = SendVerificationEmail(_email, Email, "Verification Email",
+                "http://localhost:5117/ChangeCustomerPassword?_verificationToken=" + _verificationToken);
+            return RedirectToPage("/ForgotPassword", new { message = verify });
         }
 
         private string SendVerificationEmail(string _from, string _to, string _subject, string _body)
@@ -83,7 +81,7 @@ namespace CoffeeCatPlatform.Pages
             try
             {
                 smtpClient.Send(message);
-                return "An verification email has been sent to your inbox.";
+                return "An verification email has been sent to your inbox. The link will only be valid for today.";
             }
             catch (Exception ex)
             {

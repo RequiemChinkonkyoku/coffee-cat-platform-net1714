@@ -1,3 +1,4 @@
+using CoffeeCatPlatform.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
@@ -5,7 +6,7 @@ using Repositories;
 
 namespace CoffeeCatPlatform.Pages.BillPages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : StaffAuthModel
     {
         private readonly IRepositoryBase<Bill> _billRepository;
         private readonly IRepositoryBase<Promotion> _promotionRepository;

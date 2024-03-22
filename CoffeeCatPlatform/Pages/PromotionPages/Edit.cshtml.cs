@@ -10,10 +10,11 @@ using DAOs;
 using Models;
 using Repositories;
 using Repositories.Impl;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.PromotionPages
 {
-    public class EditModel : PageModel
+    public class EditModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Promotion> _promotionRepository;
 

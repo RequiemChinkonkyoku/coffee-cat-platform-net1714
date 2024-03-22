@@ -15,13 +15,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CoffeeCatPlatform.Pages.MenuPages
 {
-	public class MenuModel : PageModel
+	public class MenuDrinkModel : PageModel
 	{
 		private readonly IRepositoryBase<Product> _productRepo;
 
 		public bool result = false;
 
-		public MenuModel()
+		public MenuDrinkModel()
 		{
 			_productRepo = new ProductRepository();
 			Products = new List<Product>();
@@ -71,7 +71,7 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 			{
 				CurrentPage = 1;
 			}
-			IEnumerable<Product> query = _productRepo.GetAll();
+			IEnumerable<Product> query = _productRepo.GetAll().Where(x => x.CategoryId == 1);
 
 			if (!string.IsNullOrEmpty(searchQuery))
 			{

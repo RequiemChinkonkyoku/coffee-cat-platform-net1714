@@ -59,7 +59,7 @@ namespace CoffeeCatPlatform.Pages
                     HttpContext.Session.SetInt32(SessionKeyId, customer.CustomerId);
                     HttpContext.Session.SetString(SessionKeyType, type);
                 }
-                return RedirectToPage("/MenuPages/Menu", new { id = ID });
+                return RedirectToPage("/");
             }
         }
 
