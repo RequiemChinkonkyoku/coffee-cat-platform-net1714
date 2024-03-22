@@ -6,7 +6,7 @@ using Repositories;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
-    public class ViewCustomerReservationDetailModel : ManagerAuthModel
+    public class ViewCustomerReservationDetailModel : StaffAuthModel
     {
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Bill> _billRepo;
@@ -60,7 +60,7 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
                 {
                     Bill = bill;
 
-                    var billProducts = _billProductRepo.GetAll().Where(b => b.ProductId == bill.BillId);
+                    var billProducts = _billProductRepo.GetAll().Where(b => b.BillId == bill.BillId);
 
                     if (billProducts.Count() > 0)
                     {

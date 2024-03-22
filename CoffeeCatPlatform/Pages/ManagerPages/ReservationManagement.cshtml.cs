@@ -6,7 +6,7 @@ using Repositories;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
-    public class ReservationManagementModel : ManagerAuthModel
+    public class ReservationManagementModel : StaffAuthModel
     {
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Customer> _customerRepo;

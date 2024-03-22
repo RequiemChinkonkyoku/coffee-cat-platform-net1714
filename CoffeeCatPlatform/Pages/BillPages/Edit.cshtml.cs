@@ -67,7 +67,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
             Bills = _billRepository.GetAll();
             Products = _productRepository.GetAll();
             Promotions = _promotionRepository.GetAll();
-            Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date).ToList();
+            Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date
+                                                                 && r.Status == 1).ToList();
 
             SelectedProducts = _billProductRepository
                                .GetAll()
@@ -80,7 +81,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
                                .Where(b => b.BillId == id)
                                .Select(b => b.PromotionId)
                                .ToList();
-            
+
             SelectedReservations = _billRepository
                                .GetAll()
                                .Where(b => b.BillId == id)

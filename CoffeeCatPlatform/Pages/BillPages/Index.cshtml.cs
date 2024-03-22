@@ -41,7 +41,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
             Promotions = _promotionRepository.GetAll();
             Reservations = _reservationRepository.GetAll();
             Staffs = _staffRepository.GetAll();
-            
+
             foreach (var bill in Bills)
             {
                 var promotion = Promotions.FirstOrDefault(p => p.PromotionId == bill.PromotionId);
@@ -49,7 +49,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 {
                     bill.Promotion = promotion;
                 }
-                
+
                 var reservation = Reservations.FirstOrDefault(p => p.ReservationId == bill.ReservationId);
                 if (reservation != null)
                 {
@@ -96,6 +96,14 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             bill.Status = 1;
             _billRepository.Update(bill);
+
+            Reservations = _reservationRepository.GetAll();
+            var reservation = Reservations.FirstOrDefault(p => p.ReservationId == bill.ReservationId);
+            if (reservation != null)
+            {
+                reservation.Status = 2;
+                _reservationRepository.Update(reservation);
+            }
 
             return RedirectToPage("Index");
         }

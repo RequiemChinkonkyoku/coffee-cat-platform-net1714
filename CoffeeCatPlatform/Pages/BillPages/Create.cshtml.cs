@@ -43,7 +43,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
         {
             Products = _productRepository.GetAll();
             Promotions = _promotionRepository.GetAll();
-            Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date).ToList();
+            Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date
+                                                                 && r.Status == 1).ToList();
 
             foreach (var reservation in Reservations)
             {

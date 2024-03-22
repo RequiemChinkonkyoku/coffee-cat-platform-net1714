@@ -1,9 +1,10 @@
 ﻿@page
 @model CoffeeCatPlatform.Pages.BillPages.CreateModel
 @{
+    Layout = "_DashboardLayout";
 }
-<h1>Create New Bill</h1>
-<form method="post">
+
+@* <form method="post">
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -25,7 +26,8 @@
                     <td>@product.Name</td>
                     <td>@product.Price</td>
                     <td><input type="number" name="productQuantities[@product.ProductId]" min="0" value="0" /></td>
-                    <td><input type="checkbox" name="selectedProducts" value="@product.ProductId"
+                    <td>
+                        <input type="checkbox" name="selectedProducts" value="@product.ProductId"
                                onchange="handleCheckboxChange(this, document.getElementsByName('productQuantities[@product.ProductId]')[0])" />
                     </td>
                 </tr>
@@ -42,20 +44,20 @@
         }
     </select>
     </br>
-    
+
     <label for="reservationId">Select Reservation For Today:</label>
     <select id="reservationId" name="reservationId">
         @if (Model.Reservations.Any())
         {
-            <option value="@Model.Reservations.First().ReservationId">@Model.Reservations.First().Customer.Name</option>
+            <option value="@Model.Reservations.First().ReservationId">@Model.Reservations.First().Customer.Name; @Model.Reservations.First().StartTime</option>
         }
         else
         {
             <option value="">No reservations available</option>
         }
-        @foreach (var reservation in Model.Reservations .Skip(1))
+        @foreach (var reservation in Model.Reservations.Skip(1))
         {
-            <option value="@reservation.ReservationId">@reservation.Customer.Name</option>
+            <option value="@reservation.ReservationId">@reservation.Customer.Name; @reservation.StartTime</option>
         }
     </select>
     </br>
@@ -69,7 +71,152 @@
 
 <div>
     <a asp-page="Index">Back to List</a>
-</div>
+</div> *@
+
+
+<body class="g-sidenav-show  bg-gray-100">
+    <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Bill</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Create New Bill</h6>
+                </nav>
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group">
+                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" placeholder="Type here...">
+                        </div>
+                    </div>
+                    <ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                                <span class="d-sm-inline d-none">@HttpContext.Session.GetString("_Name")</span>
+                            </a>
+                        </li>
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item px-3 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0">
+                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <div class="d-lg-flex">
+                                <div>
+                                    <h5 class="mb-0">Create New Bill</h5>
+                                    <p class="text-sm mb-0">
+                                        Creating a new bill for an existing reservation.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <form method="post">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="table-responsive p-0">
+                                    <table class="table align-items-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product ID</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quantity</th>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Select</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var product in Model.Products)
+                                            {
+                                                <tr>
+                                                    <td class="text-xs font-weight-bold mb-0">@product.ProductId</td>
+                                                    <td class="text-xs font-weight-bold mb-0">@product.Name</td>
+                                                    <td class="text-xs font-weight-bold mb-0">@product.Price</td>
+                                                    @if (product.Quantity == 0)
+                                                    {
+                                                        <td>
+                                                            <label class="text-xs font-weight-bold mb-0" style="color:red">Out of order.</label>
+                                                        </td>
+                                                        <td></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><input type="number" class="form-control" name="productQuantities[@product.ProductId]" min="0" value="0" /></td>
+                                                        <td>
+                                                            <input type="checkbox" name="selectedProducts" class="align-middle text-center" value="@product.ProductId"
+                                                                   onchange="handleCheckboxChange(this, document.getElementsByName('productQuantities[@product.ProductId]')[0])" />
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <label for="promotionId">Select Promotion:</label>
+                                <select id="promotionId" name="promotionId" class="form-control">
+                                    <option value="@Model.Promotions.First().PromotionId">@Model.Promotions.First().Name</option> <!-- Default option for no promotion -->
+                                    @foreach (var promotion in Model.Promotions.Skip(1))
+                                    {
+                                        <option value="@promotion.PromotionId">@promotion.Name</option>
+                                    }
+                                </select>
+                                </br>
+
+                                <label for="reservationId">Select Reservation For Today:</label>
+                                <select id="reservationId" name="reservationId" class="form-control">
+                                    @if (Model.Reservations.Any())
+                                    {
+                                        <option value="@Model.Reservations.First().ReservationId">@Model.Reservations.First().Customer.Name; @Model.Reservations.First().StartTime</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="">No reservations available</option>
+                                    }
+                                    @foreach (var reservation in Model.Reservations.Skip(1))
+                                    {
+                                        <option value="@reservation.ReservationId">@reservation.Customer.Name; @reservation.StartTime</option>
+                                    }
+                                </select>
+                                </br>
+
+                                <label for="note">Note:</label>
+                                <textarea id="note" name="note" rows="4" cols="50" class="form-control"></textarea>
+                                </br>
+
+                                <input type="submit" class="btn btn-primary w-auto me-2" value="Create Bill" />
+                            </form>
+                            <div>
+                                <a asp-page="Index">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
 
 <script>
     function handleCheckboxChange(checkbox, quantityInput) {
