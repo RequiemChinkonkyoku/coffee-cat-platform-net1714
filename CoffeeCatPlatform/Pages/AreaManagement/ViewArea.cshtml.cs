@@ -43,7 +43,6 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
                 Tables = _tableRepo.GetAll();
                 result = true;
             }
-
         }
     }
 }

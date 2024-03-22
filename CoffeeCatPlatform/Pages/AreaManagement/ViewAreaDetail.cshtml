@@ -1,0 +1,93 @@
+﻿@page "/ViewAreaDetail"
+@model CoffeeCatPlatform.Pages.AreaManagement.ViewAreaDetailModel
+
+@{
+    ViewData["Title"] = "ViewAreaDetail";
+}
+
+<h1>ViewAreaDetail</h1>
+
+<div>
+    <h4>Area</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Area.AreaId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Area.AreaId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Area.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Area.Location)
+        </dd>
+        <dt class="col-sm-2">
+            List of Cats in Area
+        </dt>
+        <dd class="col-sm-10">
+            <table>
+                <thead>
+                    <th>
+                        Cat Id
+                    </th>
+                    <th>
+                        Cat Name
+                    </th>
+                    <th>
+
+                    </th>
+                </thead>
+
+                <tbody>
+                    @foreach (var cat in Model.Cat)
+                        {
+                            <td>
+                                @cat.CatId
+                            </td>
+                            <td>
+                                @cat.Name
+                            </td>
+                            <td>
+                                <a asp-page="./AssignCatArea" asp-route-id="@cat.CatId">Edit</a>
+                            </td>
+                        }
+                </tbody>
+            </table>
+        </dd>
+        <dt class="col-sm-2">
+            List of Table in Area
+        </dt>
+        <dd class="col-sm-10">
+            <table>
+                <thead>
+                    <th>
+                        Table Id
+                    </th>
+                    <th>
+                        Seat count
+                    </th>
+                    <th>
+
+                    </th>
+                </thead>
+
+                <tbody>
+                    @foreach (var table in Model.Table)
+                        {
+                            <td>
+                                @table.TableId
+                            </td>
+                            <td>
+                                @table.SeatCount
+                            </td>
+                            <td>
+                                <a asp-page="./AssignTableArea" asp-route-id="@table.TableId">Edit</a>
+                            </td>
+                        }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+</div>

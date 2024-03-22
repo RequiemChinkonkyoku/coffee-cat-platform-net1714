@@ -43,6 +43,7 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             Cat.ShopId = 1;
             // Add the new cat to the repository
             _catRepository.Add(Cat);
+            AreaCat.CatId = Cat.CatId;
             _areacatRepository.Add(AreaCat);
 
             TempData["SuccessMessage"] = "Cat created successfully.";

@@ -10,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<CatRepository>();
 builder.Services.AddScoped<IRepositoryBase<Cat>, CatRepository>();
 builder.Services.AddScoped<IRepositoryBase<AreaCat>, AreaCatRepository>();
+builder.Services.AddScoped<IRepositoryBase<Area>, AreaRepository>();
 
 builder.Services.AddHttpClient();
 
