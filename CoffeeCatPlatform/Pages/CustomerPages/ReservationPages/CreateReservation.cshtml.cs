@@ -63,6 +63,12 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         public IActionResult OnPost()
         {
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
+            {
+                return auth;
+            }
+
             if (Reservation == null)
             {
                 return Page();
@@ -91,12 +97,7 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 ModelState.AddModelError("MinimumStartTimeError", "Reservation must be created 15 minutes in advance");
                 return Page();
             }
-
-            IActionResult auth = CustomerAuthorize();
-            if (auth != null)
-            {
-                return auth;
-            }
+            
             if (Reservation.StartTime < TimeSpan.FromHours(7) || Reservation.EndTime > TimeSpan.FromHours(21))
             {
                 ModelState.AddModelError("WorkingHoursError", "The store is open from 7AM - 9PM");
@@ -104,7 +105,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             }
 
             Reservation.CustomerId = HttpContext.Session.GetInt32("_Id");
-            
 
             SelectedTables.Clear();
 
