@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.AreaManagement
 {
-    public class ViewAreaDetailModel : PageModel
+    public class ViewAreaDetailModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Area> _areaRepo;
         private readonly IRepositoryBase<AreaCat> _areacatRepo;

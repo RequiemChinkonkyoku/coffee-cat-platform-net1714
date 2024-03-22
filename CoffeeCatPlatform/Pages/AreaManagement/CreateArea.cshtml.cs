@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.AreaManagement
 {
-    public class CreateAreaModel : PageModel
+    public class CreateAreaModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Area> _areaRepo;
 

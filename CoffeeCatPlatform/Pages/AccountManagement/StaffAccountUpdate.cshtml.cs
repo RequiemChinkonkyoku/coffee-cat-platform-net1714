@@ -9,10 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.AccountManagement
 {
-    public class StaffAccountUpdateModel : PageModel
+    public class StaffAccountUpdateModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Staff> _staffRepo;
 

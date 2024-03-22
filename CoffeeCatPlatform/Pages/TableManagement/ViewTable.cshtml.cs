@@ -1,3 +1,4 @@
+using CoffeeCatPlatform.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
@@ -7,7 +8,7 @@ using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages.TableManagement
 {
-    public class ViewTableModel : PageModel
+    public class ViewTableModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Table> _tableRepo;
         private readonly IRepositoryBase<Area> _areaRepo;
