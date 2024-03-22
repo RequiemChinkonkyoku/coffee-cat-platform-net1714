@@ -64,6 +64,7 @@ namespace CoffeeCatPlatform.Pages
                     else if (staff.RoleId == 2)
                     {
                         HttpContext.Session.SetString(SessionKeyType, type2);
+                        return RedirectToPage("/ManagerPages/Dashboard");
                     }
                 }
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });

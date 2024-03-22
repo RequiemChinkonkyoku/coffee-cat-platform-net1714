@@ -7,7 +7,7 @@ using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
-    public class ProductManagementModel : ManagerAuthModel
+    public class ProductManagementModel : StaffAuthModel
     {
         private readonly IRepositoryBase<Product> _productRepo;
         private readonly IRepositoryBase<Category> _categoryRepo;

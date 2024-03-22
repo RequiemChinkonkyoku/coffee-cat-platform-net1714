@@ -13,6 +13,7 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
 
         public List<Reservation> ReservationList { get; set; }
         public List<Customer> CustomerList { get; set; }
+        public List<Reservation> TodayReservationList { get; set; }
 
         public ReservationManagementModel(IRepositoryBase<Reservation> reservationRepo, IRepositoryBase<Customer> customerRepo)
         {
@@ -21,6 +22,7 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
 
             ReservationList = new List<Reservation>();
             CustomerList = new List<Customer>();
+            TodayReservationList = new List<Reservation>();
         }
 
 
@@ -45,6 +47,10 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
                         reservation.Customer = customer;
                     }
                     ReservationList.Add(reservation);
+                    if (reservation.ArrivalDate.Equals(DateTime.Today))
+                    {
+                        TodayReservationList.Add(reservation);
+                    }
                 }
             }
 
