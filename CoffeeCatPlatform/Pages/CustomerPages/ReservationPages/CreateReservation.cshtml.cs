@@ -12,6 +12,7 @@ using Repositories.Impl;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Text.Json;
 using CoffeeCatPlatform.Pages.Shared;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 {
@@ -80,7 +81,7 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 return Page();
             }
 
-            if (Reservation.StartTime < DateTime.Now.TimeOfDay)
+            if (Reservation.StartTime < DateTime.Now.TimeOfDay && Reservation.ArrivalDate.Date == DateTime.Now.Date)
             {
                 ModelState.AddModelError("Invalid_StartTime", "StartTime cannot be earlier than current time");
                 return Page();
@@ -92,12 +93,13 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 return Page();
             }
 
-            if ((Reservation.StartTime - DateTime.Now.TimeOfDay) < TimeSpan.FromMinutes(15))
+            if ((Reservation.StartTime - DateTime.Now.TimeOfDay) < TimeSpan.FromMinutes(15)
+                && Reservation.ArrivalDate.Date == DateTime.Now.Date)
             {
                 ModelState.AddModelError("MinimumStartTimeError", "Reservation must be created 15 minutes in advance");
                 return Page();
             }
-            
+
             if (Reservation.StartTime < TimeSpan.FromHours(7) || Reservation.EndTime > TimeSpan.FromHours(21))
             {
                 ModelState.AddModelError("WorkingHoursError", "The store is open from 7AM - 9PM");
