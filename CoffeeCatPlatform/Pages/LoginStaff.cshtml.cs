@@ -67,7 +67,7 @@ namespace CoffeeCatPlatform.Pages
                         return RedirectToPage("/ManagerPages/Dashboard");
                     }
                 }
-                return RedirectToPage("/MenuPages/Menu", new { id = ID });
+                return RedirectToPage("/Homepage");
             }
         }
 
