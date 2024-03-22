@@ -41,7 +41,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
         public IActionResult OnGet()
         {
-            // Retrieve all products for display
             Products = _productRepository.GetAll();
             Promotions = _promotionRepository.GetAll();
             Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date).ToList();
@@ -54,7 +53,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             return Page();
         }
-        public IActionResult OnPost(Dictionary<int, int> productQuantities, List<int> selectedProducts, string note, int? promotionId, int? reservationId)
+        public IActionResult OnPost(Dictionary<int, int> productQuantities, List<int> selectedProducts, string? note, int? promotionId, int? reservationId)
         {
             if (selectedProducts == null || selectedProducts.Count == 0)
             {
@@ -64,7 +63,13 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             int? staffId = HttpContext.Session.GetInt32("_Id");
 
-            // Step 1: Create a new Bill
+            if (reservationId == null)
+            {
+                ModelState.AddModelError("", "Must choose a reservation!");
+                return OnGet();
+            }
+
+            // create a new Bill
             var newBill = new Bill
             {
                 TotalPrice = 0,
@@ -75,12 +80,11 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 StaffId = staffId,
                 ReservationId = reservationId
 
-                // Set other properties of the Bill if needed
             };
 
             _billRepository.Add(newBill);
 
-            // Step 2: Create BillProducts based on selected products and link them to the new Bill
+            // create BillProducts based on selected products, link to the new Bill
             foreach (var productId in selectedProducts)
             {
                 var quantity = productQuantities.ContainsKey(productId) ? productQuantities[productId] : 0;
@@ -100,7 +104,7 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
                         _billProductRepository.Add(newBillProduct);
 
-                        // Calculate the total price by summing the individual product prices
+                        // Calculate the total price
                         newBill.TotalPrice += quantity * product.Price;
 
                         if (newBill.PromotionId.HasValue)
@@ -130,7 +134,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
                 }
             }
 
-            // Update the newBill entity in the repository
             _billRepository.Update(newBill);
 
             return RedirectToPage("Index");
