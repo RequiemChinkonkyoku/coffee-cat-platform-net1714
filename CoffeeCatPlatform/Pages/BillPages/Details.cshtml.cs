@@ -94,12 +94,10 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             Staff = _staffRepository.GetAll().FirstOrDefault(s => s.StaffId == Bill.StaffId);
 
-            // Retrieve and set the selected promotion name
             SelectedPromotionName = _promotionRepository.GetAll()
                 .Where(p => p.PromotionId == Bill?.PromotionId)
                 .Select(p => p.Name)
                 .FirstOrDefault();
-
 
             if (BillProducts == null)
             {

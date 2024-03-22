@@ -14,6 +14,9 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
 
         public bool result = false;
 
+        [BindProperty]
+        public int id { get; set; }
+
         public AccountManagementModel()
         {
             _customerRepo = new CustomerRepository();
@@ -35,6 +38,18 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
                 result = true;
             }
             return Page();
+        }
+
+        public IActionResult OnPostDeactivate()
+        {
+            Customer customer = _customerRepo.GetAll().FirstOrDefault(x => x.CustomerId == id);
+            if (customer == null)
+            {
+                return Page();
+            }
+            customer.Status = 0;
+            _customerRepo.Update(customer);
+            return RedirectToPage();
         }
     }
 }

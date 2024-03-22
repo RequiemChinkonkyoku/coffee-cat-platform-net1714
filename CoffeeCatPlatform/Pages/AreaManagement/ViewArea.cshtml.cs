@@ -7,7 +7,7 @@ using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages.AreaManagement
 {
-    public class ViewAreaModel : PageModel
+    public class ViewAreaModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Area> _areaRepo;
 

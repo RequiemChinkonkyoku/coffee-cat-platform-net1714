@@ -17,7 +17,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
         private readonly IRepositoryBase<Reservation> _reservationRepository;
         private readonly IRepositoryBase<Customer> _customerRepository;
 
-
         public List<Product> Products { get; set; }
         public List<Promotion> Promotions { get; set; }
         public List<BillProduct> BillProducts { get; set; }
@@ -55,7 +54,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
             Reservations = new List<Reservation>();
 
             Bill = new Bill();
-
 
             SelectedProducts = new List<int?>();
             SelectedPromotions = new List<int?>();
@@ -132,7 +130,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             if (existingBill != null)
             {
-                // Update properties of the existing Bill
                 existingBill.Note = note;
                 existingBill.PaymentTime = DateTime.Now;
                 existingBill.PromotionId = promotionId;
@@ -142,8 +139,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
                     .GetAll()
                     .Where(bp => bp.BillId == existingBill.BillId)
                     .ToList();
-
-                // Update or add BillProducts based on selected products, remove unchecked products
 
                 var productsToRemove = existingBill.BillProducts
                          .Where(bp => bp.ProductId.HasValue && selectedProducts.Contains(bp.ProductId.Value) == false)
@@ -166,12 +161,10 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
                         if (billProduct != null)
                         {
-                            // Existing BillProduct, update the quantity
                             billProduct.Quantity = quantity;
                         }
                         else
                         {
-                            // New BillProduct, add it to the Bill
                             var product = _productRepository.GetAll().FirstOrDefault(p => p.ProductId == productId);
 
                             if (product != null)
@@ -181,7 +174,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
                                     .Where(bp => bp.BillId == existingBill.BillId)
                                     .ToList();
 
-                                // initialize the BillProducts collection if it's null
                                 existingBill.BillProducts ??= new List<BillProduct>();
 
                                 billProduct = new BillProduct
@@ -208,7 +200,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
                         .FirstOrDefault(p => p.ProductId == billProduct.ProductId);
                 }
 
-                // Calculate the new TotalPrice
                 if (existingBill.BillProducts != null)
                 {
                     existingBill.TotalPrice = existingBill.BillProducts.Sum(bp => bp.Quantity * (bp.Product?.Price ?? 0));
@@ -221,19 +212,15 @@ namespace CoffeeCatPlatform.Pages.BillPages
                         {
                             if (promotion.PromotionType == 0)
                             {
-                                // Deduct fixed amount
                                 existingBill.TotalPrice -= promotion.PromotionAmount;
                             }
                             else if (promotion?.PromotionType == 1)
                             {
-                                // Deduct percentage
                                 existingBill.TotalPrice -= (existingBill.TotalPrice * promotion.PromotionAmount / 100);
                             }
                         }
                     }
                 }
-
-
 
                 _billRepository.Update(existingBill);
 
