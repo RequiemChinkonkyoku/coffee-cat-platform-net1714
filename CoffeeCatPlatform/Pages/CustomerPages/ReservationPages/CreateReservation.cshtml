@@ -235,13 +235,23 @@
 
                                 if (seatCountInput.value <= totalSeatCount) {
                                     result.forEach(function (table) {
+                                        var areaHtml = '';
+                                        areaHtml += '<div id="' + table.Area.Location.replace(/\s/g, '') + '">';
+                                        areaHtml += '<h5>' + table.Area.Location + '</h5>';
+                                        areaHtml += '</div>';
+                                        $('#modalContent').append(areaHtml);
+                                    });
+
+                                    result.forEach(function (table) {
                                         var tableHtml = '';
                                         tableHtml += '<div>';
-                                        tableHtml += '<label>Table no. ' + table.TableId + ', Seats: ' + table.SeatCount + '</label>';
+                                        tableHtml += '<span style="margin-right: 10px;">Table no. ' + table.TableId + ', Seats: ' + table.SeatCount + '</span>';
                                         tableHtml += '<input type="checkbox" value=' + table.TableId + '></input>';
                                         tableHtml += '<input type="hidden" name="seatCount" value=' + table.SeatCount + '></input>';
                                         tableHtml += '</div>';
-                                        $('#modalContent').append(tableHtml);
+
+                                        var locationId = '#' + table.Area.Location.replace(/\s/g, '');
+                                        $(locationId).append(tableHtml);
                                     });
                                 } else {
                                     $('#modalContent').html('<label>There are only ' + totalSeatCount + ' seats available</label>');
