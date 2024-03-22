@@ -40,43 +40,6 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
         public IActionResult OnPost()
         {
-            /*
-            if (!ModelState.IsValid) 
-            {
-                return Page();
-            }
-            
-            if (string.IsNullOrEmpty(Staff.Name))
-            {
-                ModelState.AddModelError("Name", "Name is required");
-            }
-            if (string.IsNullOrEmpty(Staff.Phone))
-            {
-                ModelState.AddModelError("PhoneNumber", "Phone number is required");
-            }
-            else if (!Regex.IsMatch(Staff.Phone, PhoneNumberPattern))
-            {
-                ModelState.AddModelError("PhoneNumber", "Invalid phone number format");
-            }
-            if (string.IsNullOrEmpty(Staff.Email))
-            {
-                ModelState.AddModelError("Email", "Email is required");
-            }
-            else if (!Regex.IsMatch(Staff.Email, EmailPattern))
-            {
-                ModelState.AddModelError("Email", "Invalid email format");
-            }
-
-            if (string.IsNullOrEmpty(Staff.Password))
-            {
-                ModelState.AddModelError("Password", "Password is required");
-            }
-            else if (!Regex.IsMatch(Staff.Password, PasswordPattern))
-            {
-                ModelState.AddModelError("Password", "Password must contain at least one digit, lowercase letter, uppercase letter, special character, and no whitespace");
-            }
-            */
-
             if (string.IsNullOrEmpty(Staff.Name))
             {
                 ErrorMessage = "Name is required.";
@@ -125,7 +88,6 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
                 return Page();
             }
 
-
             Staff.RoleId = 2;
             Staff.Status = 1;
             _staffRepo.Add(Staff);
@@ -135,7 +97,6 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
         private bool IsValidEmail(string email)
         {
-            // Perform your custom email validation here
             try
             {
                 var addr = new System.Net.Mail.MailAddress(email);

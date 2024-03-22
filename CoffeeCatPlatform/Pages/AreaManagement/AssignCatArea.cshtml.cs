@@ -51,12 +51,6 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
 
         public IActionResult OnPost(int id)
         {
-            /*
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            */
             var CatToAssign = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
             if (CatToAssign == null)

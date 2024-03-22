@@ -86,7 +86,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
             _billRepository.Add(newBill);
 
-            // create BillProducts based on selected products, link to the new Bill
             foreach (var productId in selectedProducts)
             {
                 var quantity = productQuantities.ContainsKey(productId) ? productQuantities[productId] : 0;
@@ -106,7 +105,6 @@ namespace CoffeeCatPlatform.Pages.BillPages
 
                         _billProductRepository.Add(newBillProduct);
 
-                        // Calculate the total price
                         newBill.TotalPrice += quantity * product.Price;
 
                         if (newBill.PromotionId.HasValue)
@@ -117,12 +115,10 @@ namespace CoffeeCatPlatform.Pages.BillPages
                             {
                                 if (promotion.PromotionType == 0)
                                 {
-                                    // Deduct fixed amount
                                     newBill.TotalPrice -= promotion.PromotionAmount;
                                 }
                                 else if (promotion?.PromotionType == 1)
                                 {
-                                    // Deduct percentage
                                     newBill.TotalPrice -= (newBill.TotalPrice * promotion.PromotionAmount / 100);
                                 }
                             }
