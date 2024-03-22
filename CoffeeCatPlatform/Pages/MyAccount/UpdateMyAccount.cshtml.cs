@@ -9,16 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.MyAccount
 {
-    public class UpdateMyAccountModel : PageModel
+    public class UpdateMyAccountModel : CustomerAuthModel
     {
         private readonly IRepositoryBase<Customer> _customerRepo;
-
-        private const string SessionKeyName = "_Name";
-        private const string SessionKeyId = "_Id";
-        private const string SessionKeyType = "_Type";
 
         public UpdateMyAccountModel(IRepositoryBase<Customer> customerRepo)
         {
@@ -30,11 +27,13 @@ namespace CoffeeCatPlatform.Pages.MyAccount
 
         public IActionResult OnGet(int id)
         {
-            if (SessionCheck() == false)
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
             {
-                return RedirectToPage("/ErrorPages/NotLoggedInError");
+                return auth;
             }
-            var customerId = HttpContext.Session.GetInt32(SessionKeyId);
+
+            var customerId = HttpContext.Session.GetInt32("_Id");
             Customer = _customerRepo.GetAll().FirstOrDefault(p => p.CustomerId == customerId);
             return Page();
 
@@ -48,7 +47,7 @@ namespace CoffeeCatPlatform.Pages.MyAccount
                 // If the model state is not valid, return the page with validation errors
                 return Page();
             }
-            var customerId = HttpContext.Session.GetInt32(SessionKeyId);
+            var customerId = HttpContext.Session.GetInt32("_Id");
             var existingCustomer = _customerRepo.GetAll().FirstOrDefault(p => p.CustomerId == customerId);
 
             if (existingCustomer == null)
@@ -67,18 +66,6 @@ namespace CoffeeCatPlatform.Pages.MyAccount
             TempData["SuccessMessage"] = "Customer updated successfully.";
             return RedirectToPage("./ViewMyAccount");
 
-        }
-
-        private bool SessionCheck()
-        {
-            bool result = true;
-            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
-            {
-                result = false;
-            }
-            return result;
         }
     }
 }

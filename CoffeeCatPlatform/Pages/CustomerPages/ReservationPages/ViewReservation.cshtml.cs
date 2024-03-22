@@ -8,18 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 {
-    public class ViewReservationModel : PageModel
+    public class ViewReservationModel : CustomerAuthModel
     {
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Customer> _customerRepo;
         public List<Reservation> ReservationList { get; set; }
-
-        private const string SessionKeyName = "_Name";
-        private const string SessionKeyId = "_Id";
-        private const string SessionKeyType = "_Type";
 
         public ViewReservationModel(IRepositoryBase<Reservation> reservationRepo, IRepositoryBase<Customer> customerRepo)
         {
@@ -31,12 +28,12 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         public IActionResult OnGet()
         {
-            if (SessionCheck() == false)
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
             {
-                return RedirectToPage("/ErrorPages/NotLoggedInError");
+                return auth;
             }
-
-            var customerId = HttpContext.Session.GetInt32(SessionKeyId);
+            var customerId = HttpContext.Session.GetInt32("_Id");
 
             var reservationList = _reservationRepo.GetAll().Where(r => r.CustomerId == customerId);
 
@@ -50,18 +47,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             }
 
             return Page();
-        }
-
-        private bool SessionCheck()
-        {
-            bool result = true;
-            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
-            {
-                result = false;
-            }
-            return result;
         }
     }
 }

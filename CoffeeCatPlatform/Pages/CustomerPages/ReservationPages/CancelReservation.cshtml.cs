@@ -8,19 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 {
-    public class CancelReservationModel : PageModel
+    public class CancelReservationModel : CustomerAuthModel
     {
         private readonly IRepositoryBase<Reservation> _reservationRepo;
 
         [BindProperty]
         public Reservation Reservation { get; set; } = default!;
-
-        private const string SessionKeyName = "_Name";
-        private const string SessionKeyId = "_Id";
-        private const string SessionKeyType = "_Type";
 
         public CancelReservationModel(IRepositoryBase<Reservation> reservationRepo)
         {
@@ -29,6 +26,12 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         public IActionResult OnGet(int? id)
         {
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
+            {
+                return auth;
+            }
+
             if (id == null || _reservationRepo.GetAll() == null)
             {
                 return NotFound();
@@ -49,9 +52,10 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         public IActionResult OnPost(int? id)
         {
-            if (SessionCheck() == false)
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
             {
-                return RedirectToPage("/ErrorPages/NotLoggedInError");
+                return auth;
             }
 
             if (id == null)
@@ -75,18 +79,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             _reservationRepo.Update(Reservation);
 
             return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");
-        }
-
-        private bool SessionCheck()
-        {
-            bool result = true;
-            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
-            {
-                result = false;
-            }
-            return result;
         }
     }
 }

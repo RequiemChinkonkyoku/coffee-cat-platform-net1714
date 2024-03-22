@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 {
-    public class ReservationDetailModel : PageModel
+    public class ReservationDetailModel : CustomerAuthModel
     {
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Bill> _billRepo;
@@ -23,10 +24,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         [BindProperty]
         public List<BillProduct> BillProducts { get; set; }
-
-        private const string SessionKeyName = "_Name";
-        private const string SessionKeyId = "_Id";
-        private const string SessionKeyType = "_Type";
 
         public ReservationDetailModel(IRepositoryBase<Reservation> reservationRepo,
                                       IRepositoryBase<Bill> billRepo,
@@ -43,9 +40,10 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
         public IActionResult OnGet(int id)
         {
-            if (SessionCheck() == false)
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
             {
-                return RedirectToPage("/ErrorPages/NotLoggedInError");
+                return auth;
             }
 
             var reservation = _reservationRepo.FindById(id);
@@ -81,18 +79,6 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             }
 
             return Page();
-        }
-
-        private bool SessionCheck()
-        {
-            bool result = true;
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
-                && string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
-                && string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
-            {
-                result = false;
-            }
-            return result;
         }
     }
 }

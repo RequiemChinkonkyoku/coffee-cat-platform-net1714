@@ -11,11 +11,12 @@ using Repositories;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Microsoft.IdentityModel.Tokens;
+using CoffeeCatPlatform.Pages.Shared;
 
 
 namespace CoffeeCatPlatform.Pages.AccountManagement
 {
-    public class CreateNewStaffAccountModel : PageModel
+    public class CreateNewStaffAccountModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Staff> _staffRepo;
 

@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoffeeCatPlatform.Pages.Shared;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories;
 
 namespace CoffeeCatPlatform.Pages.PromotionPages
 {
-	public class CreateModel : PageModel
+	public class CreateModel : ManagerAuthModel
 	{
 		private readonly IRepositoryBase<Promotion> _promotionRepository;
 

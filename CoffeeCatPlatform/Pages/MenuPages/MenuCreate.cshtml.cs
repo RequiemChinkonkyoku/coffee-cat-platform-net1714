@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.MenuPages
 {
-    public class MenuCreateModel : PageModel
+    public class MenuCreateModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Product> _productRepo;
 

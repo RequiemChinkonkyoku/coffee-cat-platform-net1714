@@ -16,8 +16,6 @@ namespace CoffeeCatPlatform.Pages
         [BindProperty]
         public string? Message { get; set; }
 
-       
-
         private readonly IRepositoryBase<Customer> _customerRepo;
 
         private string _email;

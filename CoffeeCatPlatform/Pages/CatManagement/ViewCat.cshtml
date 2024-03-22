@@ -12,7 +12,6 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto text-white text-center">
                     <h2 class="text-white">Meet The Cats</h2>
-                    <p class="lead">List of our cats.</p>
                 </div>
             </div>
         </div>
@@ -24,34 +23,11 @@
             </svg>
         </div>
     </div>
-
-    <div class="container">
-        <div class="row bg-white shadow-lg mt-n6 border-radius-md pb-4 p-3 mx-sm-0 mx-1 position-relative">
-            <div class="col-lg-3 mt-lg-n2 mt-2">
-                <label class="">Name</label>
-                <input class="form-control" placeholder="" aria-label="Name" type="text">
-            </div>
-            <div class="col-lg-3 mt-lg-n2 mt-2">
-                <label class="">Breed</label>
-                <input class="form-control" placeholder="" aria-label="Name" type="text">
-            </div>
-            <div class="col-lg-3 mt-lg-n2 mt-2">
-                <label class="">Availability</label>
-                <input class="form-control" placeholder="" aria-label="Name" type="text">
-            </div>
-            <div class="col-lg-3 d-flex align-items-center my-auto">
-                <button type="button" class="btn bg-gradient-dark w-100 btn-lg mb-0 m4 mt-3">Search</button>
-            </div>
-        </div>
-    </div>
 </header>
 
 <section class="py-3">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <h3 class="mb-5">Cat List</h3>
-            </div>
         </div>
         <div class="row">
             @foreach (var cat in Model.Cats)
@@ -93,7 +69,4 @@
         </div>
     </div>
 </section>
-
-
-<a asp-page="./CreateCat">Create Cat</a>
 

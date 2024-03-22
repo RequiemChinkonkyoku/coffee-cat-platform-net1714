@@ -1,3 +1,4 @@
+using CoffeeCatPlatform.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
@@ -6,7 +7,7 @@ using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages.CatManagement
 {
-    public class EditCatModel : PageModel
+    public class EditCatModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Cat> _catRepository;
 

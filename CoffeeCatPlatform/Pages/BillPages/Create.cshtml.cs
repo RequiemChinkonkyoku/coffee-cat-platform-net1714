@@ -1,3 +1,4 @@
+using CoffeeCatPlatform.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
@@ -5,7 +6,7 @@ using Repositories;
 
 namespace CoffeeCatPlatform.Pages.BillPages
 {
-    public class CreateModel : PageModel
+    public class CreateModel : StaffAuthModel
     {
         private readonly IRepositoryBase<Product> _productRepository;
         private readonly IRepositoryBase<Bill> _billRepository;
@@ -43,7 +44,8 @@ namespace CoffeeCatPlatform.Pages.BillPages
         {
             Products = _productRepository.GetAll();
             Promotions = _promotionRepository.GetAll();
-            Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date).ToList();
+            Reservations = _reservationRepository.GetAll().Where(r => r.ArrivalDate == DateTime.Now.Date
+                                                                 && r.Status == 1).ToList();
 
             foreach (var reservation in Reservations)
             {
