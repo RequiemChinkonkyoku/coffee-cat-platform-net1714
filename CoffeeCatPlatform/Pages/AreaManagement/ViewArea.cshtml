@@ -1,0 +1,56 @@
+﻿@page "/ViewArea"
+@model CoffeeCatPlatform.Pages.AreaManagement.ViewAreaModel
+@using Microsoft.AspNetCore.Http
+
+@{
+}
+
+<h1>Area List</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Areas[0].AreaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Areas[0].Location)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+
+    @if (!Model.result)
+    {
+        <tr>
+            <td>
+                There are no Area.
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tbody>
+            @foreach (var Area in Model.Areas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(area => Area.AreaId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(area => Area.Location)
+                    </td>
+                    <td>
+                        <a asp-page="./ViewAreaDetail" asp-route-id="@Area.AreaId">Detail</a> |
+                        <a asp-page="./DeleteArea" asp-route-id="@Area.AreaId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+
+</table>
+
+<a asp-page="./CreateArea">Create New Area</a>

@@ -55,7 +55,14 @@
                             <div class="col-md-6 ps-2">
                                 <label>Area</label>
                                 <div class="input-group">
-                                    <input asp-for="Cat.AreaCats" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                                    <select asp-for="AreaCat.AreaId" class="form-control">
+                                        @foreach (var Area in Model.AreaList)
+                                        {
+                                            <option value="@Area.AreaId">
+                                                @Area.Location
+                                            </option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
                         </div>

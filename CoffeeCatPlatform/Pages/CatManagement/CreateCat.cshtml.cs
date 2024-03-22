@@ -3,23 +3,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories;
+using System.Collections;
 
 namespace CoffeeCatPlatform.Pages.CatManagement
 {
     public class CreateCatModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Cat> _catRepository;
+        private readonly IRepositoryBase<AreaCat> _areacatRepository;
+        private readonly IRepositoryBase<Area> _areaRepository;
 
-        public CreateCatModel(IRepositoryBase<Cat> catRepository)
+        public CreateCatModel(IRepositoryBase<Cat> catRepository, IRepositoryBase<AreaCat> areacatRepository, IRepositoryBase<Area> areaRepository)
         {
             _catRepository = catRepository;
+            _areacatRepository = areacatRepository;
+            _areaRepository = areaRepository;
+            AreaList = new List<Area>();
         }
 
         [BindProperty]
         public Cat Cat { get; set; }
+        [BindProperty]
+        public AreaCat AreaCat { get; set; }
+        [BindProperty]
+        public List<Area> AreaList { get; set; } = default!;
 
         public IActionResult OnGet()
         {
+            AreaList = _areaRepository.GetAll();
+            // This is the handler for the GET request when loading the page
             return Page();
         }
         public string DisplayGender
@@ -40,6 +52,8 @@ namespace CoffeeCatPlatform.Pages.CatManagement
             Cat.HealthStatus = 1;
             Cat.ShopId = 1;
             _catRepository.Add(Cat);
+            AreaCat.CatId = Cat.CatId;
+            _areacatRepository.Add(AreaCat);
 
             TempData["SuccessMessage"] = "Cat created successfully.";
             return RedirectToPage("/ManagerPages/CatManagement");
