@@ -60,7 +60,7 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
                 {
                     Bill = bill;
 
-                    var billProducts = _billProductRepo.GetAll().Where(b => b.ProductId == bill.BillId);
+                    var billProducts = _billProductRepo.GetAll().Where(bp => bp.BillId == bill.BillId);
 
                     if (billProducts.Count() > 0)
                     {
