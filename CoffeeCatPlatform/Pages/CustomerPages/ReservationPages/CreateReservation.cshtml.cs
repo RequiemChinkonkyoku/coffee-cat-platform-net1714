@@ -11,6 +11,7 @@ using Repositories;
 using Repositories.Impl;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 {
@@ -19,9 +20,7 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
         [BindProperty]
         public Reservation Reservation { get; set; } = default!;
         public List<Table> TableList { get; set; }
-        public List<Reservation> ReservationList { get; set; }
         public List<ReservationTable> ReservationTables { get; set; }
-        public List<Table> AvailableTables { get; set; }
         public List<int> SelectedTables { get; set; }
 
         private readonly IRepositoryBase<Reservation> _reservationRepo;
@@ -41,9 +40,7 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
             _reservationTableRepo = reservationTableRepo;
 
             TableList = new List<Table>();
-            ReservationList = new List<Reservation>();
             ReservationTables = new List<ReservationTable>();
-            AvailableTables = new List<Table>();
             SelectedTables = new List<int>();
         }
 
@@ -56,7 +53,8 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
             var customerId = HttpContext.Session.GetInt32(SessionKeyId);
 
-            var onGoingReservation = _reservationRepo.GetAll().Where(re => re.CustomerId == customerId && (re.Status == -1 || re.Status == 1));
+            var onGoingReservation = _reservationRepo.GetAll().Where(re => re.CustomerId == customerId
+                                                                 && (re.Status == -1 || re.Status == 1));
 
             if (onGoingReservation.Any())
             {
@@ -70,6 +68,36 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
         {
             if (Reservation == null)
             {
+                return Page();
+            }
+
+            if (Reservation.ArrivalDate.Date < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("Invalid_ArrivalDate", "ArrivalDate cannot be before today");
+                return Page();
+            }
+
+            if (Reservation.StartTime < DateTime.Now.TimeOfDay)
+            {
+                ModelState.AddModelError("Invalid_StartTime", "StartTime cannot be earlier than current time");
+                return Page();
+            }
+
+            if (Reservation.EndTime <= Reservation.StartTime)
+            {
+                ModelState.AddModelError("Invalid_EndTime", "EndTime cannot be earlier than StartTime");
+                return Page();
+            }
+
+            if ((Reservation.StartTime - DateTime.Now.TimeOfDay) < TimeSpan.FromMinutes(15))
+            {
+                ModelState.AddModelError("MinimumStartTimeError", "Reservation must be created 15 minutes in advance");
+                return Page();
+            }
+
+            if (Reservation.StartTime < TimeSpan.FromHours(7) || Reservation.EndTime > TimeSpan.FromHours(21))
+            {
+                ModelState.AddModelError("WorkingHoursError", "The store is open from 7AM - 9PM");
                 return Page();
             }
 
@@ -151,11 +179,11 @@ namespace CoffeeCatPlatform.Pages.CustomerPages.ReservationPages
 
                 foreach (var reservation in reservationOfTheDay)
                 {
-                    var reservationStartTime = TimeSpan.Parse(reservation.StartTime.ToString());
-                    var reservationEndTime = TimeSpan.Parse(reservation.EndTime.ToString());
+                    var reservationStartTime = reservation.StartTime;
+                    var reservationEndTime = reservation.EndTime;
 
-                    var requestedStartTime = TimeSpan.Parse(startTime.ToString());
-                    var requestedEndTime = TimeSpan.Parse(endTime.ToString());
+                    var requestedStartTime = startTime;
+                    var requestedEndTime = endTime;
 
                     if (!(requestedStartTime > reservationEndTime || requestedEndTime < reservationStartTime))
                     {
