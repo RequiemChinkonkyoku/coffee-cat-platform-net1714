@@ -24,7 +24,7 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
         [BindProperty]
         public AreaCat AreaCat { get; set; } = default!;
 
-        public DeleteAreaModel(IRepositoryBase<Area> areaRepo , IRepositoryBase<AreaCat> areacatRepository, IRepositoryBase<Table> tableRepo)
+        public DeleteAreaModel(IRepositoryBase<Area> areaRepo, IRepositoryBase<AreaCat> areacatRepository, IRepositoryBase<Table> tableRepo)
         {
             _areaRepo = areaRepo;
             _areacatRepository = areacatRepository;
@@ -34,7 +34,6 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
         public IActionResult OnGet(int id)
         {
             Area = _areaRepo.GetAll().FirstOrDefault(a => a.AreaId == id);
-            
 
             if (Area == null)
             {
@@ -50,9 +49,9 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
             var Table = _tableRepo.GetAll().Where(t => t.AreaId == Area.AreaId);
             var AreaCat = _areacatRepository.GetAll().Where(c => c.AreaId == Area.AreaId);
 
-            if (Table.Count()>0 || AreaCat.Count()>0 )
-            { 
-                ModelState.AddModelError("ErrorMessage" , "Cannot Delete while there are cats and tables still in that area.") ;
+            if (Table.Count() > 0 || AreaCat.Count() > 0)
+            {
+                ModelState.AddModelError("ErrorMessage", "Cannot Delete while there are cats and tables still in that area.");
                 return Page();
             }
 
