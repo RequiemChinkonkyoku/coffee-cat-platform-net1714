@@ -37,7 +37,32 @@ namespace CoffeeCatPlatform.Pages.MomoPages
 
             CustomerName = HttpContext.Session.GetString(SessionKeyName);
 
-            var reservation = _reservationRepo.GetAll().FirstOrDefault(r => r.ReservationId == id);
+            RefundAmount = GetRefundAmount(id).ToString();
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPost(OrderInfoModel model, int reservationId)
+        {
+            if (SessionCheck() == false)
+            {
+                return RedirectToPage("/ErrorPages/NotLoggedInError");
+            }
+
+            model.Amount = GetRefundAmount(reservationId);
+
+            await _momoRepo.CreateRefundAsync(model, reservationId);
+
+            Reservation.Status = 0;
+            _reservationRepo.Update(Reservation);
+
+            return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");
+        }
+
+        private double GetRefundAmount(int id)
+        {
+            double refundAmount = 0;
+            var reservation = _reservationRepo.FindById(id);
 
             if (reservation != null)
             {
@@ -47,41 +72,15 @@ namespace CoffeeCatPlatform.Pages.MomoPages
 
                 if (DateTime.Compare(currentDate, Reservation.ArrivalDate.Date) >= 2)
                 {
-                    RefundAmount = Reservation.TotalPrice.ToString();
+                    refundAmount = (double)Reservation.TotalPrice;
                 }
                 else
                 {
-                    RefundAmount = (Reservation.TotalPrice / 2).ToString();
+                    refundAmount = (double)((Reservation.TotalPrice) / 2);
                 }
             }
-            else
-            {
-                return NotFound();
-            }
 
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPost(OrderInfoModel model, int reservationId)
-        {
-            var response = await _momoRepo.CreateRefundAsync(model, reservationId);
-
-            if (response != null)
-            {
-                Console.Error.WriteLine(response.ErrorCode);
-            }
-
-            var reservation = _reservationRepo.FindById(reservationId);
-
-            if (reservation != null)
-            {
-                Reservation = reservation;
-            }
-
-            Reservation.Status = 0;
-            _reservationRepo.Update(Reservation);
-
-            return RedirectToPage("/CustomerPages/ReservationPages/ViewReservation");
+            return refundAmount;
         }
 
         private bool SessionCheck()

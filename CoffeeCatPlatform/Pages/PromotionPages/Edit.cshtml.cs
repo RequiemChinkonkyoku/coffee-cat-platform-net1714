@@ -10,10 +10,11 @@ using DAOs;
 using Models;
 using Repositories;
 using Repositories.Impl;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.PromotionPages
 {
-    public class EditModel : PageModel
+    public class EditModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Promotion> _promotionRepository;
 
@@ -60,7 +61,6 @@ namespace CoffeeCatPlatform.Pages.PromotionPages
 			existingPromotion.PromotionType = Promotion.PromotionType;
 			existingPromotion.PromotionAmount = Promotion.PromotionAmount;
 
-			// Update the existingCat in the repository
 			_promotionRepository.Update(existingPromotion);
 
 			TempData["Success"] = "Promotion updated successfully.";

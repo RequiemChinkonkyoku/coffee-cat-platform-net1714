@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.MenuPages
 {
-    public class MenuCreateModel : PageModel
+    public class MenuCreateModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Product> _productRepo;
 
@@ -30,6 +31,10 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 
         public IActionResult OnPost()
         {
+            if(ModelState.IsValid)
+            {
+                return Page();
+            }
             Product.ShopId = 1;
             Product.productStatus = 1;
             _productRepo.Add(Product);

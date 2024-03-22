@@ -11,11 +11,12 @@ using Repositories;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Microsoft.IdentityModel.Tokens;
+using CoffeeCatPlatform.Pages.Shared;
 
 
 namespace CoffeeCatPlatform.Pages.AccountManagement
 {
-    public class CreateNewStaffAccountModel : PageModel
+    public class CreateNewStaffAccountModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Staff> _staffRepo;
 
@@ -103,6 +104,12 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
             if (!IsValidEmail(Staff.Email))
             {
                 ErrorMessage = "Please enter a valid email address.";
+                return Page();
+            }
+
+            if (_staffRepo.GetAll().Any(s => s.Email == Staff.Email))
+            {
+                ErrorMessage = "This email address is already in use.";
                 return Page();
             }
 

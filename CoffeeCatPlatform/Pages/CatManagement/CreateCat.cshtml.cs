@@ -1,3 +1,4 @@
+using CoffeeCatPlatform.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
@@ -6,7 +7,7 @@ using System.Collections;
 
 namespace CoffeeCatPlatform.Pages.CatManagement
 {
-    public class CreateCatModel : PageModel
+    public class CreateCatModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Cat> _catRepository;
         private readonly IRepositoryBase<AreaCat> _areacatRepository;
@@ -39,16 +40,17 @@ namespace CoffeeCatPlatform.Pages.CatManagement
         }
         public IActionResult OnPost()
         {
-            // This is the handler for the POST request when submitting the form
-
+            if (Cat.Birthday > DateTime.Today)
+            {
+                TempData["CatCreateErrorMessage"] = "Cat Birthday cannot further than current day.";
+                return Page();
+            }
             if (!ModelState.IsValid)
             {
-                // If the model state is not valid, return the page with validation errors
                 return Page();
             }
             Cat.HealthStatus = 1;
             Cat.ShopId = 1;
-            // Add the new cat to the repository
             _catRepository.Add(Cat);
             AreaCat.CatId = Cat.CatId;
             _areacatRepository.Add(AreaCat);

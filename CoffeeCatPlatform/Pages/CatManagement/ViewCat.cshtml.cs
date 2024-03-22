@@ -36,14 +36,12 @@ namespace CoffeeCatPlatform.Pages.CatManagement
                 }
             }
 
-            // Retrieve all cats from the repository for viewing
             Cats = _catRepository.GetAll();
 
             double temp = Cats.Count;
             NumberOfCats = (int)temp;
             NumberOfRows = (int)Math.Ceiling(temp / 4);
 
-            // Perform any additional operations if needed
             return Page();
         }
 

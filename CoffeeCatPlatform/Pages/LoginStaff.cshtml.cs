@@ -17,6 +17,9 @@ namespace CoffeeCatPlatform.Pages
         [BindProperty]
         public int ID { get; set; }
 
+        [BindProperty]
+        public string? Message { get; set; }
+
         private readonly IRepositoryBase<Customer> _customerRepo;
         private readonly IRepositoryBase<Staff> _staffRepo;
 
@@ -30,8 +33,9 @@ namespace CoffeeCatPlatform.Pages
             _staffRepo = new StaffRepository();
         }
 
-        public void OnGet()
+        public void OnGet(string message)
         {
+            Message = message;
         }
 
         public IActionResult OnPost()
@@ -43,8 +47,8 @@ namespace CoffeeCatPlatform.Pages
                 c.Password.Equals(Password));
             if (staff == null)
             {
-                TempData["ErrorMessage"] = "Invalid username or password.";
-                return RedirectToPage("/Login");
+                TempData["StaffLoginErrorMessage"] = "Invalid username or password.";
+                return RedirectToPage("/LoginStaff");
             }
             else
             {
@@ -60,6 +64,7 @@ namespace CoffeeCatPlatform.Pages
                     else if (staff.RoleId == 2)
                     {
                         HttpContext.Session.SetString(SessionKeyType, type2);
+                        return RedirectToPage("/ManagerPages/Dashboard");
                     }
                 }
                 return RedirectToPage("/MenuPages/Menu", new { id = ID });

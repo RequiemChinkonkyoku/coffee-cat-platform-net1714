@@ -16,8 +16,6 @@ namespace CoffeeCatPlatform.Pages
         [BindProperty]
         public string? Message { get; set; }
 
-       
-
         private readonly IRepositoryBase<Customer> _customerRepo;
 
         private string _email;
@@ -39,6 +37,13 @@ namespace CoffeeCatPlatform.Pages
         {
             if (!ModelState.IsValid)
             {
+                return Page();
+            }
+
+            var existingEmail = _customerRepo.GetAll().FirstOrDefault(c => c.Email.Equals(Customer.Email));
+            if (existingEmail != null)
+            {
+                ModelState.AddModelError("Customer.Email", "Email is already in use.");
                 return Page();
             }
 

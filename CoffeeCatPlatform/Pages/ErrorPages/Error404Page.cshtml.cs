@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CoffeeCatPlatform.Pages.StaffPages
+namespace CoffeeCatPlatform.Pages.ErrorPages
 {
-    public class IndexModel : PageModel
+    public class Error404PageModel : PageModel
     {
         public void OnGet()
         {

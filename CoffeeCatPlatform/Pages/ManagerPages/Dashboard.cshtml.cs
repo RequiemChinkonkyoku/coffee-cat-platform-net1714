@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
-    public class DashboardModel : ManagerAuthModel
+    public class DashboardModel : StaffAuthModel
     {
         private readonly IRepositoryBase<Reservation> _reservationRepo;
         private readonly IRepositoryBase<Customer> _customerRepo;

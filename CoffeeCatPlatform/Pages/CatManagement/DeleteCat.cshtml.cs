@@ -40,10 +40,8 @@ namespace CoffeeCatPlatform.Pages.CatManagement
                 return RedirectToPage("./ViewCat");
             }
 
-            // Update the HealthStatus to 0 (unhealthy)
             catToDelete.HealthStatus = 0;
 
-            // Update the existing cat in the repository
             _catRepository.Update(catToDelete);
 
             TempData["SuccessMessage"] = "Cat deleted successfully.";

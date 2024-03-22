@@ -9,10 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using Microsoft.CodeAnalysis;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.MenuPages
 {
-    public class MenuEditModel : PageModel
+    public class MenuEditModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Product> _productRepo;
 
@@ -39,13 +41,14 @@ namespace CoffeeCatPlatform.Pages.MenuPages
         }
 
         public IActionResult OnPostEdit(int id) {
-            if (!ModelState.IsValid)
+            
+            if(id != Product.ProductId)
             {
-                // If the model state is not valid, return the page with validation errors
+                TempData["MenuEditErrorMessage"] = "Product Id cannot Be Change";
                 return Page();
             }
 
-            Product.productStatus = 1;
+			Product.productStatus = 1;
             _productRepo.Update(Product);
 
             TempData["SuccessMessage"] = "Product updated successfully.";

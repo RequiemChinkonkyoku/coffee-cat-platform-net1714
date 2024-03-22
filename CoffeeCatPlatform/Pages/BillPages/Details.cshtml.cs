@@ -1,3 +1,4 @@
+using CoffeeCatPlatform.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages.BillPages
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : StaffAuthModel
     {
         private readonly IRepositoryBase<BillProduct> _billProductRepository;
         private readonly IRepositoryBase<Bill> _billRepository;

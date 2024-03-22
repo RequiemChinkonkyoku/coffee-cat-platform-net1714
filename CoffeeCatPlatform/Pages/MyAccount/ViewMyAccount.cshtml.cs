@@ -1,3 +1,4 @@
+using CoffeeCatPlatform.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
@@ -6,12 +7,9 @@ using Repositories.Impl;
 
 namespace CoffeeCatPlatform.Pages.MyAccount
 {
-    public class ViewMyAccountModel : PageModel
+    public class ViewMyAccountModel : CustomerAuthModel
     {
         private readonly IRepositoryBase<Customer> _customerRepo;
-        private const string SessionKeyName = "_Name";
-        private const string SessionKeyId = "_Id";
-        private const string SessionKeyType = "_Type";
 
         public bool result = false;
 
@@ -24,27 +22,17 @@ namespace CoffeeCatPlatform.Pages.MyAccount
 
         public IActionResult OnGet()
         {
-            if (SessionCheck() == false)
+            IActionResult auth = CustomerAuthorize();
+            if (auth != null)
             {
-                return RedirectToPage("/ErrorPages/NotLoggedInError");
+                return auth;
             }
-            var id = HttpContext.Session.GetInt32(SessionKeyId);
+
+            var id = HttpContext.Session.GetInt32("_Id");
             Customer = _customerRepo.GetAll().FirstOrDefault(x => x.CustomerId == id);
             result = true;
 
             return Page();
-        }
-
-        private bool SessionCheck()
-        {
-            bool result = true;
-            if (String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyId))
-                && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
-            {
-                result = false;
-            }
-            return result;
         }
     }
 }

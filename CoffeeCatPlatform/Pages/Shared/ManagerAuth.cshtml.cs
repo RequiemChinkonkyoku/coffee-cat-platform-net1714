@@ -5,7 +5,6 @@ namespace CoffeeCatPlatform.Pages.Shared
 {
     public class ManagerAuthModel : PageModel
     {
-
         private const string SessionKeyName = "_Name";
         private const string SessionKeyId = "_Id";
         private const string SessionKeyType = "_Type";
