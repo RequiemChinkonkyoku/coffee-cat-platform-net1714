@@ -264,6 +264,7 @@
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Table ID</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Seat Count</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Actions</th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
@@ -278,6 +279,18 @@
                                                 <td>
                                                     <p class="text-xs font-weight-bold mb-0">@table.SeatCount</p>
                                                 </td>
+                                                @if (table.Status == 0)
+                                                {
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-info">Unavailable</span>
+                                                    </td>
+                                                }
+                                                else if (table.Status == 0)
+                                                {
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-success">Available</span>
+                                                    </td>
+                                                }
                                                 <td class="align-middle">
                                                     <a asp-page="./AssignTableArea" asp-route-id="@table.TableId" class="text-secondary font-weight-bold text-xs">Edit</a>
                                                 </td>
