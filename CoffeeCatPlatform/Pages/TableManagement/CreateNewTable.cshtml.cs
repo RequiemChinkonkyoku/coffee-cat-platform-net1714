@@ -8,24 +8,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DAOs;
 using Models;
 using Repositories;
+using System.Collections;
 
 namespace CoffeeCatPlatform.Pages.TableManagement
 {
     public class CreateNewTableModel : PageModel
     {
         private readonly IRepositoryBase<Table> _tableRepo;
+        private readonly IRepositoryBase<Area> _areaRepository;
 
-        public CreateNewTableModel(IRepositoryBase<Table> tableRepo)
+        public CreateNewTableModel(IRepositoryBase<Table> tableRepo, IRepositoryBase<Area> areaRepository)
         {
             _tableRepo = tableRepo;
+            _areaRepository = areaRepository;
+            AreaList = new List<Area>();
         }
 
         [BindProperty]
         public Table Table { get; set; } = default!;
+        [BindProperty]
+        public List<Area> AreaList { get; set; } = default!;
         public string ErrorMessage { get; private set; }
 
         public IActionResult OnGet()
         {
+            AreaList = _areaRepository.GetAll();
             return Page();
         }
         public IActionResult OnPost()

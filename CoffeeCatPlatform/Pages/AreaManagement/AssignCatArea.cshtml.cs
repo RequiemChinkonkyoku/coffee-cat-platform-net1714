@@ -17,22 +17,28 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
     {
         private readonly IRepositoryBase<Cat> _catRepository;
         private readonly IRepositoryBase<AreaCat> _areacatRepository;
+        private readonly IRepositoryBase<Area> _areaRepository;
 
-        public AssignCatAreaModel(IRepositoryBase<AreaCat> areaCatRepo, IRepositoryBase<Cat> catRepo)
+        public AssignCatAreaModel(IRepositoryBase<AreaCat> areaCatRepo, IRepositoryBase<Cat> catRepo, IRepositoryBase<Area> areaRepository)
         {
             _areacatRepository = areaCatRepo;
             _catRepository = catRepo;
+            _areaRepository = areaRepository;
+            AreaList = new List<Area>();  
         }
 
         [BindProperty]
         public AreaCat AreaCat { get; set; } = default!;
         [BindProperty]
         public Cat Cat { get; set; } = default!;
+        [BindProperty]
+        public List<Area> AreaList { get; set; } = default!;
 
         public IActionResult OnGet(int id)
         {
             AreaCat = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == id);
             Cat = _catRepository.GetAll().FirstOrDefault(c => c.CatId == id);
+            AreaList = _areaRepository.GetAll();
 
             if (AreaCat == null || Cat == null)
             {

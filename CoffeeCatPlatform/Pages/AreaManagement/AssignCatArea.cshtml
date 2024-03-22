@@ -25,9 +25,13 @@
             <div class="form-group">
                 <label asp-for="AreaCat.AreaId" class="control-label"></label>
                 <select asp-for="AreaCat.AreaId" class="form-control" asp-items="ViewBag.AreaId">
-                <option value="1">Indoor Seating</option>
-                <option value="2">Outdoor Patio</option>
-                <option value="3">Private Lounge</option>
+                    @foreach (var Area in Model.AreaList)
+                    {
+                        <option value="@Area.AreaId">
+                            @Area.Location
+                        </option>
+                    }
+
                 </select>
                 <span asp-validation-for="AreaCat.AreaId" class="text-danger"></span>
             </div>

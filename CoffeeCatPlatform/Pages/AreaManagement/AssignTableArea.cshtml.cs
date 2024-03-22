@@ -9,28 +9,32 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using System.Collections;
 
 namespace CoffeeCatPlatform.Pages.AreaManagement
 {
     public class AssignTableAreaModel : PageModel
     {
         private readonly IRepositoryBase<Table> _tableRepository;
+        private readonly IRepositoryBase<Area> _areaRepository;
 
-        public AssignTableAreaModel(IRepositoryBase<Table> tableRepo)
+        public AssignTableAreaModel(IRepositoryBase<Table> tableRepo, IRepositoryBase<Area> areaRepository)
         {
             _tableRepository = tableRepo;
+            _areaRepository = areaRepository;
+            AreaList = new List<Area>();
         }
 
         [BindProperty]
         public Table Table { get; set; } = default!;
 
         [BindProperty]
-        public Area Area { get; set; } = default!;
+        public List<Area> AreaList { get; set; } = default!;
 
         public IActionResult OnGet(int id)
         {
             Table = _tableRepository.GetAll().FirstOrDefault(t => t.TableId == id);
-
+            AreaList = _areaRepository.GetAll();
             if (Table == null) 
             {
                 TempData["ErrorMessage"] = "Table not found.";

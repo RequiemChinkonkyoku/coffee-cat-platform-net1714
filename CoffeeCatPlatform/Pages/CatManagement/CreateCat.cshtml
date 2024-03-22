@@ -55,9 +55,12 @@
                                 <label>Area</label>
                                 <div class="input-group">
                                     <select asp-for="AreaCat.AreaId" class="form-control">
-                                        <option value="1">Indoor Seating</option>
-                                        <option value="2">Outdoor Patio</option>
-                                        <option value="3">Private Lounge</option>
+                                        @foreach (var Area in Model.AreaList)
+                                        {
+                                            <option value="@Area.AreaId">
+                                                @Area.Location
+                                            </option>
+                                        }
                                     </select>
                                 </div>
                             </div>

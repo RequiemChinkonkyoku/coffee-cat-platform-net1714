@@ -29,7 +29,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
             if (Customer == null)
             {
-                TempData["ErrorMessage"] = "Customer not found.";
+                ModelState.AddModelError("ErrorMessage", "Customer not found.");
                 return RedirectToPage("./ViewAccount");
             }
 
@@ -42,7 +42,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
             if (customerToDelete == null)
             {
-                TempData["ErrorMessage"] = "Customer not found.";
+                ModelState.AddModelError("ErrorMessage", "Customer not found.");
                 return RedirectToPage("./ViewAccount");
             }
 

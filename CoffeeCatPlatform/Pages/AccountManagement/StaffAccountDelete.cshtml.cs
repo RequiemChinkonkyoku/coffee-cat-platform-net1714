@@ -29,7 +29,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
             if (Staff == null)
             {
-                TempData["ErrorMessage"] = "Staff not found.";
+                ModelState.AddModelError("ErrorMessage", "Staff not found.");
                 return RedirectToPage("/ManagerPages/StaffManagement");
             }
 
@@ -42,7 +42,7 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
             if (staffToDelete == null)
             {
-                TempData["ErrorMessage"] = "Staff not found.";
+                ModelState.AddModelError("ErrorMessage", "Staff not found.");
                 return RedirectToPage("/ManagerPages/StaffManagement");
             }
 
