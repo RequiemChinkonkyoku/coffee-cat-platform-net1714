@@ -29,7 +29,7 @@
                             <div class="col-md-6">
                                 <label asp-for="Cat.Birthday"></label>
                                 <div class="input-group mb-4">
-                                    <input asp-for="Cat.Birthday" class="form-control" placeholder="" aria-label="Name" type="date">
+                                    <input id="birthdayInput" asp-for="Cat.Birthday" class="form-control" placeholder="" aria-label="Name" type="date">
                                 </div>
                             </div>
                             <div class="col-md-6 ps-2">
@@ -79,6 +79,12 @@
                             <div>
                                 <div asp-validation-summary="All" class="text-danger"></div>
                             </div>
+                            @if (TempData["CatCreateErrorMessage"] != null)
+                            {
+                                <div>
+                                    @TempData["CatCreateErrorMessage"]
+                                </div>
+                            }
                             <div class="col-md-12">
                                 <button type="submit" class="btn bg-gradient-dark w-100">CREATE</button>
                             </div>
@@ -237,4 +243,10 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        var birthdayInput = document.getElementById('birthdayInput');
+        var currentDate = new Date();
+        var formattedCurrentDate = currentDate.toISOString().split('T')[0];
+        birthdayInput.setAttribute('max', formattedCurrentDate);
+    </script>
 }

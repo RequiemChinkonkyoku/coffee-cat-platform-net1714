@@ -32,12 +32,17 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 		public int TotalItems { get; set; }
 		public int ItemsPerPage { get; set; } = 4;
 
+		[StringLength(100, ErrorMessage = "Search query cannot exceed 100 characters.")]
 		[BindProperty(SupportsGet = true)]
 		public string SearchQuery { get; set; }
 
-		[BindProperty(SupportsGet = true)]
+		[Range(0, double.MaxValue, ErrorMessage = "Min Price must be a non-negative value.")]
+		[RegularExpression(@"^\d*\.?\d*$", ErrorMessage = "Please enter a valid numeric value.")]
+		[BindProperty(SupportsGet = true)]	
 		public decimal MinPrice { get; set; }
 
+		[Range(0, double.MaxValue, ErrorMessage = "Max Price must be a non-negative value.")]
+		[RegularExpression(@"^\d*\.?\d*$", ErrorMessage = "Please enter a valid numeric value.")]
 		[BindProperty(SupportsGet = true)]
 		public decimal MaxPrice { get; set; }
 
@@ -66,7 +71,6 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 			{
 				CurrentPage = 1;
 			}
-
 			IEnumerable<Product> query = _productRepo.GetAll();
 
 			if (!string.IsNullOrEmpty(searchQuery))
@@ -78,7 +82,6 @@ namespace CoffeeCatPlatform.Pages.MenuPages
 			{
 				query = query.Where(p => p.Price >= MinPrice && p.Price <= MaxPrice);
 			}
-
 			if (sortByPrice == "asc")
 			{
 				query = query.OrderBy(p => p.Price);

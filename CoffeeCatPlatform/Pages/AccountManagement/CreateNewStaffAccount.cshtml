@@ -45,6 +45,12 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div>
+                @Model.ErrorMessage
+            </div>
+        }
     </div>
 </div>
 

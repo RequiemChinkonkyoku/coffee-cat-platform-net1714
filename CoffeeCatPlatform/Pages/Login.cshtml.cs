@@ -48,8 +48,8 @@ namespace CoffeeCatPlatform.Pages
 
             if (customer == null)
             {
-                TempData["ErrorMessage"] = "Invalid username or password.";
-                return RedirectToPage("/Login", new { message = "Invalid username or password." });
+                TempData["LoginErrorMessage"] = "Invalid username or password.";
+                return Page();
             }
             else
             {
@@ -73,7 +73,7 @@ namespace CoffeeCatPlatform.Pages
             if (staff == null)
             {
                 TempData["ErrorMessage"] = "Invalid username or password.";
-                return RedirectToPage("/Login");
+                return Page();
             }
             else
             {

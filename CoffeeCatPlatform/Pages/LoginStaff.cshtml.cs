@@ -47,8 +47,8 @@ namespace CoffeeCatPlatform.Pages
                 c.Password.Equals(Password));
             if (staff == null)
             {
-                TempData["ErrorMessage"] = "Invalid username or password.";
-                return RedirectToPage("/Login", new { message = "Invalid username or password." });
+                TempData["StaffLoginErrorMessage"] = "Invalid username or password.";
+                return RedirectToPage("/LoginStaff");
             }
             else
             {
