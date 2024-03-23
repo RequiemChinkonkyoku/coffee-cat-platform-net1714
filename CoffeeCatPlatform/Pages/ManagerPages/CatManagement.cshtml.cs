@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models;
 using Repositories;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CoffeeCatPlatform.Pages.ManagerPages
 {
@@ -15,9 +16,12 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
             _catRepository = catRepository;
         }
 
+
+        [BindProperty(SupportsGet = true)]
+        public string SearchQuery { get; set; }
         public IList<Cat> Cats { get; set; }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string? searchQuery)
         {
             IActionResult auth = ManagerAuthorize();
             if (auth != null)
@@ -25,7 +29,15 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
                 return auth;
             }
 
-            Cats = _catRepository.GetAll();
+            SearchQuery = searchQuery;
+            IEnumerable<Cat> query = _catRepository.GetAll();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(p => p.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
+            }
+                       
+            Cats = query.ToList();
             return Page();
         }
     }

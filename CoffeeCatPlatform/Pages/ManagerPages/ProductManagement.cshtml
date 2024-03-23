@@ -106,6 +106,29 @@
                                         <input type="text" class="form-control" placeholder="Search by product name" name="searchQuery" value="@Model.SearchQuery" />
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" placeholder="Min Price" name="minPrice" min="0" value="@Model.MinPrice" />
+                                    </div>
+                                    <span asp-validation-for="MinPrice" class="text-danger"></span>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" placeholder="Max Price" name="maxPrice" min="0" value="@Model.MaxPrice" />
+                                    </div>
+                                    <span asp-validation-for="MaxPrice" class="text-danger"></span>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Filter</button>
+
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary" name="SortByPrice" value="asc">Low to High Price</button>
+                                    <button type="submit" class="btn btn-primary" name="SortByPrice" value="desc">High to Low Price</button>
+                                    <button type="submit" class="btn btn-primary" name="SortByName" value="asc">Sort A to Z</button>
+                                    <button type="submit" class="btn btn-primary" name="SortByName" value="desc">Sort Z to A</button>
+                                </div>
                             </form>
                         </div>
                         <div class="card-body px-0 pb-0">
@@ -178,7 +201,14 @@
                                         @for (var i = 1; i <= Model.TotalPages; i++)
                                         {
                                             <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                                                <a asp-page="./ProductManagement" asp-route-currentPage="@i.ToString()" class="page-link">@i</a>
+                                                <a asp-page="./ProductManagement" 
+                                                asp-route-currentPage="@i.ToString()"
+                                                asp-route-searchQuery="@Model.SearchQuery"
+                                                asp-route-minPrice="@Model.MinPrice"
+                                                asp-route-maxPrice="@Model.MaxPrice"
+                                                asp-route-sortByPrice="@Model.SortByPrice"
+                                                asp-route-sortByName="@Model.SortByName"
+                                                class="page-link">@i</a>
                                             </li>
                                         }
                                     </ul>
