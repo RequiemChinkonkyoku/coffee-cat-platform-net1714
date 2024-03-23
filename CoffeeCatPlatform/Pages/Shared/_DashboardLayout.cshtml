@@ -8,7 +8,7 @@
     try
     {
         isManager = Context.Session.GetString("_Type").Equals("Manager");
-        isWaiter = Context.Session.GetString("_Type").Equals("Staff");
+        isWaiter = Context.Session.GetString("_Type").Equals("Waiter");
         if (Context.Session.GetString("_Type").Equals("Admin"))
         {
             isManager = true;

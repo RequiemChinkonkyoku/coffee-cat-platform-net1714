@@ -30,8 +30,14 @@ namespace CoffeeCatPlatform.Pages.CatManagement
 
         public IActionResult OnGet()
         {
-            AreaList = _areaRepository.GetAll();
-            // This is the handler for the GET request when loading the page
+            IActionResult auth = ManagerAuthorize();
+            if (auth != null)
+            {
+                return auth;
+            }
+
+            AreaList =  _areaRepository.GetAll();
+
             return Page();
         }
         public string DisplayGender

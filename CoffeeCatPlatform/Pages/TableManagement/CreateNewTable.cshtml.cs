@@ -33,6 +33,12 @@ namespace CoffeeCatPlatform.Pages.TableManagement
 
         public IActionResult OnGet()
         {
+            IActionResult auth = ManagerAuthorize();
+            if (auth != null)
+            {
+                return auth;
+            }
+
             AreaList = _areaRepository.GetAll();
             return Page();
         }
