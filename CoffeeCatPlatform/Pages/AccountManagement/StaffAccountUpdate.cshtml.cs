@@ -9,10 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.AccountManagement
 {
-    public class StaffAccountUpdateModel : PageModel
+    public class StaffAccountUpdateModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Staff> _staffRepo;
 
@@ -38,36 +39,31 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
         public IActionResult OnPost(int id)
         {
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
             var existingStaff = _staffRepo.GetAll().FirstOrDefault(p => p.Email == Staff.Email && p.StaffId != id);
-            if(existingStaff !=null)
+            if (existingStaff != null)
             {
                 TempData["StaffUpdateErrorMessage"] = "This email address is already in use.";
                 return Page();
             }
-            if (existingStaff == null)
-            {
-                TempData["ErrorMessage"] = "Staff not found.";
-                return RedirectToPage("./ViewAccount");
-            }
-            existingStaff.Name = Staff.Name;
-            existingStaff.Gender = Staff.Gender;
-            existingStaff.Phone = Staff.Phone;
-            existingStaff.Email = Staff.Email;
-            existingStaff.Password = Staff.Password;
-            existingStaff.Status = Staff.Status;
-            existingStaff.RoleId = Staff.RoleId;
 
-            _staffRepo.Update(existingStaff);
+            Staff staff = _staffRepo.GetAll().FirstOrDefault(p => p.StaffId == id);
+            staff.Name = Staff.Name;
+            staff.Gender = Staff.Gender;
+            staff.Phone = Staff.Phone;
+            staff.Email = Staff.Email;
+            staff.Password = Staff.Password;
+            staff.Status = Staff.Status;
+            staff.RoleId = Staff.RoleId;
+
+            _staffRepo.Update(staff);
 
             TempData["SuccessMessage"] = "Staff updated successfully.";
-            return RedirectToPage("./ViewAccount");
-
+            return RedirectToPage("/ManagerPages/StaffManagement");
         }
     }
 }

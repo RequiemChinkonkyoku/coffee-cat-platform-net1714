@@ -10,10 +10,11 @@ using DAOs;
 using Models;
 using Repositories;
 using Repositories.Impl;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.AreaManagement
 {
-    public class AssignCatAreaModel : PageModel
+    public class AssignCatAreaModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Cat> _catRepository;
         private readonly IRepositoryBase<AreaCat> _areacatRepository;
@@ -51,12 +52,6 @@ namespace CoffeeCatPlatform.Pages.AreaManagement
 
         public IActionResult OnPost(int id)
         {
-            /*
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            */
             var CatToAssign = _areacatRepository.GetAll().FirstOrDefault(c => c.CatId == id);
 
             if (CatToAssign == null)

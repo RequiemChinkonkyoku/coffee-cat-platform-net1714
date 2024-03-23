@@ -38,14 +38,11 @@ namespace CoffeeCatPlatform.Pages.AccountManagement
 
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public IActionResult OnPost(int id)
         {
 
             if (!ModelState.IsValid)
             {
-                // If the model state is not valid, return the page with validation errors
                 return Page();
             }
 

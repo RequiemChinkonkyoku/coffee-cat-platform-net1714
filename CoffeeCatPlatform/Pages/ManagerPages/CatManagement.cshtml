@@ -99,6 +99,14 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pb-0">
+                            <div class="col-lg-4 mx-auto">
+                            <form method="GET"> 
+                                <div class="input-group mb-4">
+                                    <span class="input-group-text"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" placeholder="Search by Cat name" name="searchQuery" value="@Model.SearchQuery" />
+                                </div>
+                            </form>
+                            </div>
                             <div class="table-responsive">
                                 <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
                                     <table class="table table-flush dataTable-table" id="products-list">
@@ -143,7 +151,8 @@
                                                             <span class="badge badge-sm bg-gradient-success">Available</span>
                                                         }
                                                     </td>
-                                                    @if (HttpContext.Session.GetString("_Type").Equals("Manager"))
+                                                    @if (HttpContext.Session.GetString("_Type").Equals("Manager")
+                                                   || HttpContext.Session.GetString("_Type").Equals("Admin"))
                                                     {
                                                         <td class="text-sm text-center">
                                                             <a asp-page="/CatManagement/EditCat" asp-route-id="@cat.CatId" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit cat">
@@ -161,7 +170,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </main>
 </body>

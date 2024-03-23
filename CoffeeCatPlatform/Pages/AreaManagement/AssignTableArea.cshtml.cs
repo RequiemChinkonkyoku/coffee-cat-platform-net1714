@@ -10,10 +10,11 @@ using DAOs;
 using Models;
 using Repositories;
 using System.Collections;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.AreaManagement
 {
-    public class AssignTableAreaModel : PageModel
+    public class AssignTableAreaModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Table> _tableRepository;
         private readonly IRepositoryBase<Area> _areaRepository;

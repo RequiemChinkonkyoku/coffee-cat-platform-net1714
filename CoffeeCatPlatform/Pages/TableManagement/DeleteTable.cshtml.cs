@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DAOs;
 using Models;
 using Repositories;
+using CoffeeCatPlatform.Pages.Shared;
 
 namespace CoffeeCatPlatform.Pages.TableManagement
 {
-    public class DeleteTableModel : PageModel
+    public class DeleteTableModel : ManagerAuthModel
     {
         private readonly IRepositoryBase<Table> _tableRepo;
 
