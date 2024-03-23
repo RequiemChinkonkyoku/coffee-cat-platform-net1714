@@ -37,7 +37,8 @@ namespace CoffeeCatPlatform.Pages.Shared
         private bool CustomerCheck()
         {
             bool result = false;
-            if (HttpContext.Session.GetString(SessionKeyType) == "Customer")
+            if (HttpContext.Session.GetString(SessionKeyType) == "Customer"
+                || HttpContext.Session.GetString(SessionKeyType) == "Admin")
             {
                 result = true;
             }

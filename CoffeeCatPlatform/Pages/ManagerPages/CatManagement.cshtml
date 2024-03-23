@@ -143,7 +143,8 @@
                                                             <span class="badge badge-sm bg-gradient-success">Available</span>
                                                         }
                                                     </td>
-                                                    @if (HttpContext.Session.GetString("_Type").Equals("Manager"))
+                                                    @if (HttpContext.Session.GetString("_Type").Equals("Manager")
+                                                   || HttpContext.Session.GetString("_Type").Equals("Admin"))
                                                     {
                                                         <td class="text-sm text-center">
                                                             <a asp-page="/CatManagement/EditCat" asp-route-id="@cat.CatId" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit cat">

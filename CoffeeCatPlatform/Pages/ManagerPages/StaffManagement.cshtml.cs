@@ -17,6 +17,8 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
         public StaffManagementModel()
         {
             _staffRepo = new StaffRepository();
+
+            StaffList = new List<Staff>();
         }
         public IList<Staff> StaffList { get; set; } = default!;
 
@@ -30,8 +32,24 @@ namespace CoffeeCatPlatform.Pages.ManagerPages
 
             if (!_staffRepo.GetAll().IsNullOrEmpty())
             {
-                StaffList = _staffRepo.GetAll();
-                result = true;
+                if (HttpContext.Session.GetString("_Type").Equals("Admin"))
+                {
+                    var list = _staffRepo.GetAll();
+                    foreach (var item in list)
+                    {
+                        StaffList.Add(item);
+                    }
+                    result = true;
+                }
+                else
+                {
+                    var list = _staffRepo.GetAll().Where(x => x.RoleId == 2);
+                    foreach (var item in list)
+                    {
+                        StaffList.Add(item);
+                    }
+                    result = true;
+                }
             }
 
             return Page();

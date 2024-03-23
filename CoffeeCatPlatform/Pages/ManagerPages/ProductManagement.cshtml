@@ -159,7 +159,8 @@
                                                             <span class="badge badge-sm bg-gradient-secondary">Out Of Order</span>
                                                         }
                                                     </td>
-                                                    @if (HttpContext.Session.GetString("_Type").Equals("Manager"))
+                                                    @if (HttpContext.Session.GetString("_Type").Equals("Manager")
+                                                   || HttpContext.Session.GetString("_Type").Equals("Admin"))
                                                     {
                                                         <td class="text-sm text-center">
                                                             <a asp-page="/MenuPages/MenuEdit" asp-route-id="@product.ProductId" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit product">
