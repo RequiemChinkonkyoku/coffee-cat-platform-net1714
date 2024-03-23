@@ -235,11 +235,15 @@
 
                                 if (seatCountInput.value <= totalSeatCount) {
                                     result.forEach(function (table) {
-                                        var areaHtml = '';
-                                        areaHtml += '<div id="' + table.Area.Location.replace(/\s/g, '') + '">';
-                                        areaHtml += '<h5>' + table.Area.Location + '</h5>';
-                                        areaHtml += '</div>';
-                                        $('#modalContent').append(areaHtml);
+                                        var locationId = '#' + table.Area.Location.replace(/\s/g, '');
+
+                                        if (!$(locationId).length) {
+                                            var areaHtml = '';
+                                            areaHtml += '<div id="' + table.Area.Location.replace(/\s/g, '') + '">';
+                                            areaHtml += '<h5>' + table.Area.Location + '</h5>';
+                                            areaHtml += '</div>';
+                                            $('#modalContent').append(areaHtml);
+                                        }
                                     });
 
                                     result.forEach(function (table) {
