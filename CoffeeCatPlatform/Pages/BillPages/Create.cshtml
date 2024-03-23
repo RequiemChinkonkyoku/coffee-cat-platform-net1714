@@ -84,7 +84,7 @@
                                                     <td class="text-xs font-weight-bold mb-0">@product.ProductId</td>
                                                     <td class="text-xs font-weight-bold mb-0">@product.Name</td>
                                                     <td class="text-xs font-weight-bold mb-0">@product.Price</td>
-                                                    @if (product.Quantity == 0)
+                                                    @if (product.Quantity == 0 || product.productStatus == 0)
                                                     {
                                                         <td>
                                                             <label class="text-xs font-weight-bold mb-0" style="color:red">Out of order.</label>
