@@ -9,6 +9,11 @@
     {
         isManager = Context.Session.GetString("_Type").Equals("Manager");
         isWaiter = Context.Session.GetString("_Type").Equals("Staff");
+        if (Context.Session.GetString("_Type").Equals("Admin"))
+        {
+            isManager = true;
+            isWaiter = true;
+        }
     }
     catch (Exception ex)
     {

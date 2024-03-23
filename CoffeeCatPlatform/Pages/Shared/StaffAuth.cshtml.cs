@@ -38,7 +38,8 @@ namespace CoffeeCatPlatform.Pages.Shared
         {
             bool result = false;
             if (HttpContext.Session.GetString(SessionKeyType) == "Manager"
-                || HttpContext.Session.GetString(SessionKeyType) == "Waiter")
+                || HttpContext.Session.GetString(SessionKeyType) == "Waiter"
+                || HttpContext.Session.GetString(SessionKeyType) == "Admin")
             {
                 result = true;
             }

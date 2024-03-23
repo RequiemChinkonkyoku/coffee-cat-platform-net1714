@@ -53,13 +53,22 @@ namespace CoffeeCatPlatform.Pages
             }
             else
             {
-                if (SessionCheck() == false)
+                if (customer.Status == 0)
                 {
-                    HttpContext.Session.SetString(SessionKeyName, customer.Name);
-                    HttpContext.Session.SetInt32(SessionKeyId, customer.CustomerId);
-                    HttpContext.Session.SetString(SessionKeyType, type);
+                    TempData["LoginErrorMessage"] = "Your account is banned! Please contact the managers.";
+                    return Page();
                 }
-                return RedirectToPage("/Homepage");
+                else
+                {
+                    if (SessionCheck() == false)
+                    {
+                        HttpContext.Session.SetString(SessionKeyName, customer.Name);
+                        HttpContext.Session.SetInt32(SessionKeyId, customer.CustomerId);
+                        HttpContext.Session.SetString(SessionKeyType, type);
+                    }
+                    return RedirectToPage("/Homepage");
+                }
+               
             }
         }
 

@@ -15,7 +15,7 @@ namespace CoffeeCatPlatform.Pages.Shared
             {
                 return RedirectToPage("/ErrorPages/NotLoggedInError");
             }
-            else if (StaffCheck() == false)
+            else if (WaiterCheck() == false)
             {
                 return RedirectToPage("/ErrorPages/NotAuthorizedError");
             }
@@ -34,10 +34,11 @@ namespace CoffeeCatPlatform.Pages.Shared
             return result;
         }
 
-        private bool StaffCheck()
+        private bool WaiterCheck()
         {
             bool result = false;
-            if (HttpContext.Session.GetString(SessionKeyType) == "Staff")
+            if (HttpContext.Session.GetString(SessionKeyType) == "Waiter"
+                || HttpContext.Session.GetString(SessionKeyType) == "Admin")
             {
                 result = true;
             }

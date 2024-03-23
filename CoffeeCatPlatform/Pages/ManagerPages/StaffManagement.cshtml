@@ -129,6 +129,18 @@
                                                     <td class="text-xs font-weight-bold mb-0">Femeow</td>
                                                 }
                                                 <td class="text-xs font-weight-bold mb-0">@Staff.Phone</td>
+                                                @if (Staff.RoleId == 1)
+                                                {
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-primary">Manager</span>
+                                                    </td>
+                                                }
+                                                else if (Staff.RoleId == 2)
+                                                {
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm bg-gradient-info">Waiter</span>
+                                                    </td>
+                                                }
                                                 @if (Staff.Status == 1)
                                                 {
                                                     <td class="align-middle text-center text-sm">

@@ -27,6 +27,9 @@ namespace CoffeeCatPlatform.Pages
         private const string SessionKeyId = "_Id";
         private const string SessionKeyType = "_Type";
 
+        private string adminEmail;
+        private string adminPassword;
+
         public LoginStaffModel()
         {
             _customerRepo = new CustomerRepository();
@@ -40,6 +43,21 @@ namespace CoffeeCatPlatform.Pages
 
         public IActionResult OnPost()
         {
+            if (GetAdmin())
+            {
+                if (Email.Equals(adminEmail)
+                    && Password.Equals(adminPassword))
+                {
+                    if (SessionCheck() == false)
+                    {
+                        HttpContext.Session.SetString(SessionKeyName, "ADMIN");
+                        HttpContext.Session.SetInt32(SessionKeyId, 0);
+                        HttpContext.Session.SetString(SessionKeyType, "Admin");
+                        return RedirectToPage("/ManagerPages/Dashboard");
+                    }
+                }
+            }
+
             string type1 = "Manager";
             string type2 = "Waiter";
             var staff = _staffRepo.GetAll().FirstOrDefault(c =>
@@ -79,6 +97,25 @@ namespace CoffeeCatPlatform.Pages
                 && String.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyType)))
             {
                 result = false;
+            }
+            return result;
+        }
+
+        private bool GetAdmin()
+        {
+            bool result = false;
+            IConfiguration config = new ConfigurationBuilder()
+         .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", true, true)
+        .Build();
+            var emailData = config["Admin:Email"];
+            var passwordData = config["Admin:Password"];
+            if (emailData != null && passwordData != null)
+            {
+                adminEmail = emailData;
+                adminPassword = passwordData;
+                result = true;
+                return result;
             }
             return result;
         }
